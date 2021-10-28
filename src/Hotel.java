@@ -1,4 +1,4 @@
-package jack;
+
 /**
  * The hotel class defines the hotel and its info
  * @version 1.0
