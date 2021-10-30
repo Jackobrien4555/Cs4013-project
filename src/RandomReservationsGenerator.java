@@ -6,6 +6,8 @@ import java.io.File;
  * @author 20241135
  */
 public class RandomReservationsGenerator {
+    private static final String[] hotelType = {"5-star", "4-star", "3-star"};
+    public static final String[]
     private static int amount = 1;
 
     public static void main(String[] args) {
