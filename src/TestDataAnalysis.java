@@ -1,10 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.StringTokenizer;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * This class is used to generate random reservations
@@ -20,27 +18,42 @@ public class TestDataAnalysis {
     private static HashMap<String, int[]> roomToRatesFourStars = new HashMap<>();
     private static HashMap<String, int[]> roomToRatesFiveStars = new HashMap<>();
 
+    private static int reservationNumber = 0;
+
+    private final static int MAX_ROOMS = 0;
+    private final static int OCCUPANCY_MIN = 1;
+    private final static int OCCUPANCY_MAX = 2;
+    private final static int ROOMS_TAKEN = 10;
+
+    private final static int tolerance = 2;
+
     public static void main(String[] args) throws IOException {
-        roomToRatesFiveStars.put("Deluxe Double", new int[]{35, 1, 2, 75, 75, 75, 80, 90, 90, 75});
-        roomToRatesFiveStars.put("Deluxe Twin", new int[]{25, 1, 2, 75, 75, 75, 80, 90, 90, 75});
-        roomToRatesFiveStars.put("Deluxe Single", new int[]{10, 1, 2, 70, 70, 70, 75, 80, 80, 65});
-        roomToRatesFiveStars.put("Deluxe Family", new int[]{10, 1, 3, 80, 80, 80, 80, 100, 100, 80});
 
-        roomToRatesFourStars.put("Executive Double", new int[]{40, 1, 2, 70, 70, 70, 70, 80, 85, 85});
-        roomToRatesFourStars.put("Executive Twin", new int[]{32, 1, 2, 70, 70, 70, 70, 80, 85, 85});
-        roomToRatesFourStars.put("Executive Single", new int[]{12, 1, 1, 65, 65, 65, 65, 70, 75, 80});
+        // Adding a 0 at the end to indicate how many rooms are taken up
+        roomToRatesFiveStars.put("Deluxe Double", new int[]{35, 1, 2, 75, 75, 75, 80, 90, 90, 75, 0});
+        roomToRatesFiveStars.put("Deluxe Twin", new int[]{25, 1, 2, 75, 75, 75, 80, 90, 90, 75, 0});
+        roomToRatesFiveStars.put("Deluxe Single", new int[]{10, 1, 2, 70, 70, 70, 75, 80, 80, 65, 0});
+        roomToRatesFiveStars.put("Deluxe Family", new int[]{10, 1, 3, 80, 80, 80, 80, 100, 100, 80, 0});
 
-        roomToRatesThreeStars.put("Classic Double", new int[]{45, 1, 2, 65, 65, 70, 70, 75, 80, 65});
-        roomToRatesThreeStars.put("Classic Twin", new int[]{45, 1, 2, 65, 65, 70, 70, 80, 85, 65});
-        roomToRatesThreeStars.put("Classic Single", new int[]{10, 1, 1, 50, 50, 50, 60, 75, 75, 50});
+        roomToRatesFourStars.put("Executive Double", new int[]{40, 1, 2, 70, 70, 70, 70, 80, 85, 85, 0});
+        roomToRatesFourStars.put("Executive Twin", new int[]{32, 1, 2, 70, 70, 70, 70, 80, 85, 85, 0});
+        roomToRatesFourStars.put("Executive Single", new int[]{12, 1, 1, 65, 65, 65, 65, 70, 75, 80, 0});
 
-        System.out.println(randomReservation());
-        //generate();
+        roomToRatesThreeStars.put("Classic Double", new int[]{45, 1, 2, 65, 65, 70, 70, 75, 80, 65, 0});
+        roomToRatesThreeStars.put("Classic Twin", new int[]{45, 1, 2, 65, 65, 70, 70, 80, 85, 65, 0});
+        roomToRatesThreeStars.put("Classic Single", new int[]{10, 1, 1, 50, 50, 50, 60, 75, 75, 50, 0});
+
+        generate(20);
     }
 
-    private static void generate() {
+    private static void generate(int iterations) {
+        File directory = new File("../reservations");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         try {
-            File file = new File("reservations/test.csv");
+            File file = new File("reservations/random_res.csv");
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
             } else {
@@ -53,8 +66,10 @@ public class TestDataAnalysis {
         }
 
         try {
-            FileWriter writer = new FileWriter("reservations/test.csv");
-            //writer.write();
+            FileWriter writer = new FileWriter("reservations/random_res.csv");
+            for (int i = 0; i < iterations; i++) {
+                writer.write(randomReservation() + "\n");
+            }
             writer.close();
             System.out.println("Wrote to file.");
         } catch (IOException e) {
@@ -67,7 +82,9 @@ public class TestDataAnalysis {
         StringBuilder result = new StringBuilder();
         GregorianCalendar gc = new GregorianCalendar();
 
-        String reservationNumber = Integer.toString((int) (Math.random() * 1000));
+        // Assign reservation numbers starting from 0
+        String reservationNum = Integer.toString(reservationNumber);
+        reservationNumber += 1;
 
         // Make random reservation name
         StringBuilder reservationName = new StringBuilder();
@@ -77,7 +94,11 @@ public class TestDataAnalysis {
 
         String reservationType = (int) (Math.random() * 2) == 0 ? "S" : "AP";
         String checkInDate = getRandomizeDate(gc);
-        String checkOutDate = getRandomizeDate(gc);
+        String checkOutDate = getRandomizeDate(gc, checkInDate, tolerance);
+
+        while (checkInDate.equals(checkOutDate)) {
+            checkOutDate = getRandomizeDate(gc, checkInDate, tolerance);
+        }
 
         // Swap dates if they are in the wrong order
         if (compareDates(checkInDate, checkOutDate) <= 0) {
@@ -86,6 +107,7 @@ public class TestDataAnalysis {
             checkInDate = temp;
         }
 
+        // Random number of rooms
         int roomNumber = (int) (Math.random() * 10 + 1);
         String numberOfRooms = Integer.toString(roomNumber);
 
@@ -96,12 +118,20 @@ public class TestDataAnalysis {
         result.append(checkOutDate).append(",");
         result.append(numberOfRooms).append(",");
 
+        // Total cost of reservation
         int cost = 0;
 
-        for (int i = 0; i < roomNumber; i++) {
+        int roomsAssigned = 0;
+
+        // Keep assigning random rooms for the number of rooms given
+        while (roomsAssigned < roomNumber) {
+
+            // Get random hotel
             String hotel = hotels[(int) (Math.random() * hotels.length)];
+
             String room = "";
-            int occupancy = (int) (Math.random() * 6 + 1);
+            int occupancy = randomBetween(1, 3);
+            int[] roomValues = roomToRatesFiveStars.get(room);
 
             // Check which hotel is selected
             // Then assign random room
@@ -109,19 +139,55 @@ public class TestDataAnalysis {
                 case "5-star":
                     Object[] keysFiveStar = roomToRatesFiveStars.keySet().toArray();
                     room = (String) keysFiveStar[(int) (Math.random() * keysFiveStar.length)];
+
+                    // Storing all properties(number of rooms, occupancy, etc. into roomValues array
+                    roomValues = roomToRatesFiveStars.get(room);
+
+                    // Making sure the occupancy is legal and the rooms haven't been used up
+                    if (occupancy > roomValues[OCCUPANCY_MAX] || occupancy < roomValues[OCCUPANCY_MIN]
+                            || roomValues[ROOMS_TAKEN] > roomValues[MAX_ROOMS]) {
+                        room = "";
+                        continue;
+                    }
+
+                    roomsAssigned += 1;
+                    roomValues[ROOMS_TAKEN] += 1;
                     break;
                 case "4-star":
                     Object[] keysFourStar = roomToRatesFourStars.keySet().toArray();
                     room = (String) keysFourStar[(int) (Math.random() * keysFourStar.length)];
+
+                    roomValues = roomToRatesFourStars.get(room);
+
+                    if (occupancy > roomValues[OCCUPANCY_MAX] || occupancy < roomValues[OCCUPANCY_MIN]
+                            || roomValues[ROOMS_TAKEN] > roomValues[MAX_ROOMS]) {
+                        room = "";
+                        continue;
+                    }
+
+                    roomsAssigned += 1;
+                    roomValues[ROOMS_TAKEN] += 1;
                     break;
                 case "3-star":
                     Object[] keysThreeStar = roomToRatesThreeStars.keySet().toArray();
                     room = (String) keysThreeStar[(int) (Math.random() * keysThreeStar.length)];
+
+                    roomValues = roomToRatesThreeStars.get(room);
+
+                    if (occupancy > roomValues[OCCUPANCY_MAX] || occupancy < roomValues[OCCUPANCY_MIN]
+                            || roomValues[ROOMS_TAKEN] > roomValues[MAX_ROOMS]) {
+                        room = "";
+                        continue;
+                    }
+
+                    roomsAssigned += 1;
+                    roomValues[ROOMS_TAKEN] += 1;
                     break;
             }
+
             result.append(room).append(",");
             result.append(Integer.toString(occupancy)).append(",");
-            cost += getCostOfRoom();
+            cost += getCostOfRoom(roomValues, checkInDate, checkOutDate);
         }
 
         String totalCost = Integer.toString(cost);
@@ -136,7 +202,7 @@ public class TestDataAnalysis {
 
     private static String getRandomizeDate(GregorianCalendar calendar) {
         // Set random year
-        int year = randomBetween(2021, 2022);
+        int year = 2021;
         calendar.set(Calendar.YEAR, year);
 
         // Set random day of the year
@@ -146,20 +212,42 @@ public class TestDataAnalysis {
         return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
     }
 
-    private static int getCostOfRoom(String room, String checkIn, String checkOut) {
+    private static String getRandomizeDate(GregorianCalendar calendar, String referenceDate, int tolerance) {
+        String[] dateValues = referenceDate.split("-");
+
+        // Set year
+        calendar.set(Calendar.YEAR, Integer.parseInt(dateValues[0]));
+        calendar.set(Calendar.MONTH, Integer.parseInt(dateValues[1]) - 1);
+        calendar.set(Calendar.DATE, Integer.parseInt(dateValues[2]));
+
+        int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+
+        // Set random day of the year within a tolerance
+        dayOfYear = randomBetween(dayOfYear - tolerance, dayOfYear + tolerance);
+        calendar.set(Calendar.DAY_OF_YEAR, dayOfYear);
+
+        return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private static int getCostOfRoom(int[] rates, String checkIn, String checkOut) {
         // To get the cost, I need to get the days of the different dates
         // I need to get the costs of every room then add them at the end
-        if(roomToRatesFiveStars.containsKey(room)){
+        String[] dateValuesIn = checkIn.split("-");
+        String[] dateValuesOut = checkOut.split("-");
 
-        }
-        else if (roomToRatesFourStars.containsKey(room)){
-
-        }
-        else if (roomToRatesThreeStars.containsKey(room)){
-
-        }
+        LocalDate checkInDate = LocalDate.of(Integer.parseInt(dateValuesIn[0]), Integer.parseInt(dateValuesIn[1]), Integer.parseInt(dateValuesIn[2]));
+        LocalDate checkOutDate = LocalDate.of(Integer.parseInt(dateValuesOut[0]), Integer.parseInt(dateValuesOut[1]), Integer.parseInt(dateValuesOut[2]));
 
         int result = 0;
+
+        // Iterate through the dates
+        while (checkInDate.compareTo(checkOutDate) < 0) {
+            // checkInDate.getDayOfWeek().getValue() returns an int
+            // 1 is Monday, 7 is Sunday
+            result += rates[2 + checkInDate.getDayOfWeek().getValue()];
+            checkInDate = checkInDate.plusDays(1);
+        }
+
         return result;
     }
 
