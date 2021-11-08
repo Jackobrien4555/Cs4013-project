@@ -5,7 +5,7 @@ import java.util.Arrays;
  * @since 05/11/2021
  * 
  */
-public class typeOfRoom {
+public class TypeOfRoom {
 	private String typeOfRoom;
 	private int[] dailyRates;
 	private String occuMin;
