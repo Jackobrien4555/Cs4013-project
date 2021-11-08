@@ -1,0 +1,81 @@
+[
+  {
+    "name": "Hotel",
+    "superclasses": "",
+    "subclasses": "ReadHotel",
+    "type": 1,
+    "responsibilities": [
+      "Stores the Hotel",
+      "Gets number of rooms in Hotel"
+    ],
+    "collaborators": [
+      "TypeOfRoom"
+    ]
+  },
+  {
+    "name": "Data Analysis",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      ""
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "Reservation",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores the reservation",
+      "Calculates cost"
+    ],
+    "collaborators": [
+      "Room",
+      "Date",
+      ""
+    ]
+  },
+  {
+    "name": "Room",
+    "superclasses": "",
+    "subclasses": "TypeOfRoom",
+    "type": 1,
+    "responsibilities": [
+      "Stores room"
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "Run",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Runs program",
+      "Main()"
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "Cancellation",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Gets Cancellation date",
+      "Convert to Csv format",
+      ""
+    ],
+    "collaborators": [
+      ""
+    ]
+  }
+]
