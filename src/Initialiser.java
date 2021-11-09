@@ -12,6 +12,13 @@ import java.util.Scanner;
  * @author 20241135
  */
 public abstract class Initialiser {
+    protected final int HOTEL_INDEX = 0;
+    protected final int ROOM_INDEX = 1;
+    protected final int NUMBER_OF_ROOMS_INDEX = 2;
+    protected final int OCCUPANCY_MIN_INDEX = 3;
+    protected final int OCCUPANCY_MAX_INDEX = 4;
+    protected final int RATES_START_INDEX = 5;
+    protected final int RATES_END_INDEX = 11;
 
     /**
      * @param fileName
@@ -36,5 +43,17 @@ public abstract class Initialiser {
         }
 
         return result;
+    }
+
+    public abstract Object initialise(ArrayList<String[]> cells);
+
+    protected int[] getRates(String[] rates){
+        int[] intRates = new int[rates.length];
+
+        for(int i = 0; i < rates.length; i++){
+            intRates[i] = Integer.parseInt(rates[i]);
+        }
+
+        return intRates;
     }
 }
