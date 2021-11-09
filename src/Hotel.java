@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 	public class Hotel {
 		private String typeHotel;
-		private ArrayList<typeOfRoom> typeOfRooms; 
+		private ArrayList<TypeOfRoom> typeOfRooms;
 		//private String name;
 	   // private String rating;
 	   // private String location;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 		 */
 		public Hotel(String typeOfHotel) {
 			this.typeHotel = typeOfHotel;
-			typeOfRooms = new ArrayList<typeOfRoom>();
+			typeOfRooms = new ArrayList<TypeOfRoom>();
 		}
 
 		/**
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 	 * @param i the index
 	 * @return the room type at i
 	 */
-	public typeOfRoom getRoomType(int i) {
+	public TypeOfRoom getRoomType(int i) {
 		return typeOfRooms.get(i);
 	}
 	
@@ -70,7 +70,7 @@ import java.util.ArrayList;
 	 * returns array of roomtypes
 	 * @return typeOfRoom list of all roomtypes 
 	 */
-	public ArrayList<typeOfRoom> getTypeOfRoom(){
+	public ArrayList<TypeOfRoom> getTypeOfRoom(){
 	    return typeOfRooms;
 	  }
 	
@@ -78,7 +78,7 @@ import java.util.ArrayList;
 	 * adds new room type to hotel
 	 * @param newR new type of room for hotel
 	 */
-	public void addTypeOfRoom ( typeOfRoom newR) {
+	public void addTypeOfRoom ( TypeOfRoom newR) {
 		typeOfRooms.add(newR);
 	}
 	}

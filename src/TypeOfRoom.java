@@ -19,7 +19,7 @@ public class TypeOfRoom {
      * @param occuMin the min amount of occupants
 	 * @param dailyRates rates of the room based on day, eg. [0] monday,[1] tuesday etc...
 	 */
-	public typeOfRoom(String typeOfRoom, String occuMin, String occuMax, int[] dailyRates ) {
+	public TypeOfRoom(String typeOfRoom, String occuMin, String occuMax, int[] dailyRates ) {
 		this.typeOfRoom = typeOfRoom;
 		this.occuMin = occuMin;
 	    this.occuMax = occuMax;
