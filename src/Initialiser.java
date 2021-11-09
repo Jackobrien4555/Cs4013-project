@@ -26,7 +26,7 @@ public abstract class Initialiser {
      * Each line is represented as an array of Strings, each representing a value of the hotel/room
      *
      */
-    public ArrayList<String[]> getFileCells(String fileName) {
+    public static ArrayList<String[]> getFileCells(String fileName) {
         ArrayList<String[]> result = new ArrayList<>();
 
         try {
