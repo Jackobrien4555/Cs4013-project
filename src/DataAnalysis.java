@@ -17,19 +17,19 @@ public class DataAnalysis {
      * @param endDate The end date
      *
      */
-    public void getOccupancyRatesAll(String startDate, String endDate, ArrayList<Hotel> hotels){
+    public static void getOccupancyRatesAll(String startDate, String endDate, ArrayList<Hotel> hotels){
         System.out.println("This is the occupancy rate for every hotel and room: ");
         for(Hotel hotel : hotels){
             getOccupancyRatesHotel(startDate, endDate, hotel);
         }
     }
 
-    private void getOccupancyRatesHotel(String startDate, String endDate, Hotel hotel){
-        System.out.println("Occupancy of hotel " + hotel.getHotelType());
+    private static void getOccupancyRatesHotel(String startDate, String endDate, Hotel hotel){
+        System.out.printf("Occupancy summary for: %s\n", hotel.getHotelType());
 
     }
 
-    private void getOccupancyRatesRoom(String startDate, String endDate){
+    private static void getOccupancyRatesRoom(String startDate, String endDate){
 
     }
 
@@ -37,17 +37,17 @@ public class DataAnalysis {
      * Returns the income for each hotel and room type
      * over a specific period of time.
      */
-    public void calculateIncomeAll(String startDate, String endDate, ArrayList<Hotel> hotels){
+    public static void calculateIncomeAll(String startDate, String endDate, ArrayList<Hotel> hotels){
         for(Hotel hotel : hotels){
             calculateIncomeHotel(startDate, endDate, hotel);
         }
     }
 
-    private void calculateIncomeHotel(String startDate, String endDate, Hotel hotel){
+    private static void calculateIncomeHotel(String startDate, String endDate, Hotel hotel){
 
     }
 
-    private void calculateIncomeRoom(){
+    private static void calculateIncomeRoom(){
 
     }
 
