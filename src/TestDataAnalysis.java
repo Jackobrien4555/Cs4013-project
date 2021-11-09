@@ -9,11 +9,12 @@ public class TestDataAnalysis {
         String filename = "reservations/random_res.csv";
         String hotelsFile = "l4Hotels.csv";
 
-        String start_date = "2021-12-12";
-        String end_date = "2021-12-23";
+        String start_date = "2021-11-25";
+        String end_date = "2021-11-25";
 
         ArrayList<String[]> reservations = new ArrayList<>();
         HotelInitialiser initialiser = new HotelInitialiser();
+        ArrayList<Hotel> initialisedHotels = initialiser.initialise(Initialiser.getFileCells(hotelsFile));
 
         try {
             File file = new File(filename);
@@ -28,6 +29,8 @@ public class TestDataAnalysis {
         }
 
         DataAnalysis.getOccupancyRatesAll(reservations, start_date, end_date,
-                initialiser.initialise(Initialiser.getFileCells(hotelsFile)));
+                initialisedHotels, false);
+
+        //DataAnalysis.calculateIncomeAll();
     }
 }

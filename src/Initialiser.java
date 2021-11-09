@@ -35,7 +35,7 @@ public abstract class Initialiser {
             while (reader.hasNextLine()) {
                 String[] cells = reader.nextLine().split(",");
                 result.add(cells);
-                System.out.println(Arrays.toString(cells));
+                //System.out.println(Arrays.toString(cells));
             }
             reader.close();
         } catch (FileNotFoundException e) {
