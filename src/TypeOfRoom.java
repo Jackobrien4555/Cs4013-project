@@ -40,6 +40,11 @@ public class TypeOfRoom {
 		return numAvailable;
 		
 	}
+
+	public int[] getDailyRates() {
+		return dailyRates;
+	}
+
 	/**
 	 * returns string that shows room type with details
 	 *@return string that shows room type with details
@@ -47,5 +52,9 @@ public class TypeOfRoom {
 	public String toString() {
 		return typeOfRoom + "," + numAvailable + occuMin + "," + occuMax + "," + Arrays.toString(dailyRates);
 	}
+
+
 	}
+
+
 

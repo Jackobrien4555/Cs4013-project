@@ -26,7 +26,7 @@ public abstract class Initialiser {
      * Each line is represented as an array of Strings, each representing a value of the hotel/room
      *
      */
-    public ArrayList<String[]> getFileCells(String fileName) {
+    public static ArrayList<String[]> getFileCells(String fileName) {
         ArrayList<String[]> result = new ArrayList<>();
 
         try {
@@ -35,7 +35,7 @@ public abstract class Initialiser {
             while (reader.hasNextLine()) {
                 String[] cells = reader.nextLine().split(",");
                 result.add(cells);
-                System.out.println(Arrays.toString(cells));
+                //System.out.println(Arrays.toString(cells));
             }
             reader.close();
         } catch (FileNotFoundException e) {
