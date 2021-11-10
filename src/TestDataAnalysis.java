@@ -31,6 +31,6 @@ public class TestDataAnalysis {
         DataAnalysis.getOccupancyRatesAll(reservations, start_date, end_date,
                 initialisedHotels, false);
 
-        //DataAnalysis.calculateIncomeAll();
+        DataAnalysis.calculateIncomeAll(reservations, start_date, end_date, initialisedHotels, false);
     }
 }

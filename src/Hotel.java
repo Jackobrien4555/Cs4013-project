@@ -70,7 +70,7 @@ import java.util.ArrayList;
 	 * returns array of roomtypes
 	 * @return typeOfRoom list of all roomtypes 
 	 */
-	public ArrayList<TypeOfRoom> getTypeOfRoom(){
+	public ArrayList<TypeOfRoom> getTypeOfRooms(){
 	    return typeOfRooms;
 	  }
 	
