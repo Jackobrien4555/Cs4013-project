@@ -9,8 +9,8 @@ public class TestDataAnalysis {
         String filename = "reservations/random_res.csv";
         String hotelsFile = "l4Hotels.csv";
 
-        String start_date = "2021-11-25";
-        String end_date = "2021-11-25";
+        String start_date = "2020-9-3";
+        String end_date = "2021-9-3";
 
         ArrayList<String[]> reservations = new ArrayList<>();
         HotelInitialiser initialiser = new HotelInitialiser();
