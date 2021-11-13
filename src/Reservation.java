@@ -79,6 +79,8 @@ public class Reservation {
 
     public String toString() {
         // Will be making this look nicer but its a start
-        return String.format("%d, %s, %s, %s, %d", resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
+        return String.format("Reservation - Reservation Number: %d, Reservation Name: %s, Reservation Type: %s, " +
+                "Check In Date: %s, Check Out Date: %d" +
+                "Number of Rooms: %f", resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
     }
 }
