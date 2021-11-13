@@ -69,6 +69,10 @@ public class Cancellation {
     }
 
     public String toString() {
-        return "";
+        // Will be making this look nicer but its a start
+        return String.format("Cancellation - Reservation: %s, " +
+                "Cancellation Date: %s, " +
+                "Refunded: %b, " +
+                "Income: %d", reservation, cancellationDate, refunded, income);
     }
 }
