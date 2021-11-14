@@ -28,12 +28,12 @@ public class TestDataAnalysis {
             System.out.println("An error has occurred: File not found");
         }
 
-        DataAnalysis.getOccupancyRatesAll(reservations, start_date, end_date,
+        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date,
                 initialisedHotels, false);
 
-        DataAnalysis.getOccupancyRatesAll(reservations, start_date, end_date,
+        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date,
                 initialisedHotels);
 
-        DataAnalysis.calculateIncomeAll(reservations, start_date, end_date, initialisedHotels, false);
+        DataAnalysis.calculateIncomeAllString(reservations, start_date, end_date, initialisedHotels, false);
     }
 }
