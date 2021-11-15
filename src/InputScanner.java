@@ -62,8 +62,11 @@ public class InputScanner {
         System.out.print("Enter the number of rooms: ");
         numberOfRooms = getNumber();
         System.out.println("--------------------------------------------");
+        rooms = new ArrayList<Room>();
+        readRoom(rooms);
 
         reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
+        reservation.setRooms(rooms);
         return reservation;
     }
 
@@ -134,5 +137,23 @@ public class InputScanner {
         }
         date = LocalDate.parse(input);
         return date;
+    }
+
+    private void readRoom(ArrayList<Room> rooms) {
+        int roomNum;
+        String typeOfRoom, occupancy;
+
+        System.out.println("\n------- REQUESTING ROOM INFO -------");
+        for(int i = 0; i < rooms.size(); i++) {
+            System.out.print("Enter room number: ");
+            roomNum = getNumber();
+            System.out.print("Enter room type: ");
+            typeOfRoom = sc.nextLine();
+            System.out.print("Enter occupancy total (adults + children): ");
+            occupancy = getOccupancy();
+
+            rooms.add(new Room(typeOfRoom, occupancy, roomNum));
+        }
+        System.out.print("--------------------------------------");
     }
 }
