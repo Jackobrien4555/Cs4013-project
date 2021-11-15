@@ -8,7 +8,10 @@
 
 public class PrintedMenus {
 
-    // This is the first startup menu that gives the option to access each submenu.
+    /**
+     * First menu that gives the options for each submenu.
+     * @return Printed StartUp menu.
+     */
     public void printStartUpMenu() {
         String[] options = {"\n------STARTUP MENU------",
                 "1. Show all reservations.",
@@ -20,7 +23,10 @@ public class PrintedMenus {
         printMenu(options);
     }
 
-    // This menu is for the analytical options that pop up.
+    /**
+     * Analytical menu that gives options for different sections.
+     * @return Printed Analytics menu.
+     */
     public void printAnalyticsMenu() {
         String[] options = {"\n-------ANALYTICS MENU-------",
                 "1. Hotel occupancy analytics.",
@@ -31,7 +37,11 @@ public class PrintedMenus {
         printMenu(options);
     }
 
-    // This code prints out the options on screen for the user.
+    /**
+     * Method that prints out each String needed for the user.
+     * @param options String arraylist given.
+     * @return Printed string arraylist.
+     */
     private void printMenu(String[] options) {
         for(int i = 0; i < options.length; i++) {
             if(i == options.length - 1) {

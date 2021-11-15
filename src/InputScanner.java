@@ -14,23 +14,35 @@ public class InputScanner {
     private Scanner sc;
     private InputValidator userValidator;
 
-    // Initialises the InputScanner Object.
+    /**
+     * Initialises the input scanner we are going to use to complete all the different requirements from our user.
+     * @return Objects initialised.
+     */
     public InputScanner() {
         sc = new Scanner(System.in);
         userValidator = new InputValidator();
     }
 
-    // Lets the user enter a choice on startup screen.
+    /**
+     * User can select a valid choice when selecting an option in the StartUp screen.
+     * @return  The user's choice.
+     */
     public int getStartUpChoice() {
         return getUserMenuChoice(5);
     }
 
-    // Lets the user enter a choice on analytics screen.
+    /**
+     * User can select a valid choice when selecting an option in the Analytics screen.
+     * @return  The user's choice.
+     */
     public int getAnalyticsChoice() {
         return getUserMenuChoice(4);
     }
 
-    // Gets all the information necessary for a reservation.
+    /**
+     * Takes the user through a bunch of reservation questions so a reservation instance can be completed.
+     * @return  Completed reservation.
+     */
     public Reservation readReservation() {
         Reservation reservation;
         int resNumber;
@@ -79,7 +91,10 @@ public class InputScanner {
         return getInputInRange(1, exitValue);
     }
 
-    // Returns the integer if the input is a valid number.
+    /**
+     * Checks the input value from the user so that it is a valid Number.
+     * @return A valid number as Integer.
+     */
     private int getNumber() {
         String input;
         int validNum;
@@ -92,7 +107,12 @@ public class InputScanner {
         return validNum;
     }
 
-    // Returns the integer if it is in range between the selected min and max.
+    /**
+     * Checks the input value from the user so that it is a valid number in the range given.
+     * @param minValueOfRange Minimum value of the range.
+     * @param maxValueOfRange Maximum value of the range.
+     * @return The choice the user has made inside the range we instructed it to.
+     */
     private int getInputInRange(int minValueOfRange, int maxValueOfRange) {
         String choice;
 
@@ -104,7 +124,10 @@ public class InputScanner {
         return Integer.parseInt(choice);
     }
 
-    // Return the reservation type if it's valid between the two choices.
+    /**
+     * Checks the input value from the user so that it is a valid Reservation Type.
+     * @return A valid reservation type as a String.
+     */
     private String getReservationType() {
         String input;
         input = sc.nextLine();
@@ -115,7 +138,10 @@ public class InputScanner {
         return input;
     }
 
-    // Returns the occupancy if the input is in valid format.
+    /**
+     * Checks the input value from the user so that it is a valid Occupancy.
+     * @return A valid occupancy in the format required.
+     */
     private String getOccupancy() {
         String input;
         input = sc.nextLine();
@@ -126,7 +152,10 @@ public class InputScanner {
         return input;
     }
 
-    // Returns the date if the input is in valid format and it can be parsed.
+    /**
+     * Checks the input value from the user so that it is a valid Date.
+     * @return A valid date as a LocalDate.
+     */
     private LocalDate getDate() {
         String input;
         input = sc.nextLine();
@@ -139,6 +168,11 @@ public class InputScanner {
         return date;
     }
 
+    /**
+     * Instructs the user on completing different rooms and reooms details.
+     * @param rooms The rooms arraylist given to us.
+     * @return The completed Rooms arraylist with all the details given by the user.
+     */
     private void readRoom(ArrayList<Room> rooms) {
         int roomNum;
         String typeOfRoom, occupancy;
