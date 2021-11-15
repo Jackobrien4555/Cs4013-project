@@ -6,6 +6,7 @@
  * @since 15/11/2021
  */
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.Scanner;
 
@@ -27,6 +28,43 @@ public class InputScanner {
     // Lets the user enter a choice on analytics screen.
     public int getAnalyticsChoice() {
         return getUserMenuChoice(4);
+    }
+
+    // Gets all the information necessary for a reservation.
+    public Reservation readReservation() {
+        Reservation reservation;
+        int resNumber;
+        String resName, resType;
+        LocalDate checkInDate, checkOutDate;
+        int numberOfRooms;
+        ArrayList<Room> rooms;
+        double totalCost;
+
+        System.out.println("\n--------- RESERVATION INFORMATION ---------");
+        System.out.print("Enter the reservation number: ");
+        resNumber = getNumber();
+        System.out.print("Enter the reservation name: ");
+        resName = sc.nextLine();
+        System.out.print("Enter the reservation type (S or AP): ");
+        resType = getReservationType();
+        System.out.print("Enter a check in date: ");
+        checkInDate = getDate();
+        while(!checkInDate.isEqual(LocalDate.now()) && !checkInDate.isAfter(LocalDate.now())) {
+            System.out.print("You cannot reserve rooms for past dates, try again: ");
+            checkInDate = getDate();
+        }
+        System.out.print("Enter a check out date: ");
+        checkOutDate = getDate();
+        while(checkOutDate.isEqual(checkInDate) && !checkOutDate.isBefore(checkInDate)) {
+            System.out.print("You cannot set the check out date before or same day as the check in date, try again: ");
+            checkOutDate = getDate();
+        }
+        System.out.print("Enter the number of rooms: ");
+        numberOfRooms = getNumber();
+        System.out.println("--------------------------------------------");
+
+        reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
+        return reservation;
     }
 
     /**
@@ -63,17 +101,15 @@ public class InputScanner {
         return Integer.parseInt(choice);
     }
 
-    // Returns the double if the input is a valid double.
-    private double getDouble() {
+    // Return the reservation type if it's valid between the two choices.
+    private String getReservationType() {
         String input;
-        double validDouble;
         input = sc.nextLine();
-        while(!userValidator.inputIsDouble(input)) {
-            System.out.print("The input is not a number. Try again: ");
+        while(!userValidator.isValidReservationType(input)) {
+            System.out.print("The input type is invalid. Enter a new value S (Standard) or AP (Advanced Purchase): ");
             input = sc.nextLine();
         }
-        validDouble = Double.parseDouble(input);
-        return validDouble;
+        return input;
     }
 
     // Returns the occupancy if the input is in valid format.
@@ -85,5 +121,18 @@ public class InputScanner {
             input = sc.nextLine();
         }
         return input;
+    }
+
+    // Returns the date if the input is in valid format and it can be parsed.
+    private LocalDate getDate() {
+        String input;
+        input = sc.nextLine();
+        LocalDate date;
+        while(!userValidator.inputIsDate(input)) {
+            System.out.print("The date input is invalid. Enter a new value in the format YYYY-MM-DD. Try again: ");
+            input = sc.nextLine();
+        }
+        date = LocalDate.parse(input);
+        return date;
     }
 }

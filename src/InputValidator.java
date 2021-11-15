@@ -57,4 +57,13 @@ public class InputValidator {
     public boolean isValidOccupancy(String input){
         return input.matches("[\\d][+][\\d]");
     }
+
+    /**
+     * Validates if String correctly represents a date.
+     * @param input String that is being checked.
+     * @return True or False for whether it's a valid date.
+     */
+    public boolean inputIsDate(String input) {
+        return input.matches("\\d{4}-\\d{2}-\\d{2}");
+    }
 }
