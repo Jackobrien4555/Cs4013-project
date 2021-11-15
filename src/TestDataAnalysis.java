@@ -50,7 +50,7 @@ public class TestDataAnalysis {
 //
 //        DataAnalysis.calculateIncomeAllString(reservations, start_date, end_date, initialisedHotels, false);
 
-        initialiseReservations(reservations);
+        //initialiseReservations(reservations);
     }
 
     public static ArrayList<Reservation> initialiseReservations(ArrayList<String[]> reservations) {

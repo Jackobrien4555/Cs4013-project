@@ -106,7 +106,7 @@ public abstract class DataAnalysis {
      * @param hotelList           A list of Hotel objects to iterate over
      * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
      */
-    public static void calculateIncomeAll(ArrayList<Reservation> reservations, String startDate, String endDate, ArrayList<Hotel> hotelList,
+    public static void calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate, ArrayList<Hotel> hotelList,
                                           boolean showUnoccupiedRooms) {
         System.out.printf("This is the income for every hotel and room between %s and %s:\n", startDate, endDate);
         // For every hotel
@@ -115,7 +115,6 @@ public abstract class DataAnalysis {
             HashMap<String, Integer> hotelRooms = getRoomsOfHotelInString(h.getTypeOfRooms());
             System.out.println("Hotel name: " + h.getHotelType());
             for (Reservation res : reservations) {
-
                 if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
                     for (int i = 0; i < res.getNumberOfRooms() - 1; i++) {
                         if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
@@ -132,9 +131,22 @@ public abstract class DataAnalysis {
                         }
                     }
                 }
-
-
             }
+
+            for(Cancellation can : cancellations){
+                if (compareDates(can.getReservation().getCheckInDate().toString(), startDate) <= 0 && compareDates(can.getReservation().getCheckInDate().toString(), endDate) >= 0) {
+                    for (int i = 0; i < can.getReservation().getNumberOfRooms() - 1; i++) {
+                        if (hotelRooms.containsKey(can.getReservation().getRooms().get(i).getRoomType())) {
+                            TypeOfRoom room = findRoomType(can.getReservation().getRooms().get(i).getRoomType(), hotelList);
+                            assert room != null;
+
+                            hotelRooms.replace(can.getReservation().getRooms().get(i).getRoomType(), hotelRooms.get(can.getReservation().getRooms().get(i).getRoomType()) + can.getIncome());
+                            hotelIncome += can.getIncome();
+                        }
+                    }
+                }
+            }
+
             System.out.println("Hotel occupancy: " + hotelIncome);
 
             for (Map.Entry<String, Integer> entry : hotelRooms.entrySet()) {
@@ -163,8 +175,8 @@ public abstract class DataAnalysis {
      * @param endDate      The end date of analysis
      * @param hotelList    A list of Hotel objects to iterate over
      */
-    public static void calculateIncomeAll(ArrayList<Reservation> reservations, String startDate, String endDate, ArrayList<Hotel> hotelList) {
-        calculateIncomeAll(reservations, startDate, endDate, hotelList, true);
+    public static void calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate, ArrayList<Hotel> hotelList) {
+        calculateIncomeAll(reservations, cancellations, startDate, endDate, hotelList, true);
     }
 
 
