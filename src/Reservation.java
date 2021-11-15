@@ -80,7 +80,7 @@ public class Reservation {
     public String toString() {
         // Will be making this look nicer but its a start
         return String.format("Reservation - Reservation Number: %d, Reservation Name: %s, Reservation Type: %s, " +
-                "Check In Date: %s, Check Out Date: %s" +
+                "Check In Date: %s, Check Out Date: %s, " +
                 "Number of Rooms: %d", resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
     }
 }

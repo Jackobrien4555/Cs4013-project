@@ -50,7 +50,7 @@ public class TestDataAnalysis {
 //
 //        DataAnalysis.calculateIncomeAllString(reservations, start_date, end_date, initialisedHotels, false);
 
-        //initialiseReservations(reservations);
+        initialiseReservations(reservations);
     }
 
     public static ArrayList<Reservation> initialiseReservations(ArrayList<String[]> reservations) {
@@ -67,7 +67,7 @@ public class TestDataAnalysis {
             LocalDate date = LocalDate.now();
             // To be updated
             Reservation res = new Reservation(Integer.parseInt(line[RES_NUMBER_INDEX]), line[RES_NAME_INDEX], line[RES_TYPE_INDEX],
-                    date, date, rooms.size(), rooms);
+                    LocalDate.parse(line[RES_START_INDEX]), LocalDate.parse(line[RES_END_INDEX]), rooms.size(), rooms);
             res.setTotalCost(Integer.parseInt(line[line.length - 1]));
             System.out.println(res);
             reservationList.add(res);
