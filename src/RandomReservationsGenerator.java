@@ -1,3 +1,9 @@
+/**
+ * This class is used to generate random reservations
+ *
+ * @author Edison Cai 20241135
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,11 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-/**
- * This class is used to generate random reservations
- *
- * @author Edison Cai 20241135
- */
+
 public class RandomReservationsGenerator {
     private final static String[] hotels = {"5-star", "4-star", "3-star"};
     private final static String lowerLetters = "abcdefghijklmnopqrstuvwxyz";

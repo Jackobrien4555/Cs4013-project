@@ -1,3 +1,9 @@
+/**
+ * For testing the DataAnalysis class
+ *
+ * @author 20241135
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -6,7 +12,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TestDataAnalysis {
-    //TODO Format date strings so that they can be easily converted to LocalDate
     /*
    All of these constant ints refer to the index of different values in a reservation
    line
@@ -67,11 +72,15 @@ public class TestDataAnalysis {
             LocalDate date = LocalDate.now();
             // To be updated
             Reservation res = new Reservation(Integer.parseInt(line[RES_NUMBER_INDEX]), line[RES_NAME_INDEX], line[RES_TYPE_INDEX],
-                    LocalDate.parse(line[RES_START_INDEX]), LocalDate.parse(line[RES_END_INDEX]), rooms.size(), rooms);
-            res.setTotalCost(Integer.parseInt(line[line.length - 1]));
+                    LocalDate.parse(line[RES_START_INDEX]), LocalDate.parse(line[RES_END_INDEX]), rooms.size(), rooms, Double.parseDouble(line[line.length - 1]));
+            res.setTotalCost(Double.parseDouble(line[line.length - 1]));
             System.out.println(res);
             reservationList.add(res);
         }
         return reservationList;
+    }
+
+    public static ArrayList<Cancellation> initialiseCancellations(ArrayList<String[]> cancellations){
+        return null;
     }
 }

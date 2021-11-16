@@ -1,15 +1,17 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
 /**
  * The HotelInitialiser class reads hotel and room data from a specified file, creates appropriate Hotel and TypeOfRoom objects and
  * stores them in a list to be further processed later on.
  *
  * @author 20241135
  */
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+
 public class HotelInitialiser {
     protected final int HOTEL_INDEX = 0;
     protected final int ROOM_INDEX = 1;
