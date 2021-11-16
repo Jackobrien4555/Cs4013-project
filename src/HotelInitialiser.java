@@ -21,6 +21,8 @@ public class HotelInitialiser {
     protected final int RATES_START_INDEX = 5;
     protected final int RATES_END_INDEX = 11;
 
+    public static ArrayList<Hotel> allHotels;
+
     /**
      * This method splits every line of the hotel details into cells of Strings.
      * @param fileName The name of the csv file containing hotel and rooms details.

@@ -33,7 +33,7 @@ public class TestDataAnalysis {
 
         ArrayList<String[]> reservations = new ArrayList<>();
         HotelInitialiser initialiser = new HotelInitialiser();
-        ArrayList<Hotel> initialisedHotels = initialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
+        HotelInitialiser.allHotels = initialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
 
         try {
             File file = new File(filename);
@@ -47,13 +47,12 @@ public class TestDataAnalysis {
             System.out.println("An error has occurred: File not found");
         }
 
-//        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date,
-//                initialisedHotels, false);
-//
-//        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date,
-//                initialisedHotels);
-//
-//        DataAnalysis.calculateIncomeAllString(reservations, start_date, end_date, initialisedHotels, false);
+        
+        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date, false);
+
+        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date);
+
+        DataAnalysis.calculateIncomeAllString(reservations, start_date, end_date,false);
 
         initialiseReservations(reservations);
     }
