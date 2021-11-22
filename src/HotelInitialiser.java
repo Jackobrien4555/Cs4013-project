@@ -2,7 +2,7 @@
  * The HotelInitialiser class reads hotel and room data from a specified file, creates appropriate Hotel and TypeOfRoom objects and
  * stores them in a list to be further processed later on.
  *
- * @author 20241135
+ * @author Edison Cai 20241135
  */
 
 import java.io.File;
@@ -28,13 +28,13 @@ public class HotelInitialiser {
      * @param fileName The name of the csv file containing hotel and rooms details.
      * @return A list of lines that were in the file specified by fileName.
      * Each line is represented as an array of Strings, each representing a value of the hotel/room.
-     */
-    public static ArrayList<String[]> getFileCells(String fileName) {
-        ArrayList<String[]> result = new ArrayList<>();
+                    */
+            public static ArrayList<String[]> getFileCells(String fileName) {
+                ArrayList<String[]> result = new ArrayList<>();
 
-        try {
-            File file = new File(fileName);
-            Scanner reader = new Scanner(file);
+                try {
+                    File file = new File(fileName);
+                    Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String[] cells = reader.nextLine().split(",");
                 result.add(cells);

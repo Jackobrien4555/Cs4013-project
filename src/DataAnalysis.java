@@ -1,9 +1,9 @@
 /**
  * This class calculates several metrics based off of the reservations and cancellations csv files
  * This class is abstract and all the methods are static since instances are not needed
- * to calculate the various metrics
+ * to calculate the various metrics.
  *
- * @author 20241135 Edison Cai
+ * @author Edison Cai 20241135
  * @since 27/10/2021
  */
 
@@ -29,9 +29,9 @@ public abstract class DataAnalysis {
 
     /**
      * Returns the occupancy figures for each hotel and room type
-     * over a specific period of time
+     * over a specific period of time.
      *
-     * @param reservations
+     * @param reservations        List of reservations
      * @param startDate           The start date of analysis
      * @param endDate             The end date of analysis
      * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
@@ -97,17 +97,17 @@ public abstract class DataAnalysis {
      * over a specific period of time. By default, unoccupied rooms will also be
      * printed out.
      *
-     * @param reservations
+     * @param reservations List of reservations
      * @param startDate    The start date of analysis
      * @param endDate      The end date of analysis
      */
-    public static void getOccupancyRatesAll(ArrayList<Reservation> reservations, String startDate, String endDate) {
-        getOccupancyRatesAll(reservations, startDate, endDate, true);
+    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, String startDate, String endDate) {
+        return getOccupancyRatesAll(reservations, startDate, endDate, true);
     }
 
     /**
      * Returns the income figures for each hotel and room type
-     * over a specific period of time
+     * over a specific period of time.
      *
      * @param reservations        A list of all reservations
      * @param cancellations       A list of all cancellations
@@ -187,13 +187,13 @@ public abstract class DataAnalysis {
      * over a specific period of time. By default, unoccupied rooms will also be
      * printed out.
      *
-     * @param reservations        A list of all reservations
-     * @param cancellations       A list of all cancellations
-     * @param startDate           The start date of analysis
-     * @param endDate             The end date of analysis
+     * @param reservations  A list of all reservations
+     * @param cancellations A list of all cancellations
+     * @param startDate     The start date of analysis
+     * @param endDate       The end date of analysis
      */
-    public static void calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate) {
-        calculateIncomeAll(reservations, cancellations, startDate, endDate, true);
+    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate) {
+        return calculateIncomeAll(reservations, cancellations, startDate, endDate, true);
     }
 
 

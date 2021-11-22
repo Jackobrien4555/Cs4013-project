@@ -47,7 +47,7 @@ public class TestDataAnalysis {
             System.out.println("An error has occurred: File not found");
         }
 
-        
+
         DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date, false);
 
         DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date);
