@@ -2,10 +2,13 @@
   {
     "name": "Hotel",
     "superclasses": "",
-    "subclasses": "ReadHotel",
+    "subclasses": "",
     "type": 1,
     "responsibilities": [
+      "Defines Hotel",
       "Stores the Hotel",
+      "Gets type of Hotel",
+      "Adds new room type to Hotel",
       "Gets number of rooms in Hotel"
     ],
     "collaborators": [
@@ -13,38 +16,27 @@
     ]
   },
   {
-    "name": "Data Analysis",
+    "name": "HotelInitialiser",
     "superclasses": "",
     "subclasses": "",
     "type": 1,
     "responsibilities": [
-      ""
+      "Reads Hotel and Room data from specified file",
+      "Creates appropriate Hotel and TypeOfRoom objects and stores in list"
     ],
     "collaborators": [
-      ""
-    ]
-  },
-  {
-    "name": "Reservation",
-    "superclasses": "",
-    "subclasses": "",
-    "type": 1,
-    "responsibilities": [
-      "Stores the reservation",
-      "Calculates cost"
-    ],
-    "collaborators": [
-      "Room",
-      "Date",
+      "Hotel",
+      "TypeOfRoom",
       ""
     ]
   },
   {
     "name": "Room",
     "superclasses": "",
-    "subclasses": "TypeOfRoom",
+    "subclasses": "",
     "type": 1,
     "responsibilities": [
+      "Defines a room(ie. type,occupancy,room number)",
       "Stores room"
     ],
     "collaborators": [
@@ -52,13 +44,14 @@
     ]
   },
   {
-    "name": "Run",
+    "name": "TypeOfRoom ",
     "superclasses": "",
     "subclasses": "",
     "type": 1,
     "responsibilities": [
-      "Runs program",
-      "Main()"
+      "Defines Room Types",
+      "Creates room object with type, occupancy and rates",
+      "Returns number of this type of room available"
     ],
     "collaborators": [
       ""
@@ -71,11 +64,154 @@
     "type": 1,
     "responsibilities": [
       "Gets Cancellation date",
+      "Creates Cancellation object",
+      "Returns Reservation date belonging to Cancellation.",
+      "Returns if Cancellation can be refunded",
+      "Returns Cancellation date",
       "Convert to Csv format",
+      "Checks if reservation is refundable"
+    ],
+    "collaborators": [
+      "Reservation"
+    ]
+  },
+  {
+    "name": "Reservation",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Defines Reservation (ie. Standard or Advanced Purchase, check in and check out date,type of Room, occupancy,cost)",
+      "Stores the reservation",
+      "Calculates cost"
+    ],
+    "collaborators": [
+      "Room",
+      ""
+    ]
+  },
+  {
+    "name": "Data Analysis",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Returns occupancy figures for each Hotel and Room type",
+      "Returns occupancy figures for each Hotel and Room type over specific period of time",
+      "Returns income figures for each hotel and room type",
+      "Returns income figures for each hotel and room type",
+      "Returns income figures for each hotel and room type over specific period of time",
+      "Goes through all cancellations and sees if there are  income to be made from reservations that can't be cancelled",
+      "Returns cost of a room "
+    ],
+    "collaborators": [
+      "HotelInitialiser",
+      "Hotel",
+      "Reservation",
+      "Room",
+      "TypeOfRoom",
+      "Room",
+      "Cancellation",
+      "RandomReservationsGenerator"
+    ]
+  },
+  {
+    "name": "InputScanner",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Uses InputValidator and allows users to  input their choices. Also allows them to re-enter until they reach a choice that is acceptable.",
+      "Takes the user through a bunch of reservation questions so a reservation instance can be completed",
       ""
     ],
     "collaborators": [
+      "InputValidator",
+      "Reservation",
+      "Room",
       ""
+    ]
+  },
+  {
+    "name": "InputValidator",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Necessary for other classes as it has various methods using regex",
+      "Validates the input if it is in the range given",
+      "Validates if the String input is an integer or not",
+      "Validates if the String input is a reservation type",
+      " Validates if String input is a double",
+      "Validates if String correctly represents an occupancy",
+      "Validates if String correctly represents a date"
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "PrintedMenus",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Necessary to print the menu that allows the user to see which options one might have.",
+      "Menu that gives the options for each submenu",
+      "Analytical menu that gives options for different sections",
+      " Method that prints out each String needed for the user"
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "RandomReservationsGenerator",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Used to generate random reservations"
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "TestInitialisers",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "For testing the HotelInitialiser"
+    ],
+    "collaborators": [
+      "Hotel",
+      "HotelInitialiser"
+    ]
+  },
+  {
+    "name": "TestDataAnalysis",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "For testing the DataAnalysis class"
+    ],
+    "collaborators": [
+      "DataAnalysis"
+    ]
+  },
+  {
+    "name": "TestStartup",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "For testing the system"
+    ],
+    "collaborators": [
+      "PrintedMenus"
     ]
   }
 ]
