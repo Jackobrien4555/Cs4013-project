@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Room {
 	 private int roomNumber;
 	  private String typeOfRoom;
-	  private String amountOfOccupants;
+	  private int amountOfOccupants;
 
 	  /**
 	   * 
@@ -15,7 +15,7 @@ public class Room {
 	   * @param occupancy the amount of occupants able to stay in the room
 	   * @param number the number of that room 
 	   */
-	  public Room(String type, String occupancy, int number) {
+	  public Room(String type, int occupancy, int number) {
 			this.typeOfRoom = type;
 			this.amountOfOccupants = occupancy;
 			this.roomNumber = number;
@@ -39,7 +39,7 @@ public class Room {
 	   * gets occupancy of the room
 	   * @return amountOfOccupants gets amount able to stay in room
 	   */
-	  public String getRoomOccupancy() {
+	  public int getRoomOccupancy() {
 		 return amountOfOccupants;
 	  }
 	  
@@ -61,7 +61,7 @@ public class Room {
 	   * sets the amount able to stay in room
 	   * @param amount the amount able to stay in room
 	   */
-	  public void setRoomOccupancy(String amount) {
+	  public void setRoomOccupancy(int amount) {
 		 amountOfOccupants = amount;
 	  }
 }

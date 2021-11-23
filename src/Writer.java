@@ -11,7 +11,7 @@ public class Writer {
     public void writeReservation(String filename) {
         try {
             FileWriter writer = new FileWriter(filename);
-            writer.write();
+            //writer.write();
 
             writer.close();
             System.out.println("Wrote to file.");

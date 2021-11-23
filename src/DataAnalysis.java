@@ -122,7 +122,7 @@ public abstract class DataAnalysis {
         // For every hotel
         for (Hotel h : HotelInitialiser.allHotels) {
             int hotelIncome = 0;
-            HashMap<String, Integer> hotelRooms = getRoomsOfHotelInString(h.getTypeOfRooms());
+            HashMap<String, Double> hotelRooms = getRoomsOfHotelInStringDouble(h.getTypeOfRooms());
             result.add("Hotel name: " + h.getHotelType());
             //System.out.println("Hotel name: " + h.getHotelType());
             for (Reservation res : reservations) {
@@ -162,7 +162,7 @@ public abstract class DataAnalysis {
             result.add("Hotel occupancy: " + hotelIncome);
             //System.out.println("Hotel occupancy: " + hotelIncome);
 
-            for (Map.Entry<String, Integer> entry : hotelRooms.entrySet()) {
+            for (Map.Entry<String, Double> entry : hotelRooms.entrySet()) {
                 // If you don't want to show empty rooms
                 // Only show rooms that have some occupancy
                 if (showUnoccupiedRooms) {
@@ -336,8 +336,8 @@ public abstract class DataAnalysis {
 
     /**
      * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
-     * TypeOfRoom-Integer pairs. This will be used in the occupancy and income calculations
-     * to keep track of every room's occupancy/income.
+     * TypeOfRoom-Integer pairs. This will be used in the occupancy calculations
+     * to keep track of every room's occupancy.
      *
      * @param rooms A list of TypeOfRoom objects.
      * @return A HashMap mapping the names of each room in "rooms" to Integers
@@ -347,6 +347,24 @@ public abstract class DataAnalysis {
 
         for (TypeOfRoom r : rooms) {
             result.put(r.getRoomType(), 0);
+        }
+
+        return result;
+    }
+
+    /**
+     * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
+     * TypeOfRoom-Double pairs. This will be used in the income calculations
+     * to keep track of every room's income.
+     *
+     * @param rooms A list of TypeOfRoom objects.
+     * @return A HashMap mapping the names of each room in "rooms" to Doubles
+     */
+    private static HashMap<String, Double> getRoomsOfHotelInStringDouble(ArrayList<TypeOfRoom> rooms) {
+        HashMap<String, Double> result = new HashMap<>();
+
+        for (TypeOfRoom r : rooms) {
+            result.put(r.getRoomType(), 0.0);
         }
 
         return result;

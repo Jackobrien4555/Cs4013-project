@@ -51,7 +51,7 @@ public class Reader {
                 boolean refunded = income == 0;
 
                 // Get the "reservation" part of the cancellation
-                String[] reservationCells = Arrays.copyOfRange(cells, 0, cells.length - 1);
+                String[] reservationCells = Arrays.copyOfRange(cells, 0, cells.length - 2);
                 reservation = lineToReservation(reservationCells);
 
                 cancellations.add(new Cancellation(reservation, cancellationDate, refunded, income));
@@ -70,15 +70,13 @@ public class Reader {
         String resType = cells[2];
         LocalDate checkInDate = LocalDate.parse(cells[3]);
         LocalDate checkOutDate = LocalDate.parse(cells[4]);
-        int numberOfRooms = 0;
+        int numberOfRooms = Integer.parseInt(cells[5]);
         ArrayList<Room> rooms = new ArrayList<>();
 
         for (int i = 5; i < cells.length - 1; i += 2) {
-            Room room = new Room(cells[i + 1], cells[i], 0);
+            Room room = new Room(cells[i], cells[i + 1], 0);
             rooms.add(room);
         }
-
-        numberOfRooms = rooms.size();
 
         double totalCost = Double.parseDouble(cells[cells.length - 1]);
 
