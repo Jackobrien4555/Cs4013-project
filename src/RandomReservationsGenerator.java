@@ -301,6 +301,7 @@ public class RandomReservationsGenerator {
         for (String s : reservation) {
             result.append(s).append(",");
         }
+        result.append(LocalDate.now().toString()).append(",");
         result.append(cost);
         return result.toString();
     }
