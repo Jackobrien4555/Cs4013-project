@@ -32,7 +32,7 @@ public class Cancellation {
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
      * @param reservation The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param income
+     * @param income The income generated from a reservation, its 0 it is refunded
      */
     public Cancellation(Reservation reservation, LocalDate cancellationDate, double income) {
         this.reservation = reservation;
