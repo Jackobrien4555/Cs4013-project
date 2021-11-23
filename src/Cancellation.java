@@ -9,7 +9,7 @@ public class Cancellation {
     private Reservation reservation;
     private LocalDate cancellationDate;
     private boolean refunded;
-    private int income;
+    private double income;
 
     /**
      * Constructor for creating a Cancellation object (used when creating cancellation from user input).
@@ -38,7 +38,7 @@ public class Cancellation {
      * @param refunded whether or not the cancellation resulted in a refund.
      * @param income
      */
-    public Cancellation(Reservation reservation, LocalDate cancellationDate, boolean refunded, int income) {
+    public Cancellation(Reservation reservation, LocalDate cancellationDate, boolean refunded, double income) {
         this.reservation = reservation;
         this.cancellationDate = cancellationDate;
         this.refunded = refunded;
@@ -73,7 +73,7 @@ public class Cancellation {
      * Returns the total income of the reservation being cancelled.
      * @return income the total income of the reservation being cancelled.
      */
-    public int getIncome() {
+    public double getIncome() {
         return income;
     }
 
@@ -105,7 +105,7 @@ public class Cancellation {
      * This method sets the total income of the reservation.
      * @param income the total income to be set.
      */
-    public void setIncome(int income) {
+    public void setIncome(double income) {
         this.income = income;
     }
 
@@ -129,6 +129,6 @@ public class Cancellation {
         return String.format("Cancellation - Reservation: %s, " +
                 "Cancellation Date: %s, " +
                 "Refunded: %b, " +
-                "Income: %d", reservation, cancellationDate, refunded, income);
+                "Income: %f", reservation, cancellationDate, refunded, income);
     }
 }
