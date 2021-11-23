@@ -64,7 +64,7 @@ public class TestDataAnalysis {
             int i = FIRST_ROOM_INDEX;
             while(i < line.length - 1){
                 String roomName = line[i];
-                String occupants = line[i + 1];
+                int occupants = Integer.parseInt(line[i + 1]);
                 rooms.add(new Room(roomName, occupants, 0));
                 i += 2;
             }

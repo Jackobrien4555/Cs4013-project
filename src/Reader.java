@@ -73,8 +73,8 @@ public class Reader {
         int numberOfRooms = Integer.parseInt(cells[5]);
         ArrayList<Room> rooms = new ArrayList<>();
 
-        for (int i = 5; i < cells.length - 1; i += 2) {
-            Room room = new Room(cells[i], cells[i + 1], 0);
+        for (int i = 6; i < cells.length - 1; i += 2) {
+            Room room = new Room(cells[i], Integer.parseInt(cells[i + 1]), 0);
             rooms.add(room);
         }
 

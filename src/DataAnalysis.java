@@ -59,8 +59,8 @@ public abstract class DataAnalysis {
                         // If it's a recognised room, increment the occupancy of a room by the appropriate amount
                         // Finally, also add the occupancy to the hotel
                         if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
-                            hotelRooms.replace(res.getRooms().get(i).getRoomType(), hotelRooms.get(res.getRooms().get(i).getRoomType()) + Integer.parseInt(res.getRooms().get(i).getRoomOccupancy()));
-                            hotelOccupancy += Integer.parseInt(res.getRooms().get(i).getRoomOccupancy());
+                            hotelRooms.replace(res.getRooms().get(i).getRoomType(), hotelRooms.get(res.getRooms().get(i).getRoomType()) + res.getRooms().get(i).getRoomOccupancy());
+                            hotelOccupancy += res.getRooms().get(i).getRoomOccupancy();
                             hotelRoomsAmount++;
                         }
                     }
