@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class Cancellation {
     private Reservation reservation;
     private LocalDate cancellationDate;
-    private boolean refunded;
     private double income;
 
     /**
@@ -23,25 +22,21 @@ public class Cancellation {
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
      * @param reservation The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param refunded whether or not the cancellation resulted in a refund.
      */
-    public Cancellation(Reservation reservation, LocalDate cancellationDate, boolean refunded) {
+    public Cancellation(Reservation reservation, LocalDate cancellationDate) {
         this.reservation = reservation;
         this.cancellationDate = cancellationDate;
-        this.refunded = refunded;
     }
 
     /**
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
      * @param reservation The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param refunded whether or not the cancellation resulted in a refund.
      * @param income
      */
-    public Cancellation(Reservation reservation, LocalDate cancellationDate, boolean refunded, double income) {
+    public Cancellation(Reservation reservation, LocalDate cancellationDate, double income) {
         this.reservation = reservation;
         this.cancellationDate = cancellationDate;
-        this.refunded = refunded;
         this.income = income;
     }
 
@@ -59,14 +54,6 @@ public class Cancellation {
      */
     public LocalDate getCancellationDate() {
         return cancellationDate;
-    }
-
-    /**
-     * Returns whether or not the cancellation resulted in a refund.
-     * @return refunded shows if the cancellation resulted in a refund.
-     */
-    public boolean getRefunded() {
-        return refunded;
     }
 
     /**
@@ -91,14 +78,6 @@ public class Cancellation {
      */
     public void setCancellationDate(LocalDate cancellationDate) {
         this.cancellationDate = cancellationDate;
-    }
-
-    /**
-     * This method sets whether the reservation is refunded or not.
-     * @param refunded whether the reservation is refunded or not.
-     */
-    public void setRefunded(boolean refunded) {
-        this.refunded = refunded;
     }
 
     /**
@@ -128,7 +107,6 @@ public class Cancellation {
         // Will be making this look nicer
         return String.format("Cancellation - Reservation: %s, " +
                 "Cancellation Date: %s, " +
-                "Refunded: %b, " +
-                "Income: %f", reservation, cancellationDate, refunded, income);
+                "Income: %f", reservation, cancellationDate, income);
     }
 }

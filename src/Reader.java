@@ -54,7 +54,7 @@ public class Reader {
                 String[] reservationCells = Arrays.copyOfRange(cells, 0, cells.length - 2);
                 reservation = lineToReservation(reservationCells);
 
-                cancellations.add(new Cancellation(reservation, cancellationDate, refunded, income));
+                cancellations.add(new Cancellation(reservation, cancellationDate, income));
             }
             reader.close();
         } catch (FileNotFoundException e) {
