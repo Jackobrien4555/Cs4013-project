@@ -28,8 +28,9 @@ public class Writer {
     }
 
     public void writeCancellation(String filename, Cancellation cancellation) {
-        String newCancellation = String.format("%s, %s, %b, %f", cancellation.getReservation(), cancellation.getCancellationDate(),
-                cancellation.getRefunded(), cancellation.getIncome());
+        String newCancellation = String.format("%d, %s, %s, %s, %s, %d, %s, %f, %s, %f", cancellation.getReservation().getResNumber(), cancellation.getReservation().getResName(), cancellation.getReservation().getResType(),
+                cancellation.getReservation().getCheckInDate(), cancellation.getReservation().getCheckOutDate(), cancellation.getReservation().getNumberOfRooms(), cancellation.getReservation().getRooms(),
+                cancellation.getReservation().getTotalCost(), cancellation.getCancellationDate(), cancellation.getIncome());
 
         try {
             FileWriter writer = new FileWriter(filename);
