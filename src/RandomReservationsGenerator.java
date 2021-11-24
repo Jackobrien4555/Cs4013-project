@@ -255,17 +255,15 @@ public class RandomReservationsGenerator {
                     break;
             }
 
-//            roomsAssigned++;
-//            roomValues[ROOMS_TAKEN]++;
-
             result.append(room).append(",");
             result.append(Integer.toString(occupancy)).append(",");
             cost += getCostOfRoom(roomValues, checkInDate, checkOutDate);
 
-            // 5% discount
-            if (reservationType.equals("AP")) {
-                cost = cost * 0.95;
-            }
+
+        }
+        // 5% discount
+        if (reservationType.equals("AP")) {
+            cost = cost * 0.95;
         }
 
         String totalCost = String.format("%.2f", cost);
