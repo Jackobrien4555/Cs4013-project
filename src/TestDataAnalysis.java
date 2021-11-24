@@ -29,8 +29,8 @@ public class TestDataAnalysis {
         String fileCan = "reservations/cancellations.csv";
         String hotelsFile = "l4Hotels.csv";
 
-        String start_date = "2019-9-3";
-        String end_date = "2024-9-3";
+        String start_date = "2019-09-03";
+        String end_date = "2024-09-03";
 
         ArrayList<String[]> reservations = new ArrayList<>();
         HotelInitialiser.allHotels = HotelInitialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
