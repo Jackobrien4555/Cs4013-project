@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -7,15 +8,19 @@ import java.io.IOException;
  */
 
 public class Writer {
-    // Write to a specific csv
-    // refunded = 0, it is refunded
 
+    /**
+     * Writes a reservation into a specified file.
+     * @param filename The file path of the file to be read from.
+     * @param reservation The reservation to be written.
+     */
     public void writeReservation(String filename, Reservation reservation) {
-        String newReservation = String.format("%d, %s, %s, %s, %s, %d, %s, %f", reservation.getResNumber(), reservation.getResName(), reservation.getResType(),
+        // NEED TO DO, maybe create the file if the file doesnt exist
+        String newReservation = String.format("%d,%s,%s,%s,%s,%d,%s,%.2f\n", reservation.getResNumber(), reservation.getResName(), reservation.getResType(),
                 reservation.getCheckInDate(), reservation.getCheckOutDate(), reservation.getNumberOfRooms(), reservation.getRooms(), reservation.getTotalCost());
 
         try {
-            FileWriter writer = new FileWriter(filename);
+            FileWriter writer = new FileWriter(filename, true);
             writer.write(newReservation);
 
             writer.close();
@@ -27,13 +32,19 @@ public class Writer {
         }
     }
 
+    /**
+     * Writes a cancellation into a specified file.
+     * @param filename The file path of the file to be read from.
+     * @param cancellation The reservation to be written.
+     */
     public void writeCancellation(String filename, Cancellation cancellation) {
-        String newCancellation = String.format("%d, %s, %s, %s, %s, %d, %s, %f, %s, %f", cancellation.getReservation().getResNumber(), cancellation.getReservation().getResName(), cancellation.getReservation().getResType(),
+        // NEED TO DO, maybe create the file if the file doesnt exist
+        String newCancellation = String.format("%d,%s,%s,%s,%s,%d,%s,%.2f,%s,%.2f\n", cancellation.getReservation().getResNumber(), cancellation.getReservation().getResName(), cancellation.getReservation().getResType(),
                 cancellation.getReservation().getCheckInDate(), cancellation.getReservation().getCheckOutDate(), cancellation.getReservation().getNumberOfRooms(), cancellation.getReservation().getRooms(),
                 cancellation.getReservation().getTotalCost(), cancellation.getCancellationDate(), cancellation.getIncome());
 
         try {
-            FileWriter writer = new FileWriter(filename);
+            FileWriter writer = new FileWriter(filename, true);
             writer.write(newCancellation);
 
             writer.close();
