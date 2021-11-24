@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class TestReadWrite {
     public static void main(String[] args) {
-        Reader reader = new Reader();
         Writer writer = new Writer();
 
         ArrayList<Room> rooms = new ArrayList<Room>();
@@ -15,8 +14,8 @@ public class TestReadWrite {
         String writeRes = "reservations/test_write_res.csv";
         String writeCan = "reservations/test_write_can.csv";
 
-        ArrayList<Reservation> reservations = reader.readReservations(readRes);
-        ArrayList<Cancellation> cancellations = reader.readCancellations(readCan);
+        ArrayList<Reservation> reservations = Reader.readReservations(readRes);
+        ArrayList<Cancellation> cancellations = Reader.readCancellations(readCan);
 
         writer.writeReservation(writeRes, myRes);
         writer.writeCancellation(writeCan, myCan);

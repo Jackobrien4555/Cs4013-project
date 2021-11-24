@@ -178,7 +178,7 @@ public class RandomReservationsGenerator {
         }
 
         // Random number of rooms
-        int roomNumber = (int) (Math.random() * 10 + 1);
+        int roomNumber = (int) (Math.random() * 5 + 1);
         String numberOfRooms = Integer.toString(roomNumber);
 
         result.append(reservationNumber).append(",");
@@ -250,11 +250,13 @@ public class RandomReservationsGenerator {
                         room = "";
                         continue;
                     }
+                    roomsAssigned += 1;
+                    roomValues[ROOMS_TAKEN] += 1;
                     break;
             }
 
-            roomsAssigned++;
-            roomValues[ROOMS_TAKEN]++;
+//            roomsAssigned++;
+//            roomValues[ROOMS_TAKEN]++;
 
             result.append(room).append(",");
             result.append(Integer.toString(occupancy)).append(",");

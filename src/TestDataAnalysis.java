@@ -25,7 +25,8 @@ public class TestDataAnalysis {
     private static final int FIRST_ROOM_INDEX = 6;
 
     public static void main(String[] args) {
-        String filename = "reservations/random_res.csv";
+        String fileRes = "reservations/random_res.csv";
+        String fileCan = "reservations/cancellations.csv";
         String hotelsFile = "l4Hotels.csv";
 
         String start_date = "2020-9-3";
@@ -35,26 +36,21 @@ public class TestDataAnalysis {
         HotelInitialiser initialiser = new HotelInitialiser();
         HotelInitialiser.allHotels = initialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
 
-        try {
-            File file = new File(filename);
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()) {
-                String[] cells = reader.nextLine().split(",");
-                reservations.add(cells);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred: File not found");
-        }
-
-
-        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date, false);
-
-        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date);
-
-        DataAnalysis.calculateIncomeAllString(reservations, start_date, end_date,false);
-
-        initialiseReservations(reservations);
+//        try {
+//            File file = new File(filename);
+//            Scanner reader = new Scanner(file);
+//            while (reader.hasNextLine()) {
+//                String[] cells = reader.nextLine().split(",");
+//                reservations.add(cells);
+//            }
+//            reader.close();
+//        } catch (FileNotFoundException e) {
+//            System.out.println("An error has occurred: File not found");
+//        }
+//        initialiseReservations(reservations);
+        ArrayList<Reservation> reservationsAll = Reader.readReservations(fileRes);
+        ArrayList<Cancellation> cancellationsAll = Reader.readCancellations(fileCan);
+        DataAnalysis.calculateIncomeAll(reservationsAll, cancellationsAll, start_date, end_date);
     }
 
     public static ArrayList<Reservation> initialiseReservations(ArrayList<String[]> reservations) {

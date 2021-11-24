@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -25,16 +23,17 @@ public class HotelInitialiser {
 
     /**
      * This method splits every line of the hotel details into cells of Strings.
+     *
      * @param fileName The name of the csv file containing hotel and rooms details.
      * @return A list of lines that were in the file specified by fileName.
      * Each line is represented as an array of Strings, each representing a value of the hotel/room.
-                    */
-            public static ArrayList<String[]> getFileCells(String fileName) {
-                ArrayList<String[]> result = new ArrayList<>();
+     */
+    public static ArrayList<String[]> getFileCells(String fileName) {
+        ArrayList<String[]> result = new ArrayList<>();
 
-                try {
-                    File file = new File(fileName);
-                    Scanner reader = new Scanner(file);
+        try {
+            File file = new File(fileName);
+            Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String[] cells = reader.nextLine().split(",");
                 result.add(cells);
@@ -50,21 +49,23 @@ public class HotelInitialiser {
 
     /**
      * Converts rates of a hotel room from a String array to an integer array.
+     *
      * @param rates Rates of a room in Strings.
      * @return Rates of a room in integers.
      */
-    private int[] getRates(String[] rates) {
-        int[] intRates = new int[rates.length];
+    private double[] getRates(String[] rates) {
+        double[] doubleRates = new double[rates.length];
 
         for (int i = 0; i < rates.length; i++) {
-            intRates[i] = Integer.parseInt(rates[i]);
+            doubleRates[i] = Double.parseDouble(rates[i]);
         }
 
-        return intRates;
+        return doubleRates;
     }
 
     /**
      * Initialises all the Hotels with all their and places them in an ArrayList.
+     *
      * @param cells A list of lines represented as String arrays containing all hotel and room details and values.
      * @return An ArrayList of all Hotel objects that can be created from "cells".
      */
@@ -76,8 +77,8 @@ public class HotelInitialiser {
             // make a Hotel object and start adding room types.
             if (line.length == 12 && !line[HOTEL_INDEX].equals("")) {
                 Hotel newHotel = new Hotel(line[HOTEL_INDEX]);
-                TypeOfRoom newRoom = new TypeOfRoom(line[ROOM_INDEX], line[OCCUPANCY_MIN_INDEX],
-                        line[OCCUPANCY_MAX_INDEX],
+                TypeOfRoom newRoom = new TypeOfRoom(line[ROOM_INDEX], Integer.parseInt(line[OCCUPANCY_MIN_INDEX]),
+                        Integer.parseInt(line[OCCUPANCY_MAX_INDEX]),
                         getRates(Arrays.copyOfRange(line, RATES_START_INDEX, RATES_END_INDEX + 1)));
                 newHotel.addTypeOfRoom(newRoom);
 
@@ -86,8 +87,8 @@ public class HotelInitialiser {
                 // Keep adding rooms to the hotel until we reach another hotel
                 while (cells.get(i)[HOTEL_INDEX].equals("")) {
                     line = cells.get(i);
-                    newRoom = new TypeOfRoom(line[ROOM_INDEX], line[OCCUPANCY_MIN_INDEX],
-                            line[OCCUPANCY_MAX_INDEX],
+                    newRoom = new TypeOfRoom(line[ROOM_INDEX], Integer.parseInt(line[OCCUPANCY_MIN_INDEX]),
+                            Integer.parseInt(line[OCCUPANCY_MAX_INDEX]),
                             getRates(Arrays.copyOfRange(line, RATES_START_INDEX, RATES_END_INDEX + 1)));
                     newHotel.addTypeOfRoom(newRoom);
                     i++;
