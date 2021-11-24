@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 /**
  * This class calculates several metrics based off of the reservations and cancellations csv files
@@ -147,13 +146,13 @@ public abstract class DataAnalysis {
                             // If the check-out date of the reservation is later than endDate,
                             // only find the income up to endDate. Otherwise, calculate up to
                             // the check-out date.
+
+                            System.out.println(res.getCheckInDate());
                             if(res.getCheckOutDate().compareTo(endDate) < 0){
-                                costOfRoom = getCostOfRoom(rates,
-                                        res.getCheckInDate().toString(), res.getCheckOutDate().toString());
+                                costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), res.getCheckOutDate());
                             }
                             else{
-                                costOfRoom = getCostOfRoom(rates,
-                                        res.getCheckInDate().toString(), endDate.toString());
+                                costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), endDate);
                             }
 
                             // Add to the income of a type of room, as well as its corresponding hotel and also to the total income.
@@ -184,7 +183,6 @@ public abstract class DataAnalysis {
 
         // Going through all cancellations to see if there are still some income to be made from reservations that can't be cancelled.
         for (Cancellation can : cancellations) {
-//            if (compareDates(can.getCancellationDate().toString(), startDate) <= 0 && compareDates(can.getCancellationDate().toString(), endDate) >= 0) {
             if (can.getCancellationDate().compareTo(startDate) >= 0 && can.getCancellationDate().compareTo(endDate) <= 0) {
 //                    for (int i = 0; i < can.getReservation().getNumberOfRooms() - 1; i++) {
 //                        if (hotelRooms.containsKey(can.getReservation().getRooms().get(i).getRoomType())) {
@@ -196,6 +194,8 @@ public abstract class DataAnalysis {
 //                            totalIncome += can.getIncome();
 //                        }
 //                    }
+                // If the income of a Cancellation is 0, we can assume that it has been refunded. Add the would-be income of the reservation
+                // into cancellationLoss. Otherwise, add it to cancellationIncome and totalIncome.
                 if(can.getIncome() == 0){
                     cancellationLoss += can.getReservation().getTotalCost();
                 }
@@ -206,8 +206,9 @@ public abstract class DataAnalysis {
             }
         }
 
-        result.add("Income retained from cancellations: " + cancellationIncome);
         result.add("Income lost from cancellations: " + cancellationLoss);
+        result.add("Income retained from cancellations: " + cancellationIncome);
+        result.add("Income from all successful reservations: " + (totalIncome - cancellationIncome));
         result.add("Total income: " + totalIncome);
         return result;
     }
@@ -228,7 +229,7 @@ public abstract class DataAnalysis {
 
     /**
      * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
-     * TypeOfRoom-Integer pairs. This will be used in the occupancy calculations
+     * TypeOfRoom-Integer(0) pairs. This will be used in the occupancy calculations
      * to keep track of every room's occupancy.
      *
      * @param rooms A list of TypeOfRoom objects.
@@ -246,7 +247,7 @@ public abstract class DataAnalysis {
 
     /**
      * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
-     * TypeOfRoom-Double pairs. This will be used in the income calculations
+     * TypeOfRoom-Double(0.0) pairs. This will be used in the income calculations
      * to keep track of every room's income.
      *
      * @param rooms A list of TypeOfRoom objects.
@@ -271,23 +272,16 @@ public abstract class DataAnalysis {
      * @param checkOut The check-out date.
      * @return The total cost to book a room.
      */
-    private static int getCostOfRoom(double[] rates, String checkIn, String checkOut) {
-        String[] dateValuesIn = checkIn.split("-");
-        String[] dateValuesOut = checkOut.split("-");
-
-        LocalDate checkInDate = LocalDate.of(Integer.parseInt(dateValuesIn[0]), Integer.parseInt(dateValuesIn[1]), Integer.parseInt(dateValuesIn[2]));
-        LocalDate checkOutDate = LocalDate.of(Integer.parseInt(dateValuesOut[0]), Integer.parseInt(dateValuesOut[1]), Integer.parseInt(dateValuesOut[2]));
-
+    private static int getCostOfRoom(double[] rates, LocalDate checkIn, LocalDate checkOut) {
         int result = 0;
 
         // Iterate through the dates
-        while (checkInDate.compareTo(checkOutDate) < 0) {
+        while (checkIn.compareTo(checkOut) < 0) {
             // checkInDate.getDayOfWeek().getValue() returns an int
-            // 1 is Monday, 7 is Sunday
-            int value = checkInDate.getDayOfWeek().getValue();
-            //result += rates[2 + checkInDate.getDayOfWeek().getValue()];
-            result += rates[checkInDate.getDayOfWeek().getValue() - 1];
-            checkInDate = checkInDate.plusDays(1);
+            // 1 is Monday, 7 is Sunday. To get the corresponding rate, subtract 1.
+            int value = checkIn.getDayOfWeek().getValue();
+            result += rates[checkIn.getDayOfWeek().getValue() - 1];
+            checkIn = checkIn.plusDays(1);
         }
 
         return result;
