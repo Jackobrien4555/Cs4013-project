@@ -7,7 +7,7 @@ public class TestReadWrite {
         Writer writer = new Writer();
 
         ArrayList<Room> rooms = new ArrayList<Room>();
-        Reservation myRes = new Reservation(4, "Walsh", "S", LocalDate.parse("2021-11-23"), LocalDate.parse("2021-11-23"), 1, rooms, 50.0);
+        Reservation myRes = new Reservation(4, "Gogh", "S", LocalDate.parse("2021-11-23"), LocalDate.parse("2021-11-23"), 1, rooms, 50.0);
         Cancellation myCan = new Cancellation(myRes);
 
         String readRes = "reservations/random_res.csv";
