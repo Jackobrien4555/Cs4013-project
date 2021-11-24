@@ -35,7 +35,7 @@ public abstract class DataAnalysis {
      * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
      * @return The occupancy rates of every hotel and room in the form of a list of Strings.
      */
-    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, String startDate, String endDate, boolean showUnoccupiedRooms) {
+    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, LocalDate startDate, LocalDate endDate, boolean showUnoccupiedRooms) {
         ArrayList<String> result = new ArrayList<>();
         result.add(String.format("This is the occupancy rate for every hotel and room between %s and %s:", startDate, endDate));
         // For every hotel
@@ -49,7 +49,8 @@ public abstract class DataAnalysis {
             // For every line in the reservations file.
             for (Reservation res : reservations) {
                 // Only process reservations whose check-in dates are within startDate and endDate.
-                if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
+//                if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
+                if (res.getCheckInDate().compareTo(startDate) >= 0 && res.getCheckInDate().compareTo(endDate) <= 0) {
                     // Go through each room that's booked.
                     for (int i = 0; i < res.getNumberOfRooms(); i++) {
                         // Check if a room name is a part of the hotel
@@ -93,7 +94,7 @@ public abstract class DataAnalysis {
      * @param startDate    The start date of analysis
      * @param endDate      The end date of analysis
      */
-    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, String startDate, String endDate) {
+    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, LocalDate startDate, LocalDate endDate) {
         return getOccupancyRatesAll(reservations, startDate, endDate, true);
     }
 
@@ -108,7 +109,7 @@ public abstract class DataAnalysis {
      * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
      * @return The income of every hotel and room in the form of a list of Strings.
      */
-    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate, boolean showUnoccupiedRooms) {
+    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, LocalDate startDate, LocalDate endDate, boolean showUnoccupiedRooms) {
         // Initialising the list of Strings "result".
         ArrayList<String> result = new ArrayList<>();
         result.add(String.format("This is the income for every hotel and room between %s and %s:", startDate, endDate));
@@ -131,7 +132,7 @@ public abstract class DataAnalysis {
             // Go through every reservation and if their dates are within startDate and
             // endDate, get their incomes and add to the income of the hotel.
             for (Reservation res : reservations) {
-                if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
+                if (res.getCheckInDate().compareTo(startDate) >= 0 && res.getCheckInDate().compareTo(endDate) <= 0) {
                     // Go through every room of a reservation, find out what type of room they are.
                     for (int i = 0; i < res.getNumberOfRooms(); i++) {
                         if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
@@ -146,7 +147,7 @@ public abstract class DataAnalysis {
                             // If the check-out date of the reservation is later than endDate,
                             // only find the income up to endDate. Otherwise, calculate up to
                             // the check-out date.
-                            if(res.getCheckOutDate().compareTo(LocalDate.parse(endDate)) < 0){
+                            if(res.getCheckOutDate().compareTo(endDate) < 0){
                                 costOfRoom = getCostOfRoom(rates,
                                         res.getCheckInDate().toString(), res.getCheckOutDate().toString());
                             }
@@ -183,7 +184,8 @@ public abstract class DataAnalysis {
 
         // Going through all cancellations to see if there are still some income to be made from reservations that can't be cancelled.
         for (Cancellation can : cancellations) {
-            if (compareDates(can.getCancellationDate().toString(), startDate) <= 0 && compareDates(can.getCancellationDate().toString(), endDate) >= 0) {
+//            if (compareDates(can.getCancellationDate().toString(), startDate) <= 0 && compareDates(can.getCancellationDate().toString(), endDate) >= 0) {
+            if (can.getCancellationDate().compareTo(startDate) >= 0 && can.getCancellationDate().compareTo(endDate) <= 0) {
 //                    for (int i = 0; i < can.getReservation().getNumberOfRooms() - 1; i++) {
 //                        if (hotelRooms.containsKey(can.getReservation().getRooms().get(i).getRoomType())) {
 //                            TypeOfRoom room = findRoomType(can.getReservation().getRooms().get(i).getRoomType(), HotelInitialiser.allHotels);
@@ -220,7 +222,7 @@ public abstract class DataAnalysis {
      * @param startDate     The start date of analysis
      * @param endDate       The end date of analysis
      */
-    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate) {
+    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, LocalDate startDate, LocalDate endDate) {
         return calculateIncomeAll(reservations, cancellations, startDate, endDate, true);
     }
 
@@ -258,41 +260,6 @@ public abstract class DataAnalysis {
         }
 
         return result;
-    }
-
-
-    /**
-     * Helper method for comparing 2 dates in String form
-     * formatted as YYYY-MM-DD.
-     *
-     * @param date1 First date.
-     * @param date2 Second date.
-     * @return 0 if the dates are the same, <0 if date1 is later, >0 if date2 is later
-     */
-    private static int compareDates(String date1, String date2) {
-        StringTokenizer tk1 = new StringTokenizer(date1, "-");
-        StringTokenizer tk2 = new StringTokenizer(date2, "-");
-
-        int year1 = Integer.parseInt(tk1.nextToken());
-        int year2 = Integer.parseInt(tk2.nextToken());
-        if (year1 != year2) {
-            return year2 - year1;
-        }
-
-
-        int month1 = Integer.parseInt(tk1.nextToken());
-        int month2 = Integer.parseInt(tk2.nextToken());
-        if (month1 != month2) {
-            return month2 - month1;
-        }
-
-        int day1 = Integer.parseInt(tk1.nextToken());
-        int day2 = Integer.parseInt(tk2.nextToken());
-        if (day1 != day2) {
-            return day2 - day1;
-        }
-
-        return 0;
     }
 
     /**

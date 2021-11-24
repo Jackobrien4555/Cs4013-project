@@ -37,9 +37,9 @@ public class TestDataAnalysis {
 
         ArrayList<Reservation> reservationsAll = Reader.readReservations(fileRes);
         ArrayList<Cancellation> cancellationsAll = Reader.readCancellations(fileCan);
-        print(DataAnalysis.getOccupancyRatesAll(reservationsAll, start_date, end_date, false));
+        print(DataAnalysis.getOccupancyRatesAll(reservationsAll, LocalDate.parse(start_date), LocalDate.parse(end_date), false));
         System.out.println();
-        print(DataAnalysis.calculateIncomeAll(reservationsAll, cancellationsAll, start_date, end_date, false));
+        print(DataAnalysis.calculateIncomeAll(reservationsAll, cancellationsAll, LocalDate.parse(start_date), LocalDate.parse(end_date), false));
     }
 
     public static void print(ArrayList<String> lines){
