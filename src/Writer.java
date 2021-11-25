@@ -15,13 +15,9 @@ public class Writer {
      * @param reservation The reservation to be written.
      */
     public void writeReservation(String filename, Reservation reservation) {
-        // NEED TO DO, maybe create the file if the file doesnt exist
-        String newReservation = String.format("%d,%s,%s,%s,%s,%d,%s,%.2f\n", reservation.getResNumber(), reservation.getResName(), reservation.getResType(),
-                reservation.getCheckInDate(), reservation.getCheckOutDate(), reservation.getNumberOfRooms(), reservation.getRooms(), reservation.getTotalCost());
-
         try {
             FileWriter writer = new FileWriter(filename, true);
-            writer.write(newReservation);
+            writer.write(reservation.toString());
 
             writer.close();
             System.out.println("Wrote to file.");
@@ -38,14 +34,9 @@ public class Writer {
      * @param cancellation The reservation to be written.
      */
     public void writeCancellation(String filename, Cancellation cancellation) {
-        // NEED TO DO, maybe create the file if the file doesnt exist
-        String newCancellation = String.format("%d,%s,%s,%s,%s,%d,%s,%.2f,%s,%.2f\n", cancellation.getReservation().getResNumber(), cancellation.getReservation().getResName(), cancellation.getReservation().getResType(),
-                cancellation.getReservation().getCheckInDate(), cancellation.getReservation().getCheckOutDate(), cancellation.getReservation().getNumberOfRooms(), cancellation.getReservation().getRooms(),
-                cancellation.getReservation().getTotalCost(), cancellation.getCancellationDate(), cancellation.getIncome());
-
         try {
             FileWriter writer = new FileWriter(filename, true);
-            writer.write(newCancellation);
+            writer.write(cancellation.toString());
 
             writer.close();
             System.out.println("Wrote to file.");
