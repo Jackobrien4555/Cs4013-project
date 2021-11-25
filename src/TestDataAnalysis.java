@@ -25,61 +25,26 @@ public class TestDataAnalysis {
     private static final int FIRST_ROOM_INDEX = 6;
 
     public static void main(String[] args) {
-        String filename = "reservations/random_res.csv";
+        String fileRes = "reservations/random_res.csv";
+        String fileCan = "reservations/cancellations.csv";
         String hotelsFile = "l4Hotels.csv";
 
-        String start_date = "2020-9-3";
-        String end_date = "2021-9-3";
+        String start_date = "2019-09-03";
+        String end_date = "2024-09-03";
 
         ArrayList<String[]> reservations = new ArrayList<>();
-        HotelInitialiser initialiser = new HotelInitialiser();
-        HotelInitialiser.allHotels = initialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
+        HotelInitialiser.allHotels = HotelInitialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
 
-        try {
-            File file = new File(filename);
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()) {
-                String[] cells = reader.nextLine().split(",");
-                reservations.add(cells);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred: File not found");
-        }
-
-        
-        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date, false);
-
-        DataAnalysis.getOccupancyRatesAllString(reservations, start_date, end_date);
-
-        DataAnalysis.calculateIncomeAllString(reservations, start_date, end_date,false);
-
-        initialiseReservations(reservations);
+        ArrayList<Reservation> reservationsAll = Reader.readReservations(fileRes);
+        ArrayList<Cancellation> cancellationsAll = Reader.readCancellations(fileCan);
+        print(DataAnalysis.getOccupancyRatesAll(reservationsAll, LocalDate.parse(start_date), LocalDate.parse(end_date), false));
+        System.out.println();
+        print(DataAnalysis.calculateIncomeAll(reservationsAll, cancellationsAll, LocalDate.parse(start_date), LocalDate.parse(end_date), false));
     }
 
-    public static ArrayList<Reservation> initialiseReservations(ArrayList<String[]> reservations) {
-        ArrayList<Reservation> reservationList = new ArrayList<>();
-        for (String[] line : reservations) {
-            ArrayList<Room> rooms = new ArrayList<>();
-            int i = FIRST_ROOM_INDEX;
-            while(i < line.length - 1){
-                String roomName = line[i];
-                String occupants = line[i + 1];
-                rooms.add(new Room(roomName, occupants, 0));
-                i += 2;
-            }
-            LocalDate date = LocalDate.now();
-            // To be updated
-            Reservation res = new Reservation(Integer.parseInt(line[RES_NUMBER_INDEX]), line[RES_NAME_INDEX], line[RES_TYPE_INDEX],
-                    LocalDate.parse(line[RES_START_INDEX]), LocalDate.parse(line[RES_END_INDEX]), rooms.size(), rooms, Double.parseDouble(line[line.length - 1]));
-            res.setTotalCost(Double.parseDouble(line[line.length - 1]));
-            System.out.println(res);
-            reservationList.add(res);
+    public static void print(ArrayList<String> lines){
+        for(String s : lines){
+            System.out.println(s);
         }
-        return reservationList;
-    }
-
-    public static ArrayList<Cancellation> initialiseCancellations(ArrayList<String[]> cancellations){
-        return null;
     }
 }

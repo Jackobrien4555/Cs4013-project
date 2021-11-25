@@ -7,9 +7,9 @@ import java.util.Arrays;
  */
 public class TypeOfRoom {
 	private String typeOfRoom;
-	private int[] dailyRates;
-	private String occuMin;
-	private String occuMax;
+	private double[] dailyRates;
+	private int occuMin;
+	private int occuMax;
 	private int numAvailable;
 
 	/**
@@ -19,7 +19,7 @@ public class TypeOfRoom {
      * @param occuMin the min amount of occupants
 	 * @param dailyRates rates of the room based on day, eg. [0] monday,[1] tuesday etc...
 	 */
-	public TypeOfRoom(String typeOfRoom, String occuMin, String occuMax, int[] dailyRates ) {
+	public TypeOfRoom(String typeOfRoom, int occuMin, int occuMax, double[] dailyRates ) {
 		this.typeOfRoom = typeOfRoom;
 		this.occuMin = occuMin;
 	    this.occuMax = occuMax;
@@ -41,7 +41,7 @@ public class TypeOfRoom {
 		
 	}
 
-	public int[] getDailyRates() {
+	public double[] getDailyRates() {
 		return dailyRates;
 	}
 

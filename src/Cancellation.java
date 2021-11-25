@@ -8,8 +8,7 @@ import java.time.LocalDate;
 public class Cancellation {
     private Reservation reservation;
     private LocalDate cancellationDate;
-    private boolean refunded;
-    private int income;
+    private double income;
 
     /**
      * Constructor for creating a Cancellation object (used when creating cancellation from user input).
@@ -23,25 +22,21 @@ public class Cancellation {
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
      * @param reservation The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param refunded whether or not the cancellation resulted in a refund.
      */
-    public Cancellation(Reservation reservation, LocalDate cancellationDate, boolean refunded) {
+    public Cancellation(Reservation reservation, LocalDate cancellationDate) {
         this.reservation = reservation;
         this.cancellationDate = cancellationDate;
-        this.refunded = refunded;
     }
 
     /**
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
      * @param reservation The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param refunded whether or not the cancellation resulted in a refund.
-     * @param income
+     * @param income The income generated from a reservation, its 0 it is refunded
      */
-    public Cancellation(Reservation reservation, LocalDate cancellationDate, boolean refunded, int income) {
+    public Cancellation(Reservation reservation, LocalDate cancellationDate, double income) {
         this.reservation = reservation;
         this.cancellationDate = cancellationDate;
-        this.refunded = refunded;
         this.income = income;
     }
 
@@ -62,18 +57,10 @@ public class Cancellation {
     }
 
     /**
-     * Returns whether or not the cancellation resulted in a refund.
-     * @return refunded shows if the cancellation resulted in a refund.
-     */
-    public boolean getRefunded() {
-        return refunded;
-    }
-
-    /**
      * Returns the total income of the reservation being cancelled.
      * @return income the total income of the reservation being cancelled.
      */
-    public int getIncome() {
+    public double getIncome() {
         return income;
     }
 
@@ -94,18 +81,10 @@ public class Cancellation {
     }
 
     /**
-     * This method sets whether the reservation is refunded or not.
-     * @param refunded whether the reservation is refunded or not.
-     */
-    public void setRefunded(boolean refunded) {
-        this.refunded = refunded;
-    }
-
-    /**
      * This method sets the total income of the reservation.
      * @param income the total income to be set.
      */
-    public void setIncome(int income) {
+    public void setIncome(double income) {
         this.income = income;
     }
 
@@ -128,7 +107,6 @@ public class Cancellation {
         // Will be making this look nicer
         return String.format("Cancellation - Reservation: %s, " +
                 "Cancellation Date: %s, " +
-                "Refunded: %b, " +
-                "Income: %d", reservation, cancellationDate, refunded, income);
+                "Income: %f", reservation, cancellationDate, income);
     }
 }

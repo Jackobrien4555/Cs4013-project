@@ -142,14 +142,14 @@ public class InputScanner {
      * Checks the input value from the user so that it is a valid Occupancy.
      * @return A valid occupancy in the format required.
      */
-    private String getOccupancy() {
+    private int getOccupancy() {
         String input;
         input = sc.nextLine();
         while(!userValidator.isValidOccupancy(input)) {
             System.out.print("The input is invalid. Enter a new value in the format number+number. Try again: ");
             input = sc.nextLine();
         }
-        return input;
+        return Integer.parseInt(input);
     }
 
     /**
@@ -175,7 +175,8 @@ public class InputScanner {
      */
     private void readRoom(ArrayList<Room> rooms) {
         int roomNum;
-        String typeOfRoom, occupancy;
+        String typeOfRoom;
+        int occupancy;
 
         System.out.println("\n------- REQUESTING ROOM INFO -------");
         for(int i = 0; i < rooms.size(); i++) {

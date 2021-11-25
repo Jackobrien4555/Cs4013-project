@@ -1,19 +1,16 @@
-/**
- * This class calculates several metrics based off of the reservations and cancellations csv files
- * This class is abstract and all the methods are static since instances are not needed
- * to calculate the various metrics
- *
- * @author 20241135 Edison Cai
- * @since 27/10/2021
- */
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
-
+/**
+ * This class calculates several metrics based off of the reservations and cancellations csv files
+ * This class is abstract and all the methods are static since instances are not needed
+ * to calculate the various metrics.
+ *
+ * @author Edison Cai 20241135
+ * @since 27/10/2021
+ */
 public abstract class DataAnalysis {
     /*
     All of these constant ints refer to the index of different values in a reservation
@@ -29,38 +26,38 @@ public abstract class DataAnalysis {
 
     /**
      * Returns the occupancy figures for each hotel and room type
-     * over a specific period of time
+     * over a specific period of time.
      *
-     * @param reservations
+     * @param reservations        List of reservations
      * @param startDate           The start date of analysis
      * @param endDate             The end date of analysis
      * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
+     * @return The occupancy rates of every hotel and room in the form of a list of Strings.
      */
-    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, String startDate, String endDate, boolean showUnoccupiedRooms) {
+    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, LocalDate startDate, LocalDate endDate, boolean showUnoccupiedRooms) {
         ArrayList<String> result = new ArrayList<>();
-        result.add(String.format("This is the occupancy rate for every hotel and room between %s and %s:\n", startDate, endDate));
-//        System.out.printf("This is the occupancy rate for every hotel and room between %s and %s:\n", startDate, endDate);
+        result.add(String.format("This is the occupancy rate for every hotel and room between %s and %s:", startDate, endDate));
         // For every hotel
         for (Hotel h : HotelInitialiser.allHotels) {
+            // Initialise the occupancy and the amount of rooms booked for a hotel.
             int hotelOccupancy = 0;
             int hotelRoomsAmount = 0;
-            HashMap<String, Integer> hotelRooms = getRoomsOfHotelInString(h.getTypeOfRooms());
+            HashMap<String, Integer> hotelRooms = getRoomsOfHotelInStringInt(h.getTypeOfRooms());
             result.add("Hotel name: " + h.getHotelType());
-//            System.out.println("Hotel name: " + h.getHotelType());
 
-            // For every line in the reservations file
+            // For every line in the reservations file.
             for (Reservation res : reservations) {
-                // Only process reservations that are within startDate and endDate
-                if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
-                    // Go through each room that's booked
+                // Only process reservations whose check-in dates are within startDate and endDate.
+//                if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
+                if (res.getCheckInDate().compareTo(startDate) >= 0 && res.getCheckInDate().compareTo(endDate) <= 0) {
+                    // Go through each room that's booked.
                     for (int i = 0; i < res.getNumberOfRooms(); i++) {
                         // Check if a room name is a part of the hotel
-                        // i will be the index of a room type. i + 1 will be the occupancy of that room
-                        // If it's a recognised room, increment the occupancy of a room by the appropriate amount
-                        // Finally, also add the occupancy to the hotel
+                        // If it's a recognised room, increment the total occupancy of a room by the occupancy of the room in the reservation.
+                        // Finally, also add the occupancy to the hotel.
                         if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
-                            hotelRooms.replace(res.getRooms().get(i).getRoomType(), hotelRooms.get(res.getRooms().get(i).getRoomType()) + Integer.parseInt(res.getRooms().get(i).getRoomOccupancy()));
-                            hotelOccupancy += Integer.parseInt(res.getRooms().get(i).getRoomOccupancy());
+                            hotelRooms.replace(res.getRooms().get(i).getRoomType(), hotelRooms.get(res.getRooms().get(i).getRoomType()) + res.getRooms().get(i).getRoomOccupancy());
+                            hotelOccupancy += res.getRooms().get(i).getRoomOccupancy();
                             hotelRoomsAmount++;
                         }
                     }
@@ -69,25 +66,20 @@ public abstract class DataAnalysis {
             }
             result.add("Hotel occupancy: " + hotelOccupancy);
             result.add("Amount of rooms booked: " + hotelRoomsAmount);
-//            System.out.println("Hotel occupancy: " + hotelOccupancy);
-//            System.out.println("Amount of rooms booked: " + hotelRoomsAmount);
 
+
+            // Go through every room/room occupancy pair in hotelRooms.
             for (Map.Entry<String, Integer> entry : hotelRooms.entrySet()) {
                 // If you don't want to show empty rooms
                 // Only show rooms that have some occupancy
                 if (showUnoccupiedRooms) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room occupancy: " + entry.getValue());
-//                    System.out.println("Room name: " + entry.getKey());
-//                    System.out.println("Room occupancy: " + entry.getValue());
                 } else if (entry.getValue() != 0) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room occupancy: " + entry.getValue());
-//                    System.out.println("Room name: " + entry.getKey());
-//                    System.out.println("Room occupancy: " + entry.getValue());
                 }
             }
-//            System.out.println();
         }
         return result;
     }
@@ -97,88 +89,127 @@ public abstract class DataAnalysis {
      * over a specific period of time. By default, unoccupied rooms will also be
      * printed out.
      *
-     * @param reservations
+     * @param reservations List of reservations
      * @param startDate    The start date of analysis
      * @param endDate      The end date of analysis
      */
-    public static void getOccupancyRatesAll(ArrayList<Reservation> reservations, String startDate, String endDate) {
-        getOccupancyRatesAll(reservations, startDate, endDate, true);
+    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, LocalDate startDate, LocalDate endDate) {
+        return getOccupancyRatesAll(reservations, startDate, endDate, true);
     }
 
     /**
      * Returns the income figures for each hotel and room type
-     * over a specific period of time
+     * over a specific period of time.
      *
      * @param reservations        A list of all reservations
      * @param cancellations       A list of all cancellations
      * @param startDate           The start date of analysis
      * @param endDate             The end date of analysis
      * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
+     * @return The income of every hotel and room in the form of a list of Strings.
      */
-    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate, boolean showUnoccupiedRooms) {
+    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, LocalDate startDate, LocalDate endDate, boolean showUnoccupiedRooms) {
+        // Initialising the list of Strings "result".
         ArrayList<String> result = new ArrayList<>();
-        result.add(String.format("This is the income for every hotel and room between %s and %s:\n", startDate, endDate));
-        //System.out.printf("This is the income for every hotel and room between %s and %s:\n", startDate, endDate);
+        result.add(String.format("This is the income for every hotel and room between %s and %s:", startDate, endDate));
+
+        // Initialising a HashMap of String/Double tuples. The String is the Hotel type
+        // the double will be the income that a hotel has generated.
+        HashMap<String, Double> hotelRooms = new HashMap<>();
+        double totalIncome = 0;
+        double cancellationIncome = 0;
+        double cancellationLoss = 0;
+
         // For every hotel
         for (Hotel h : HotelInitialiser.allHotels) {
             int hotelIncome = 0;
-            HashMap<String, Integer> hotelRooms = getRoomsOfHotelInString(h.getTypeOfRooms());
+
+            // Put all types of rooms of a hotel in "hotelRooms". All their incomes will be set to 0.
+            hotelRooms = getRoomsOfHotelInStringDouble(h.getTypeOfRooms());
             result.add("Hotel name: " + h.getHotelType());
-            //System.out.println("Hotel name: " + h.getHotelType());
+
+            // Go through every reservation and if their dates are within startDate and
+            // endDate, get their incomes and add to the income of the hotel.
             for (Reservation res : reservations) {
-                if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
-                    for (int i = 0; i < res.getNumberOfRooms() - 1; i++) {
+                if (res.getCheckInDate().compareTo(startDate) >= 0 && res.getCheckInDate().compareTo(endDate) <= 0) {
+                    // Go through every room of a reservation, find out what type of room they are.
+                    for (int i = 0; i < res.getNumberOfRooms(); i++) {
                         if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
-                            // I must get the type of room from a string and its rates
+                            double costOfRoom = 0;
+                            // Getting the TypeOfRoom with all of its rates from the findRoomType method.
                             TypeOfRoom room = findRoomType(res.getRooms().get(i).getRoomType(), HotelInitialiser.allHotels);
-                            assert room != null;
-                            int[] rates = room.getDailyRates();
 
-                            int costOfRoom = getCostOfRoom(rates,
-                                    res.getCheckInDate().toString(), res.getCheckOutDate().toString());
+                            // Getting daily rates of a room.
+                            double[] rates = room.getDailyRates();
 
+                            // Get the cost of a room from startDate to endDate.
+                            // If the check-out date of the reservation is later than endDate,
+                            // only find the income up to endDate. Otherwise, calculate up to
+                            // the check-out date.
+
+                            System.out.println(res.getCheckInDate());
+                            if(res.getCheckOutDate().compareTo(endDate) < 0){
+                                costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), res.getCheckOutDate());
+                            }
+                            else{
+                                costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), endDate);
+                            }
+
+                            // Add to the income of a type of room, as well as its corresponding hotel and also to the total income.
                             hotelRooms.replace(res.getRooms().get(i).getRoomType(), hotelRooms.get(res.getRooms().get(i).getRoomType()) + costOfRoom);
                             hotelIncome += costOfRoom;
+                            totalIncome += costOfRoom;
                         }
                     }
                 }
             }
 
-            // Going through all cancellations to see if there are still some income to be made from reservations that can't be cancelled
-            for (Cancellation can : cancellations) {
-                if (compareDates(can.getReservation().getCheckInDate().toString(), startDate) <= 0 && compareDates(can.getReservation().getCheckInDate().toString(), endDate) >= 0) {
-                    for (int i = 0; i < can.getReservation().getNumberOfRooms() - 1; i++) {
-                        if (hotelRooms.containsKey(can.getReservation().getRooms().get(i).getRoomType())) {
-                            TypeOfRoom room = findRoomType(can.getReservation().getRooms().get(i).getRoomType(), HotelInitialiser.allHotels);
-                            assert room != null;
 
-                            hotelRooms.replace(can.getReservation().getRooms().get(i).getRoomType(), hotelRooms.get(can.getReservation().getRooms().get(i).getRoomType()) + can.getIncome());
-                            hotelIncome += can.getIncome();
-                        }
-                    }
-                }
-            }
 
-            result.add("Hotel occupancy: " + hotelIncome);
-            //System.out.println("Hotel occupancy: " + hotelIncome);
+            result.add("Hotel income: " + hotelIncome);
 
-            for (Map.Entry<String, Integer> entry : hotelRooms.entrySet()) {
+            for (Map.Entry<String, Double> entry : hotelRooms.entrySet()) {
                 // If you don't want to show empty rooms
                 // Only show rooms that have some occupancy
                 if (showUnoccupiedRooms) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room income: " + entry.getValue());
-//                    System.out.println("Room name: " + entry.getKey());
-//                    System.out.println("Room income: " + entry.getValue());
                 } else if (entry.getValue() != 0) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room income: " + entry.getValue());
-//                    System.out.println("Room name: " + entry.getKey());
-//                    System.out.println("Room income: " + entry.getValue());
                 }
             }
-            //System.out.println();
         }
+
+        // Going through all cancellations to see if there are still some income to be made from reservations that can't be cancelled.
+        for (Cancellation can : cancellations) {
+            if (can.getCancellationDate().compareTo(startDate) >= 0 && can.getCancellationDate().compareTo(endDate) <= 0) {
+//                    for (int i = 0; i < can.getReservation().getNumberOfRooms() - 1; i++) {
+//                        if (hotelRooms.containsKey(can.getReservation().getRooms().get(i).getRoomType())) {
+//                            TypeOfRoom room = findRoomType(can.getReservation().getRooms().get(i).getRoomType(), HotelInitialiser.allHotels);
+//                            assert room != null;
+//
+//                            hotelRooms.replace(can.getReservation().getRooms().get(i).getRoomType(), hotelRooms.get(can.getReservation().getRooms().get(i).getRoomType()) + can.getIncome());
+//                            hotelIncome += can.getIncome();
+//                            totalIncome += can.getIncome();
+//                        }
+//                    }
+                // If the income of a Cancellation is 0, we can assume that it has been refunded. Add the would-be income of the reservation
+                // into cancellationLoss. Otherwise, add it to cancellationIncome and totalIncome.
+                if(can.getIncome() == 0){
+                    cancellationLoss += can.getReservation().getTotalCost();
+                }
+                else{
+                    cancellationIncome += can.getIncome();
+                    totalIncome += can.getIncome();
+                }
+            }
+        }
+
+        result.add("Income lost from cancellations: " + cancellationLoss);
+        result.add("Income retained from cancellations: " + cancellationIncome);
+        result.add("Income from all successful reservations: " + (totalIncome - cancellationIncome));
+        result.add("Total income: " + totalIncome);
         return result;
     }
 
@@ -187,162 +218,24 @@ public abstract class DataAnalysis {
      * over a specific period of time. By default, unoccupied rooms will also be
      * printed out.
      *
-     * @param reservations        A list of all reservations
-     * @param cancellations       A list of all cancellations
-     * @param startDate           The start date of analysis
-     * @param endDate             The end date of analysis
+     * @param reservations  A list of all reservations
+     * @param cancellations A list of all cancellations
+     * @param startDate     The start date of analysis
+     * @param endDate       The end date of analysis
      */
-    public static void calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, String startDate, String endDate) {
-        calculateIncomeAll(reservations, cancellations, startDate, endDate, true);
-    }
-
-
-    /**
-     * Returns the occupancy figures for each hotel and room type
-     * over a specific period of time
-     *
-     * @param reservations
-     * @param startDate           The start date of analysis
-     * @param endDate             The end date of analysis
-     * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
-     */
-    public static void getOccupancyRatesAllString(ArrayList<String[]> reservations, String startDate, String endDate, boolean showUnoccupiedRooms) {
-        System.out.printf("This is the occupancy rate for every hotel and room between %s and %s:\n", startDate, endDate);
-        // For every hotel
-        for (Hotel h : HotelInitialiser.allHotels) {
-            int hotelOccupancy = 0;
-            int hotelRoomsAmount = 0;
-            HashMap<String, Integer> hotelRooms = getRoomsOfHotelInString(h.getTypeOfRooms());
-            System.out.println("Hotel name: " + h.getHotelType());
-
-            // For every line in the reservations file
-            for (String[] cells : reservations) {
-                // Only process reservations that are within startDate and endDate
-                if (compareDates(cells[RES_START_INDEX], startDate) <= 0 && compareDates(cells[RES_START_INDEX], endDate) >= 0) {
-                    // Go through each room that's booked
-                    for (int i = FIRST_ROOM_INDEX; i < cells.length; i++) {
-                        // Check if a room name is a part of the hotel
-                        // i will be the index of a room type. i + 1 will be the occupancy of that room
-                        // If it's a recognised room, increment the occupancy of a room by the appropriate amount
-                        // Finally, also add the occupancy to the hotel
-                        if (hotelRooms.containsKey(cells[i])) {
-                            hotelRooms.replace(cells[i], hotelRooms.get(cells[i]) + Integer.parseInt(cells[i + 1]));
-                            hotelOccupancy += Integer.parseInt(cells[i + 1]);
-                            hotelRoomsAmount++;
-                        }
-                    }
-                }
-
-            }
-            System.out.println("Hotel occupancy: " + hotelOccupancy);
-            System.out.println("Amount of rooms booked: " + hotelRoomsAmount);
-
-            for (Map.Entry<String, Integer> entry : hotelRooms.entrySet()) {
-                // If you don't want to show empty rooms
-                // Only show rooms that have some occupancy
-                if (showUnoccupiedRooms) {
-                    System.out.println("Room name: " + entry.getKey());
-                    System.out.println("Room occupancy: " + entry.getValue());
-                } else if (entry.getValue() != 0) {
-                    System.out.println("Room name: " + entry.getKey());
-                    System.out.println("Room occupancy: " + entry.getValue());
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    /**
-     * Returns the occupancy figures for each hotel and room type
-     * over a specific period of time. By default, unoccupied rooms will also be
-     * printed out.
-     *
-     * @param reservations
-     * @param startDate    The start date of analysis
-     * @param endDate      The end date of analysis
-     */
-    public static void getOccupancyRatesAllString(ArrayList<String[]> reservations, String startDate, String endDate) {
-        getOccupancyRatesAllString(reservations, startDate, endDate, true);
-    }
-
-
-    /**
-     * Returns the income figures for each hotel and room type
-     * over a specific period of time
-     *
-     * @param reservations
-     * @param startDate           The start date of analysis
-     * @param endDate             The end date of analysis
-     * @param showUnoccupiedRooms Choose if you want to display rooms that haven't been booked
-     */
-    public static void calculateIncomeAllString(ArrayList<String[]> reservations, String startDate, String endDate, boolean showUnoccupiedRooms) {
-        System.out.printf("This is the income for every hotel and room between %s and %s:\n", startDate, endDate);
-        // For every hotel
-        for (Hotel h : HotelInitialiser.allHotels) {
-            int hotelIncome = 0;
-            HashMap<String, Integer> hotelRooms = getRoomsOfHotelInString(h.getTypeOfRooms());
-            System.out.println("Hotel name: " + h.getHotelType());
-            for (String[] cells : reservations) {
-
-                if (compareDates(cells[RES_START_INDEX], startDate) <= 0 && compareDates(cells[RES_START_INDEX], endDate) >= 0) {
-                    for (int i = FIRST_ROOM_INDEX; i < cells.length - 1; i++) {
-                        if (hotelRooms.containsKey(cells[i])) {
-                            // I must get the type of room from a string and its rates
-                            TypeOfRoom room = findRoomType(cells[i], HotelInitialiser.allHotels);
-                            assert room != null;
-                            int[] rates = room.getDailyRates();
-
-                            int costOfRoom = getCostOfRoom(rates,
-                                    cells[RES_START_INDEX], cells[RES_END_INDEX]);
-
-                            hotelRooms.replace(cells[i], hotelRooms.get(cells[i]) + costOfRoom);
-                            hotelIncome += costOfRoom;
-                        }
-                    }
-                }
-
-
-            }
-            System.out.println("Hotel occupancy: " + hotelIncome);
-
-            for (Map.Entry<String, Integer> entry : hotelRooms.entrySet()) {
-                // If you don't want to show empty rooms
-                // Only show rooms that have some occupancy
-                if (showUnoccupiedRooms) {
-                    System.out.println("Room name: " + entry.getKey());
-                    System.out.println("Room income: " + entry.getValue());
-                } else if (entry.getValue() != 0) {
-                    System.out.println("Room name: " + entry.getKey());
-                    System.out.println("Room income: " + entry.getValue());
-                }
-            }
-            System.out.println();
-        }
-
-    }
-
-    /**
-     * Returns the income figures for each hotel and room type
-     * over a specific period of time. By default, unoccupied rooms will also be
-     * printed out.
-     *
-     * @param reservations
-     * @param startDate    The start date of analysis
-     * @param endDate      The end date of analysis
-     */
-    public static void calculateIncomeAllString(ArrayList<String[]> reservations, String startDate, String endDate) {
-        calculateIncomeAllString(reservations, startDate, endDate, true);
+    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, LocalDate startDate, LocalDate endDate) {
+        return calculateIncomeAll(reservations, cancellations, startDate, endDate, true);
     }
 
     /**
      * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
-     * TypeOfRoom-Integer pairs. This will be used in the occupancy and income calculations
-     * to keep track of every room's occupancy/income.
+     * TypeOfRoom-Integer(0) pairs. This will be used in the occupancy calculations
+     * to keep track of every room's occupancy.
      *
      * @param rooms A list of TypeOfRoom objects.
      * @return A HashMap mapping the names of each room in "rooms" to Integers
      */
-    private static HashMap<String, Integer> getRoomsOfHotelInString(ArrayList<TypeOfRoom> rooms) {
+    private static HashMap<String, Integer> getRoomsOfHotelInStringInt(ArrayList<TypeOfRoom> rooms) {
         HashMap<String, Integer> result = new HashMap<>();
 
         for (TypeOfRoom r : rooms) {
@@ -352,39 +245,22 @@ public abstract class DataAnalysis {
         return result;
     }
 
-
     /**
-     * Helper method for comparing 2 dates in String form
-     * formatted as YYYY-MM-DD.
+     * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
+     * TypeOfRoom-Double(0.0) pairs. This will be used in the income calculations
+     * to keep track of every room's income.
      *
-     * @param date1 First date.
-     * @param date2 Second date.
-     * @return 0 if the dates are the same, <0 if date1 is later, >0 if date2 is later
+     * @param rooms A list of TypeOfRoom objects.
+     * @return A HashMap mapping the names of each room in "rooms" to Doubles
      */
-    private static int compareDates(String date1, String date2) {
-        StringTokenizer tk1 = new StringTokenizer(date1, "-");
-        StringTokenizer tk2 = new StringTokenizer(date2, "-");
+    private static HashMap<String, Double> getRoomsOfHotelInStringDouble(ArrayList<TypeOfRoom> rooms) {
+        HashMap<String, Double> result = new HashMap<>();
 
-        int year1 = Integer.parseInt(tk1.nextToken());
-        int year2 = Integer.parseInt(tk2.nextToken());
-        if (year1 != year2) {
-            return year2 - year1;
+        for (TypeOfRoom r : rooms) {
+            result.put(r.getRoomType(), 0.0);
         }
 
-
-        int month1 = Integer.parseInt(tk1.nextToken());
-        int month2 = Integer.parseInt(tk2.nextToken());
-        if (month1 != month2) {
-            return month2 - month1;
-        }
-
-        int day1 = Integer.parseInt(tk1.nextToken());
-        int day2 = Integer.parseInt(tk2.nextToken());
-        if (day1 != day2) {
-            return day2 - day1;
-        }
-
-        return 0;
+        return result;
     }
 
     /**
@@ -396,23 +272,16 @@ public abstract class DataAnalysis {
      * @param checkOut The check-out date.
      * @return The total cost to book a room.
      */
-    private static int getCostOfRoom(int[] rates, String checkIn, String checkOut) {
-        String[] dateValuesIn = checkIn.split("-");
-        String[] dateValuesOut = checkOut.split("-");
-
-        LocalDate checkInDate = LocalDate.of(Integer.parseInt(dateValuesIn[0]), Integer.parseInt(dateValuesIn[1]), Integer.parseInt(dateValuesIn[2]));
-        LocalDate checkOutDate = LocalDate.of(Integer.parseInt(dateValuesOut[0]), Integer.parseInt(dateValuesOut[1]), Integer.parseInt(dateValuesOut[2]));
-
+    private static int getCostOfRoom(double[] rates, LocalDate checkIn, LocalDate checkOut) {
         int result = 0;
 
         // Iterate through the dates
-        while (checkInDate.compareTo(checkOutDate) < 0) {
+        while (checkIn.compareTo(checkOut) < 0) {
             // checkInDate.getDayOfWeek().getValue() returns an int
-            // 1 is Monday, 7 is Sunday
-            int value = checkInDate.getDayOfWeek().getValue();
-            //result += rates[2 + checkInDate.getDayOfWeek().getValue()];
-            result += rates[checkInDate.getDayOfWeek().getValue() - 1];
-            checkInDate = checkInDate.plusDays(1);
+            // 1 is Monday, 7 is Sunday. To get the corresponding rate, subtract 1.
+            int value = checkIn.getDayOfWeek().getValue();
+            result += rates[checkIn.getDayOfWeek().getValue() - 1];
+            checkIn = checkIn.plusDays(1);
         }
 
         return result;

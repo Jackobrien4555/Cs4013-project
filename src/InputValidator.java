@@ -17,7 +17,7 @@ public class InputValidator {
     public boolean inputIsInRange(String input, int minValueOfRange, int maxValueOfRange) {
         if(inputIsInteger(input)) {
             int inputAsInt = Integer.parseInt(input);
-            if(inputAsInt <= minValueOfRange && inputAsInt >= maxValueOfRange) {
+            if(inputAsInt >= minValueOfRange && inputAsInt <= maxValueOfRange) {
                 return true;
             }
         }

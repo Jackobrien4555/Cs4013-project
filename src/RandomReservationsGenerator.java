@@ -178,7 +178,7 @@ public class RandomReservationsGenerator {
         }
 
         // Random number of rooms
-        int roomNumber = (int) (Math.random() * 10 + 1);
+        int roomNumber = (int) (Math.random() * 5 + 1);
         String numberOfRooms = Integer.toString(roomNumber);
 
         result.append(reservationNumber).append(",");
@@ -250,20 +250,20 @@ public class RandomReservationsGenerator {
                         room = "";
                         continue;
                     }
+                    roomsAssigned += 1;
+                    roomValues[ROOMS_TAKEN] += 1;
                     break;
             }
-
-            roomsAssigned++;
-            roomValues[ROOMS_TAKEN]++;
 
             result.append(room).append(",");
             result.append(Integer.toString(occupancy)).append(",");
             cost += getCostOfRoom(roomValues, checkInDate, checkOutDate);
 
-            // 5% discount
-            if (reservationType.equals("AP")) {
-                cost = cost * 0.95;
-            }
+
+        }
+        // 5% discount
+        if (reservationType.equals("AP")) {
+            cost = cost * 0.95;
         }
 
         String totalCost = String.format("%.2f", cost);
@@ -301,6 +301,7 @@ public class RandomReservationsGenerator {
         for (String s : reservation) {
             result.append(s).append(",");
         }
+        result.append(LocalDate.now().toString()).append(",");
         result.append(cost);
         return result.toString();
     }
