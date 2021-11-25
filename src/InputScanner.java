@@ -89,7 +89,7 @@ public class InputScanner {
         System.out.println("Enter the reservation number for the reservation you are cancelling.");
         System.out.println("-------------------------------------------------");
         System.out.print("Reservation number: ");
-        return null;
+        chosenReservation =
     }
 
     /**
@@ -165,8 +165,7 @@ public class InputScanner {
     private Reservation getReservationFromUserReservationNumber(Reader rReader) {
         Reservation chosenReservation;
 
-        //int
-        return null;
+        int
     }
 
     /**
