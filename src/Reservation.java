@@ -145,9 +145,19 @@ public class Reservation {
      * This method returns a String that lists all the details of the reservation.
      */
     public String toString() {
-        // Will be making this look nicer but its a start
-        return String.format("Reservation - Reservation Number: %d, Reservation Name: %s, Reservation Type: %s, " +
-                "Check In Date: %s, Check Out Date: %s, " +
-                "Number of Rooms: %d", resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
+        String reservationInfo = resNumber + "," + resName + "," + resType + "," + checkInDate.toString() + "," + checkOutDate.toString()
+                + "," + numberOfRooms + ",";
+
+        for(int i = 0; i < numberOfRooms; i++) {
+            if(i == numberOfRooms - 1) {
+                reservationInfo += rooms.get(i).getRoomType() + "," + rooms.get(i).getRoomOccupancy();
+            } else {
+                reservationInfo += rooms.get(i).getRoomType() + "," + rooms.get(i).getRoomOccupancy() + ",";
+            }
+        }
+
+        reservationInfo += "," + totalCost;
+
+        return reservationInfo;
     }
 }

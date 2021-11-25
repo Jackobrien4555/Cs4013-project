@@ -13,11 +13,11 @@ public class PrintedMenus {
      * @return Printed StartUp menu.
      */
     public void printStartUpMenu() {
-        String[] options = {"\n----STARTUP MENU----",
+        String[] options = {"\n------ STARTUP MENU ------",
                             "1. Customer Login.",
                             "2. Administrator Login.",
                             "3. Quit the program.",
-                            "----------------------",
+                            "--------------------------",
                             "Please enter choice: "};
         printMenu(options);
     }
@@ -27,12 +27,12 @@ public class PrintedMenus {
      * @return Printed Customer menu.
      */
     public void printCustomerMenu() {
-        String[] options = {"\n-----CUSTOMER MENU-----",
-                "1. Make a reservation.",
-                "2. Cancel a reservation.",
-                "3. Go back to login menu.",
-                "------------------------",
-                "Please enter choice: "};
+        String[] options = {"\n----- CUSTOMER MENU -----",
+                            "1. Make a reservation.",
+                            "2. Cancel a reservation.",
+                            "3. Go back to login menu.",
+                            "--------------------------",
+                            "Please enter choice: "};
         printMenu(options);
     }
 
@@ -41,14 +41,15 @@ public class PrintedMenus {
      * @return Printed Administrator menu.
      */
     public void printAdministratorMenu() {
-        String[] options = {"\n----ADMINISTRATOR MENU----",
-                "1. Show all reservations.",
-                "2. Make a reservation.",
-                "3. Cancel a reservation.",
-                "4. Data analysis.",
-                "5. Go back to login menu.",
-                "------------------------",
-                "Please enter choice: "};
+        String[] options = {"\n----- ADMINISTRATOR MENU -----",
+                            "1. Make a reservation.",
+                            "2. Cancel a reservation.",
+                            "3. Show all reservations.",
+                            "4. Show all cancellations.",
+                            "5. Data analysis.",
+                            "6. Go back to login menu.",
+                            "------------------------------",
+                            "Please enter choice: "};
         printMenu(options);
     }
 
@@ -57,12 +58,12 @@ public class PrintedMenus {
      * @return Printed Analytics menu.
      */
     public void printAnalyticsMenu() {
-        String[] options = {"\n-------ANALYTICS MENU-------",
+        String[] options = {"\n------- ANALYTICS MENU -------",
                 "1. Hotel occupancy analytics.",
                 "2. Room occupancy analytics.",
                 "3. Financial analytics.",
                 "4. Go back to previous menu.",
-                "----------------------------",
+                "------------------------------",
                 "Please enter choice: "};
         printMenu(options);
     }

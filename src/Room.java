@@ -5,7 +5,6 @@ import java.util.Arrays;
  * @since 05/11/2021
  */
 public class Room {
-	 private int roomNumber;
 	  private String typeOfRoom;
 	  private int amountOfOccupants;
 
@@ -13,12 +12,10 @@ public class Room {
 	   * 
 	   * @param type the type of room
 	   * @param occupancy the amount of occupants able to stay in the room
-	   * @param number the number of that room 
 	   */
-	  public Room(String type, int occupancy, int number) {
+	  public Room(String type, int occupancy) {
 			this.typeOfRoom = type;
 			this.amountOfOccupants = occupancy;
-			this.roomNumber = number;
 		}
 	  
 	  /** 
@@ -28,13 +25,7 @@ public class Room {
 	  public String getRoomType() {
 		  return typeOfRoom;
 	  }
-	  /**
-	   * gets the number of the room
-	   * @return roomNumber number of the room
-	   */
-	  public int getNumber() {
-		   return roomNumber;
-	  }
+
 	  /**
 	   * gets occupancy of the room
 	   * @return amountOfOccupants gets amount able to stay in room
@@ -50,13 +41,7 @@ public class Room {
 	  public void setRoomType(String type) {
 		   typeOfRoom = type ;
 	  }
-	  /**
-	   * sets the number of the room
-	   * @param number the number of the room
-	   */
-	  public void setNumber(int number) {
-		   roomNumber = number;
-	  }
+
 	  /**
 	   * sets the amount able to stay in room
 	   * @param amount the amount able to stay in room

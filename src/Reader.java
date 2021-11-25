@@ -17,7 +17,8 @@ public abstract class Reader {
 
     /**
      * Reads a file line-by-line, creates a Reservation object for
-     * all of them. They are placed in an ArrayList and returned. The allReservations list is also populated.
+     * all of them. They are placed in an ArrayList and returned. The allReservations
+     * is list also populated.
      *
      * @param filepath The file path of the file to be read from.
      * @return A list of Reservations extracted from the specified file path.
@@ -45,7 +46,7 @@ public abstract class Reader {
 
     /**
      * Reads a file line-by-line, creates a Cancellation object for
-     * all of them. They are placed in an ArrayList and returned. The allCancellations list is also populated.
+     * all of them. They are placed in an ArrayList and returned.
      *
      * @param filepath The file path of the file to be read from.
      * @return A list of Cancellations extracted from the specified file path.
@@ -103,7 +104,7 @@ public abstract class Reader {
         // Add all the rooms in a reservation one-by-one.
         for (int i = 6; i < cells.length - 1; i += 2) {
             // cells[i] is the room type and Integer.parseInt(cells[i + 1]) will be the occupancy.
-            Room room = new Room(cells[i], Integer.parseInt(cells[i + 1]), 0);
+            Room room = new Room(cells[i], Integer.parseInt(cells[i + 1]));
             rooms.add(room);
         }
 
@@ -115,8 +116,7 @@ public abstract class Reader {
     }
 
     /**
-     * Gets the list of reservations.
-     *
+     * Gets list of reservations.
      * @return List of all reservations.
      */
     public static ArrayList<Reservation> getAllReservations() {
@@ -124,25 +124,17 @@ public abstract class Reader {
     }
 
     /**
-     * Gets the list of cancellations.
-     *
-     * @return List of all cancellations.
+     * Gets list of cancellations.
+     * @return List of all cancellations
      */
     public static ArrayList<Cancellation> getAllCancellations() {
         return allCancellations;
     }
 
-    /**
-     *
-     * @param resNumber
-     * @return
-     *
-     * @author Sergiu Mereacre
-     */
     public static Reservation getReservation(int resNumber) {
-        for (Reservation allReservation : allReservations) {
-            if (resNumber == allReservation.getResNumber()) {
-                return allReservation;
+        for (Reservation Reservation : allReservations) {
+            if (resNumber == Reservation.getResNumber()) {
+                return Reservation;
             }
         }
         return null;
