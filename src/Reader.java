@@ -17,8 +17,7 @@ public abstract class Reader {
 
     /**
      * Reads a file line-by-line, creates a Reservation object for
-     * all of them. They are placed in an ArrayList and returned. The allReservations
-     * is list also populated.
+     * all of them. They are placed in an ArrayList and returned. The allReservations list is also populated.
      *
      * @param filepath The file path of the file to be read from.
      * @return A list of Reservations extracted from the specified file path.
@@ -46,7 +45,7 @@ public abstract class Reader {
 
     /**
      * Reads a file line-by-line, creates a Cancellation object for
-     * all of them. They are placed in an ArrayList and returned.
+     * all of them. They are placed in an ArrayList and returned. The allCancellations list is also populated.
      *
      * @param filepath The file path of the file to be read from.
      * @return A list of Cancellations extracted from the specified file path.
@@ -116,7 +115,8 @@ public abstract class Reader {
     }
 
     /**
-     * Gets list of reservations.
+     * Gets the list of reservations.
+     *
      * @return List of all reservations.
      */
     public static ArrayList<Reservation> getAllReservations() {
@@ -124,8 +124,9 @@ public abstract class Reader {
     }
 
     /**
-     * Gets list of cancellations.
-     * @return List of all cancellations
+     * Gets the list of cancellations.
+     *
+     * @return List of all cancellations.
      */
     public static ArrayList<Cancellation> getAllCancellations() {
         return allCancellations;
