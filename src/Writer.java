@@ -33,17 +33,14 @@ public class Writer {
      * @param cancellation The reservation to be written.
      */
     public void writeCancellation(String filename, Cancellation cancellation) {
-        // NEED TO DO, maybe create the file if the file doesnt exist
-        String newCancellation = String.format("%d,%s,%s,%s,%s,%d,%s,%.2f,%s,%.2f\n", cancellation.getReservation().getResNumber(), cancellation.getReservation().getResName(), cancellation.getReservation().getResType(),
-                cancellation.getReservation().getCheckInDate(), cancellation.getReservation().getCheckOutDate(), cancellation.getReservation().getNumberOfRooms(), cancellation.getReservation().getRooms(),
-                cancellation.getReservation().getTotalCost(), cancellation.getCancellationDate(), cancellation.getIncome());
+        // NEED TO DO, maybe create the file if the file doesn't exist
+        String newCancellation = cancellation.toString();
 
         try {
             FileWriter writer = new FileWriter(filename, true);
             writer.write(newCancellation);
 
             writer.close();
-            System.out.println("Wrote to file.");
         }
         catch (IOException exception) {
             System.out.println("Error: Did not write file");
