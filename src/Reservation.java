@@ -142,9 +142,12 @@ public class Reservation {
     }
 
     /**
-     * This method returns a string that lists all the details of the reservation and is compatible with a csv file.
+     * This method returns a String that lists all the details of the reservation.
      */
     public String toString() {
-        return String.format("%d,%s,%s,%s,%s,%d,%s,%.2f\n", resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms, rooms, totalCost);
+        // Will be making this look nicer but its a start
+        return String.format("Reservation - Reservation Number: %d, Reservation Name: %s, Reservation Type: %s, " +
+                "Check In Date: %s, Check Out Date: %s, " +
+                "Number of Rooms: %d", resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
     }
 }

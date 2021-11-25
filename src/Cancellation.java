@@ -104,8 +104,9 @@ public class Cancellation {
      * Returns a string that represents the data contained by a cancellation and is compatible with a csv file.
      */
     public String toString() {
-        return String.format("%d,%s,%s,%s,%s,%d,%s,%.2f,%s,%.2f\n", reservation.getResNumber(), reservation.getResName(), reservation.getResType(),
-                reservation.getCheckInDate(), reservation.getCheckOutDate(), reservation.getNumberOfRooms(), reservation.getRooms(),
-                reservation.getTotalCost(), cancellationDate, income);
+        // Will be making this look nicer
+        return String.format("Cancellation - Reservation: %s, " +
+                "Cancellation Date: %s, " +
+                "Income: %f", reservation, cancellationDate, income);
     }
 }
