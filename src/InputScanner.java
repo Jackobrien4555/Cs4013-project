@@ -33,22 +33,6 @@ public class InputScanner {
     }
 
     /**
-     * User can select a valid choice when selecting an option in the Customer screen.
-     * @return  The user's choice.
-     */
-    public int getCustomerChoice() {
-        return getUserMenuChoice(references.EXIT_CUSTOMER);
-    }
-
-    /**
-     * User can select a valid choice when selecting an option in the Administrator screen.
-     * @return  The user's choice.
-     */
-    public int getAdministratorChoice() {
-        return getUserMenuChoice(references.EXIT_ADMINISTRATOR);
-    }
-
-    /**
      * User can select a valid choice when selecting an option in the Analytics screen.
      * @return  The user's choice.
      */
@@ -218,6 +202,12 @@ public class InputScanner {
         for(int i = 0; i < numberOfRooms; i++) {
             System.out.print("Enter room type: ");
             typeOfRoom = sc.nextLine();
+            while(!userValidator.isValidRoomType(typeOfRoom)) {
+                System.out.print("This is not a valid input, these are some options: Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family,\n");
+                System.out.print("Executive Double, Executive Twin, Executive Single, Classic Double, Classic Twin, Classic Single.");
+                System.out.print("\nPlease enter your choice: ");
+                typeOfRoom = sc.nextLine();
+            }
             System.out.print("Enter occupancy total: ");
             occupancy = getNumber();
 
