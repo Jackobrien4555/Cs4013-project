@@ -10,7 +10,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\randomReservations.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\reservations\admins.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\reservations\cancellations.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

@@ -15,16 +15,11 @@ public class Writer {
      * @param reservation The reservation to be written.
      */
     public void writeReservation(String filename, Reservation reservation) {
-        // NEED TO DO, maybe create the file if the file doesnt exist
-        String newReservation = String.format("%d,%s,%s,%s,%s,%d,%s,%.2f\n", reservation.getResNumber(), reservation.getResName(), reservation.getResType(),
-                reservation.getCheckInDate(), reservation.getCheckOutDate(), reservation.getNumberOfRooms(), reservation.getRooms(), reservation.getTotalCost());
 
         try {
             FileWriter writer = new FileWriter(filename, true);
-            writer.write(newReservation);
-
+            writer.write(reservation.toString());
             writer.close();
-            System.out.println("Wrote to file.");
         }
         catch (IOException exception) {
             System.out.println("Error: Did not write file");
