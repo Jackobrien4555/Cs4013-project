@@ -12,6 +12,8 @@ import java.util.Scanner;
  * @author Edison Cai 20241135
  */
 public abstract class Reader {
+    public static ArrayList<Reservation> allReservations;
+    public static ArrayList<Cancellation> allCancellations;
 
     /**
      * Reads a file line-by-line, creates a Reservation object for
@@ -37,6 +39,7 @@ public abstract class Reader {
             System.out.println("An error has occurred: File not found");
         }
 
+        allReservations = reservations;
         return reservations;
     }
 
@@ -47,7 +50,7 @@ public abstract class Reader {
      * @param filepath The file path of the file to be read from.
      * @return A list of Cancellations extracted from the specified file path.
      */
-    public static ArrayList<Cancellation>  readCancellations(String filepath) {
+    public static ArrayList<Cancellation> readCancellations(String filepath) {
         ArrayList<Cancellation> cancellations = new ArrayList<>();
         try {
             File file = new File(filepath);
@@ -74,6 +77,7 @@ public abstract class Reader {
             System.out.println("An error has occurred: File not found");
         }
 
+        allCancellations = cancellations;
         return cancellations;
     }
 
