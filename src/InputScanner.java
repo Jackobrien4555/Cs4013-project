@@ -152,6 +152,7 @@ public class InputScanner {
             System.out.print("The input type is invalid. Enter a new value S (Standard) or AP (Advanced Purchase): ");
             input = sc.nextLine();
         }
+        input = input.toUpperCase();
         return input;
     }
 
