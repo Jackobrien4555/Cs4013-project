@@ -28,11 +28,11 @@ public class PrintedMenus {
      */
     public void printCustomerMenu() {
         String[] options = {"\n-----CUSTOMER MENU-----",
-                "1. Make a reservation.",
-                "2. Cancel a reservation.",
-                "3. Go back to login menu.",
-                "------------------------",
-                "Please enter choice: "};
+                            "1. Make a reservation.",
+                            "2. Cancel a reservation.",
+                            "3. Go back to login menu.",
+                            "------------------------",
+                            "Please enter choice: "};
         printMenu(options);
     }
 
@@ -42,14 +42,14 @@ public class PrintedMenus {
      */
     public void printAdministratorMenu() {
         String[] options = {"\n----ADMINISTRATOR MENU----",
-                "1. Make a reservation.",
-                "2. Cancel a reservation.",
-                "3. Show all reservations.",
-                "4. Show all cancellations.",
-                "5. Data analysis.",
-                "6. Go back to login menu.",
-                "------------------------",
-                "Please enter choice: "};
+                            "1. Make a reservation.",
+                            "2. Cancel a reservation.",
+                            "3. Show all reservations.",
+                            "4. Show all cancellations.",
+                            "5. Data analysis.",
+                            "6. Go back to login menu.",
+                            "------------------------",
+                            "Please enter choice: "};
         printMenu(options);
     }
 
