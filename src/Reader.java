@@ -132,17 +132,10 @@ public abstract class Reader {
         return allCancellations;
     }
 
-    /**
-     *
-     * @param resNumber
-     * @return
-     *
-     * @author Sergiu Mereacre
-     */
-    public static Reservation getReservation(int resNumber) {
-        for (Reservation allReservation : allReservations) {
-            if (resNumber == allReservation.getResNumber()) {
-                return allReservation;
+    public Reservation getReservation(int resNumber) {
+        for (int i = 0; i < allReservations.size(); i++) {
+            if(resNumber == allReservations.get(i).getResNumber()) {
+                return allReservations.get(i);
             }
         }
         return null;
