@@ -78,21 +78,25 @@ public class InputScanner {
         resType = getReservationType();
         System.out.print("Enter a check in date: ");
         checkInDate = getDate();
-        while(!checkInDate.isEqual(LocalDate.now()) && !checkInDate.isAfter(LocalDate.now())) {
+        while(checkInDate.isBefore(LocalDate.now())) {
             System.out.print("You cannot reserve rooms for past dates, try again: ");
             checkInDate = getDate();
         }
         System.out.print("Enter a check out date: ");
         checkOutDate = getDate();
-        while(checkOutDate.isEqual(checkInDate) && !checkOutDate.isBefore(checkInDate)) {
+        while(checkOutDate.compareTo(checkInDate) == 0 || checkOutDate.compareTo(checkInDate) < 0) {
             System.out.print("You cannot set the check out date before or same day as the check in date, try again: ");
             checkOutDate = getDate();
         }
         System.out.print("Enter the number of rooms: ");
         numberOfRooms = getNumber();
-        System.out.println("--------------------------------------------");
+        while(numberOfRooms == 0 || numberOfRooms < 0) {
+            System.out.print("You cannot set the number of rooms to 0 or less than 0, try again: ");
+            numberOfRooms = getNumber();
+        }
+        System.out.print("--------------------------------------------");
         rooms = new ArrayList<Room>();
-        readRoom(rooms);
+        readRoom(rooms,numberOfRooms);
 
         reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
         reservation.setRooms(rooms);
@@ -129,7 +133,7 @@ public class InputScanner {
         int validNum;
         input = sc.nextLine();
         while(!userValidator.inputIsInteger(input)) {
-            System.out.print("The input is not a number. Try again: ");
+            System.out.print("The input is not a valid number. Try again: ");
             input = sc.nextLine();
         }
         validNum = Integer.parseInt(input);
@@ -165,20 +169,6 @@ public class InputScanner {
             input = sc.nextLine();
         }
         return input;
-    }
-
-    /**
-     * Checks the input value from the user so that it is a valid Occupancy.
-     * @return A valid occupancy in the format required.
-     */
-    private int getOccupancy() {
-        String input;
-        input = sc.nextLine();
-        while(!userValidator.isValidOccupancy(input)) {
-            System.out.print("The input is invalid. Enter a new value in the format number+number. Try again: ");
-            input = sc.nextLine();
-        }
-        return Integer.parseInt(input);
     }
 
     private Reservation getReservationFromUserReservationNumber(Reader rReader) {
@@ -220,19 +210,19 @@ public class InputScanner {
      * @param rooms The rooms arraylist given to us.
      * @return The completed Rooms arraylist with all the details given by the user.
      */
-    private void readRoom(ArrayList<Room> rooms) {
+    private void readRoom(ArrayList<Room> rooms, int numberOfRooms) {
         String typeOfRoom;
         int occupancy;
 
-        System.out.println("\n------- REQUESTING ROOM INFO -------");
-        for(int i = 0; i < rooms.size(); i++) {
+        System.out.println("\n----------- REQUESTING ROOM INFO -----------");
+        for(int i = 0; i < numberOfRooms; i++) {
             System.out.print("Enter room type: ");
             typeOfRoom = sc.nextLine();
-            System.out.print("Enter occupancy total (adults + children): ");
-            occupancy = getOccupancy();
+            System.out.print("Enter occupancy total: ");
+            occupancy = getNumber();
 
             rooms.add(new Room(typeOfRoom, occupancy));
         }
-        System.out.print("--------------------------------------");
+        System.out.print("----------------------------------------------");
     }
 }
