@@ -105,6 +105,6 @@ public class Cancellation {
      */
     public String toString() {
         String reservationString = reservation.toString();
-        return reservationString + LocalDate.now().toString() + income;
+        return reservationString + "," + LocalDate.now().toString() + "," + income;
     }
 }

@@ -49,7 +49,10 @@ public class ReservationSystem {
                     System.out.println(Reader.getAllReservations().get(i).toString());
                 }
             } else if(choice == 4) {
-                reader.getAllCancellations().toString();
+                int size = Reader.getAllCancellations().size();
+                for(int i = 0; i < size; i++) {
+                    System.out.println(Reader.getAllCancellations().get(i).toString());
+                }
             } else if(choice == 5) {
                 displayAnalyticalMenu();
             }
