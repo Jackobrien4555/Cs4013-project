@@ -17,6 +17,7 @@ public class InputScanner {
 
     /**
      * Initialises the input scanner we are going to use to complete all the different requirements from our user.
+     *
      * @return Objects initialised.
      */
     public InputScanner() {
@@ -26,7 +27,8 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option in the StartUp screen.
-     * @return  The user's choice.
+     *
+     * @return The user's choice.
      */
     public int getStartUpChoice() {
         return getUserMenuChoice(references.EXIT_STARTUP);
@@ -34,7 +36,8 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option in the Analytics screen.
-     * @return  The user's choice.
+     *
+     * @return The user's choice.
      */
     public int getAnalyticsChoice() {
         return getUserMenuChoice(references.EXIT_ANALYTICAL);
@@ -42,7 +45,8 @@ public class InputScanner {
 
     /**
      * Takes the user through a bunch of reservation questions so a reservation instance can be completed.
-     * @return  Completed reservation.
+     *
+     * @return Completed reservation.
      */
     public Reservation readReservation() {
         Reservation reservation;
@@ -62,25 +66,25 @@ public class InputScanner {
         resType = getReservationType();
         System.out.print("Enter a check in date: ");
         checkInDate = getDate();
-        while(checkInDate.isBefore(LocalDate.now())) {
+        while (checkInDate.isBefore(LocalDate.now())) {
             System.out.print("You cannot reserve rooms for past dates, try again: ");
             checkInDate = getDate();
         }
         System.out.print("Enter a check out date: ");
         checkOutDate = getDate();
-        while(checkOutDate.compareTo(checkInDate) == 0 || checkOutDate.compareTo(checkInDate) < 0) {
+        while (checkOutDate.compareTo(checkInDate) == 0 || checkOutDate.compareTo(checkInDate) < 0) {
             System.out.print("You cannot set the check out date before or same day as the check in date, try again: ");
             checkOutDate = getDate();
         }
         System.out.print("Enter the number of rooms: ");
         numberOfRooms = getNumber();
-        while(numberOfRooms == 0 || numberOfRooms < 0) {
+        while (numberOfRooms == 0 || numberOfRooms < 0) {
             System.out.print("You cannot set the number of rooms to 0 or less than 0, try again: ");
             numberOfRooms = getNumber();
         }
         System.out.print("--------------------------------------------");
         rooms = new ArrayList<Room>();
-        readRoom(rooms,numberOfRooms);
+        readRoom(rooms, numberOfRooms);
 
         reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
         reservation.setRooms(rooms);
@@ -101,22 +105,24 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option.
-     * @param  exitValue The highest value the user can input for a certain menu.
-     * @return  The user's choice.
+     *
+     * @param exitValue The highest value the user can input for a certain menu.
+     * @return The user's choice.
      */
-    public int getUserMenuChoice(int exitValue){
+    public int getUserMenuChoice(int exitValue) {
         return getInputInRange(1, exitValue);
     }
 
     /**
      * Checks the input value from the user so that it is a valid Number.
+     *
      * @return A valid number as Integer.
      */
     private int getNumber() {
         String input;
         int validNum;
         input = sc.nextLine();
-        while(!userValidator.inputIsInteger(input)) {
+        while (!userValidator.inputIsInteger(input)) {
             System.out.print("The input is not a valid number. Try again: ");
             input = sc.nextLine();
         }
@@ -126,6 +132,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid number in the range given.
+     *
      * @param minValueOfRange Minimum value of the range.
      * @param maxValueOfRange Maximum value of the range.
      * @return The choice the user has made inside the range we instructed it to.
@@ -134,7 +141,7 @@ public class InputScanner {
         String choice;
 
         choice = sc.nextLine();
-        while(!userValidator.inputIsInRange(choice, minValueOfRange, maxValueOfRange)) {
+        while (!userValidator.inputIsInRange(choice, minValueOfRange, maxValueOfRange)) {
             System.out.print("The input is invalid. Enter a new value from the range " + minValueOfRange + " to " + maxValueOfRange + ": ");
             choice = sc.nextLine();
         }
@@ -143,12 +150,13 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Reservation Type.
+     *
      * @return A valid reservation type as a String.
      */
     private String getReservationType() {
         String input;
         input = sc.nextLine();
-        while(!userValidator.isValidReservationType(input)) {
+        while (!userValidator.isValidReservationType(input)) {
             System.out.print("The input type is invalid. Enter a new value S (Standard) or AP (Advanced Purchase): ");
             input = sc.nextLine();
         }
@@ -158,6 +166,7 @@ public class InputScanner {
 
     /**
      * Asks for user input and returns the corresponding Reservation.
+     *
      * @return
      */
     private Reservation getReservationFromUserReservationNumber() {
@@ -171,11 +180,12 @@ public class InputScanner {
 
     /**
      * Checks to see if the reservation number exists
+     *
      * @return
      */
     private int getReservationNumber() {
         int resNumber = getNumber();
-        while(Reader.getReservation(resNumber) == null) {
+        while (Reader.getReservation(resNumber) == null) {
             System.out.print("Reservation you inputted does not exist. Try again: ");
             resNumber = getNumber();
         }
@@ -184,13 +194,14 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Date.
+     *
      * @return A valid date as a LocalDate.
      */
     public LocalDate getDate() {
         String input;
         input = sc.nextLine();
         LocalDate date;
-        while(!userValidator.inputIsDate(input)) {
+        while (!userValidator.inputIsDate(input)) {
             System.out.print("The date input is invalid. Enter a new value in the format YYYY-MM-DD. Try again: ");
             input = sc.nextLine();
         }
@@ -198,8 +209,24 @@ public class InputScanner {
         return date;
     }
 
+    public boolean getYesOrNo() {
+        String input;
+        input = sc.nextLine();
+        boolean result = false;
+        while (!userValidator.inputIsYesOrNo(input)) {
+            System.out.print("The input is invalid. Please enter 'Y' or 'N': ");
+            input = sc.nextLine();
+        }
+        if (input.equalsIgnoreCase("Y")) {
+            result = true;
+        }
+
+        return result;
+    }
+
     /**
      * Instructs the user on completing different rooms and rooms details.
+     *
      * @param rooms The rooms arraylist given to us.
      * @return The completed Rooms arraylist with all the details given by the user.
      */
@@ -208,10 +235,10 @@ public class InputScanner {
         int occupancy;
 
         System.out.println("\n----------- REQUESTING ROOM INFO -----------");
-        for(int i = 0; i < numberOfRooms; i++) {
+        for (int i = 0; i < numberOfRooms; i++) {
             System.out.print("Enter room type: ");
             typeOfRoom = sc.nextLine();
-            while(!userValidator.isValidRoomType(typeOfRoom)) {
+            while (!userValidator.isValidRoomType(typeOfRoom)) {
                 System.out.print("This is not a valid input, these are some options: Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family,\n");
                 System.out.print("Executive Double, Executive Twin, Executive Single, Classic Double, Classic Twin, Classic Single.");
                 System.out.print("\nPlease enter your choice: ");

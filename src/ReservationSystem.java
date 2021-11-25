@@ -70,6 +70,7 @@ public class ReservationSystem {
         while (choice != ConstantReferences.EXIT_ANALYTICAL) {
             if(choice == 1) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
+                boolean showRoom = userInput.getYesOrNo();
                 System.out.print("Enter the starting date: ");
                 LocalDate dateCheckIn = userInput.getDate();
                 System.out.print("Enter the ending date: ");
@@ -78,10 +79,10 @@ public class ReservationSystem {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
                     dateCheckIn = userInput.getDate();
                 }
-                System.out.println(DataAnalysis.getOccupancyRatesAll(Reader.getAllReservations(), dateCheckIn, dateCheckOut));
+                System.out.println(DataAnalysis.getOccupancyRatesAll(Reader.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
             } else if (choice == 2) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
-
+                boolean showRoom = userInput.getYesOrNo();
                 System.out.print("Enter the starting date: ");
                 LocalDate dateCheckIn = userInput.getDate();
                 System.out.print("Enter the ending date: ");
@@ -90,7 +91,7 @@ public class ReservationSystem {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
                     dateCheckIn = userInput.getDate();
                 }
-                System.out.println(DataAnalysis.calculateIncomeAll(Reader.getAllReservations(), Reader.getAllCancellations(), dateCheckIn, dateCheckOut));
+                System.out.println(DataAnalysis.calculateIncomeAll(Reader.getAllReservations(), Reader.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));
 
             }
             menus.printAnalyticsMenu();
