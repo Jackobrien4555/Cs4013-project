@@ -104,6 +104,7 @@ public abstract class HotelInitialiser {
                     // If we reach the last line, add newHotel to the list of hotels and return.
                     if (i == cells.size()) {
                         result.add(newHotel);
+                        allHotels = result;
                         return result;
                     }
                 }

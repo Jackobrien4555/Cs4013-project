@@ -186,7 +186,7 @@ public class InputScanner {
      * Checks the input value from the user so that it is a valid Date.
      * @return A valid date as a LocalDate.
      */
-    private LocalDate getDate() {
+    public LocalDate getDate() {
         String input;
         input = sc.nextLine();
         LocalDate date;

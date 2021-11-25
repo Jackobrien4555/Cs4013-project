@@ -147,7 +147,7 @@ public abstract class DataAnalysis {
                             // only find the income up to endDate. Otherwise, calculate up to
                             // the check-out date.
 
-                            System.out.println(res.getCheckInDate());
+                            //System.out.println(res.getCheckInDate());
                             if(res.getCheckOutDate().compareTo(endDate) < 0){
                                 costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), res.getCheckOutDate());
                             }

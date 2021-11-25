@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReservationSystem {
@@ -68,11 +69,29 @@ public class ReservationSystem {
         choice = userInput.getAnalyticsChoice();
         while (choice != ConstantReferences.EXIT_ANALYTICAL) {
             if(choice == 1) {
-                // code
+                System.out.println("Do you also want to show rooms that aren't booked? Y/N");
+                System.out.print("Enter the starting date: ");
+                LocalDate dateCheckIn = userInput.getDate();
+                System.out.print("Enter the ending date: ");
+                LocalDate dateCheckOut = userInput.getDate();
+                while(dateCheckIn.compareTo(dateCheckOut) > 0) {
+                    System.out.print("You cannot have the starting date be later than the ending date, try again: ");
+                    dateCheckIn = userInput.getDate();
+                }
+                System.out.println(DataAnalysis.getOccupancyRatesAll(Reader.getAllReservations(), dateCheckIn, dateCheckOut));
             } else if (choice == 2) {
-                // code
-            } else if (choice == 3) {
-                // code
+                System.out.println("Do you also want to show rooms that aren't booked? Y/N");
+
+                System.out.print("Enter the starting date: ");
+                LocalDate dateCheckIn = userInput.getDate();
+                System.out.print("Enter the ending date: ");
+                LocalDate dateCheckOut = userInput.getDate();
+                while(dateCheckIn.compareTo(dateCheckOut) > 0) {
+                    System.out.print("You cannot have the starting date be later than the ending date, try again: ");
+                    dateCheckIn = userInput.getDate();
+                }
+                System.out.println(DataAnalysis.calculateIncomeAll(Reader.getAllReservations(), Reader.getAllCancellations(), dateCheckIn, dateCheckOut));
+
             }
             menus.printAnalyticsMenu();
             choice = userInput.getAnalyticsChoice();

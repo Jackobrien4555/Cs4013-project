@@ -60,9 +60,9 @@ public class PrintedMenus {
     public void printAnalyticsMenu() {
         String[] options = {"\n------- ANALYTICS MENU -------",
                 "1. Hotel occupancy analytics.",
-                "2. Room occupancy analytics.",
-                "3. Financial analytics.",
-                "4. Go back to previous menu.",
+                //"2. Room occupancy analytics.",
+                "2. Financial analytics.",
+                "3. Go back to previous menu.",
                 "------------------------------",
                 "Please enter choice: "};
         printMenu(options);

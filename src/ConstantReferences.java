@@ -7,6 +7,6 @@ public class ConstantReferences {
     public final static int EXIT_STARTUP = 3;
     public final static int EXIT_CUSTOMER = 3;
     public final static int EXIT_ADMINISTRATOR = 6;
-    public final static int EXIT_ANALYTICAL = 4;
+    public final static int EXIT_ANALYTICAL = 3;
 
 }
