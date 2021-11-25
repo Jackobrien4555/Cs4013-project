@@ -28,7 +28,7 @@ public class InputScanner {
      * @return  The user's choice.
      */
     public int getStartUpChoice() {
-        return getUserMenuChoice(5);
+        return getUserMenuChoice(3);
     }
 
     /**
@@ -80,6 +80,16 @@ public class InputScanner {
         reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
         reservation.setRooms(rooms);
         return reservation;
+    }
+
+    public Cancellation readValidCancellation(Reader rReader) {
+        Cancellation userInputCancellation;
+        Reservation chosenReservation;
+        System.out.println("\n------ REQUESTING CANCELLATION INFORMATION ------");
+        System.out.println("Enter the reservation number for the reservation you are cancelling.");
+        System.out.println("-------------------------------------------------");
+        System.out.print("Reservation number: ");
+        chosenReservation =
     }
 
     /**
@@ -150,6 +160,12 @@ public class InputScanner {
             input = sc.nextLine();
         }
         return Integer.parseInt(input);
+    }
+
+    private Reservation getReservationFromUserReservationNumber(Reader rReader) {
+        Reservation chosenReservation;
+
+        int
     }
 
     /**

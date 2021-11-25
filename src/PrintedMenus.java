@@ -9,17 +9,46 @@
 public class PrintedMenus {
 
     /**
-     * First menu that gives the options for each submenu.
+     * Menu that represents the startup login choices.
      * @return Printed StartUp menu.
      */
     public void printStartUpMenu() {
-        String[] options = {"\n------STARTUP MENU------",
+        String[] options = {"\n----STARTUP MENU----",
+                            "1. Customer Login.",
+                            "2. Administrator Login.",
+                            "3. Quit the program.",
+                            "----------------------",
+                            "Please enter choice: "};
+        printMenu(options);
+    }
+
+    /**
+     * Menu that represents the customer login.
+     * @return Printed Customer menu.
+     */
+    public void printCustomerMenu() {
+        String[] options = {"\n-----CUSTOMER MENU-----",
+                "1. Make a reservation.",
+                "2. Cancel a reservation.",
+                "3. Go back to login menu.",
+                "------------------------",
+                "Please enter choice: "};
+        printMenu(options);
+    }
+
+    /**
+     * Administrator menu that gives options that aren't available in the customer menu.
+     * @return Printed Administrator menu.
+     */
+    public void printAdministratorMenu() {
+        String[] options = {"\n----ADMINISTRATOR MENU----",
                 "1. Show all reservations.",
                 "2. Make a reservation.",
                 "3. Cancel a reservation.",
                 "4. Data analysis.",
-                "5. Quit the program.",
-                "------------------------"};
+                "5. Go back to login menu.",
+                "------------------------",
+                "Please enter choice: "};
         printMenu(options);
     }
 
@@ -32,8 +61,9 @@ public class PrintedMenus {
                 "1. Hotel occupancy analytics.",
                 "2. Room occupancy analytics.",
                 "3. Financial analytics.",
-                "4. Go back to startup menu.",
-                "----------------------------"};
+                "4. Go back to previous menu.",
+                "----------------------------",
+                "Please enter choice: "};
         printMenu(options);
     }
 

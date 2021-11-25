@@ -130,4 +130,13 @@ public abstract class Reader {
     public static ArrayList<Cancellation> getAllCancellations() {
         return allCancellations;
     }
+
+    public Reservation getReservation(int resNumber) {
+        for (int i = 0; i < allReservations.size(); i++) {
+            if(resNumber == allReservations.get(i).getResNumber()) {
+                return allReservations.get(i);
+            }
+        }
+        return null;
+    }
 }
