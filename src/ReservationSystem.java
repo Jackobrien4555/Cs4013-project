@@ -47,11 +47,30 @@ public class ReservationSystem {
                 }
             } else if(choice == 4) {
                 reader.getAllCancellations().toString();
+            } else if(choice == 5) {
+                displayAnalyticalMenu();
             }
             printRightMenu(exitValue);
             choice = userInput.getUserMenuChoice(exitValue);
         }
 
+    }
+
+    private void displayAnalyticalMenu() {
+        int choice = 0;
+        menus.printAnalyticsMenu();
+        choice = userInput.getAnalyticsChoice();
+        while (choice != ConstantReferences.EXIT_ANALYTICAL) {
+            if(choice == 1) {
+                // code
+            } else if (choice == 2) {
+                // code
+            } else if (choice == 3) {
+                // code
+            }
+            menus.printAnalyticsMenu();
+            choice = userInput.getAnalyticsChoice();
+        }
     }
 
     private void printRightMenu(int exitValue) {
