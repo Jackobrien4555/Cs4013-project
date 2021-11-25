@@ -178,40 +178,32 @@
     ]
   },
   {
-    "name": "TestInitialisers",
+    "name": "Reader",
     "superclasses": "",
     "subclasses": "",
     "type": 1,
     "responsibilities": [
-      "For testing the HotelInitialiser"
+      "Will read the contents of files and convert them into Reservation and/or Cancellation objects.",
+      ""
     ],
     "collaborators": [
-      "Hotel",
-      "HotelInitialiser"
+      "Reservation",
+      "Cancellation",
+      "Room"
     ]
   },
   {
-    "name": "TestDataAnalysis",
+    "name": "Writer",
     "superclasses": "",
     "subclasses": "",
     "type": 1,
     "responsibilities": [
-      "For testing the DataAnalysis class"
+      "Writes both reservations and cancellations"
     ],
     "collaborators": [
-      "DataAnalysis"
-    ]
-  },
-  {
-    "name": "TestStartup",
-    "superclasses": "",
-    "subclasses": "",
-    "type": 1,
-    "responsibilities": [
-      "For testing the system"
-    ],
-    "collaborators": [
-      "PrintedMenus"
+      "Reservation",
+      "Cancellation",
+      ""
     ]
   }
 ]
