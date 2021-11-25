@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please choose an option:" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+         <children>
+            <Button layoutX="10.0" layoutY="10.0" minWidth="150.0" mnemonicParsing="false" text="Make a Reservation" />
+            <Button layoutX="10.0" layoutY="35.0" minWidth="150.0" mnemonicParsing="false" text="Cancel Reservation" />
+            <Button layoutX="10.0" layoutY="60.0" minWidth="150.0" mnemonicParsing="false" text="Return to Login" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="30.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>
