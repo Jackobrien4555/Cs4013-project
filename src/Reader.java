@@ -12,12 +12,13 @@ import java.util.Scanner;
  * @author Edison Cai 20241135
  */
 public abstract class Reader {
-    public static ArrayList<Reservation> allReservations;
-    public static ArrayList<Cancellation> allCancellations;
+    private static ArrayList<Reservation> allReservations;
+    private static ArrayList<Cancellation> allCancellations;
 
     /**
      * Reads a file line-by-line, creates a Reservation object for
-     * all of them. They are placed in an ArrayList and returned.
+     * all of them. They are placed in an ArrayList and returned. The allReservations
+     * is list also populated.
      *
      * @param filepath The file path of the file to be read from.
      * @return A list of Reservations extracted from the specified file path.
@@ -112,5 +113,21 @@ public abstract class Reader {
         // Create the new Reservation after parsing "cells" and returning it.
         return new Reservation(resNumber, resName, resType, checkInDate, checkOutDate,
                 numberOfRooms, rooms, totalCost);
+    }
+
+    /**
+     * Gets list of reservations.
+     * @return List of all reservations.
+     */
+    public static ArrayList<Reservation> getAllReservations() {
+        return allReservations;
+    }
+
+    /**
+     * Gets list of cancellations.
+     * @return List of all cancellations
+     */
+    public static ArrayList<Cancellation> getAllCancellations() {
+        return allCancellations;
     }
 }
