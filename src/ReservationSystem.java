@@ -2,17 +2,14 @@ public class ReservationSystem {
 
     private InputScanner userInput;
     private PrintedMenus menus;
-    private ConstantReferences references;
     private Reader reader;
-    private HotelInitialiser hotel;
-    private DataAnalysis analysis;
 
     public ReservationSystem() {
         menus = new PrintedMenus();
         userInput = new InputScanner();
-        reader.readReservations(references.RESERVATIONS);
-        reader.readCancellations(references.CANCELLATIONS);
-        hotel.initialise(HotelInitialiser.getFileCells(references.HOTELS));
+        Reader.readReservations(ConstantReferences.RESERVATIONS);
+        Reader.readCancellations(ConstantReferences.CANCELLATIONS);
+        HotelInitialiser.initialise(HotelInitialiser.getFileCells(ConstantReferences.HOTELS));
     }
 
     public void run() {
@@ -21,11 +18,11 @@ public class ReservationSystem {
         menus.printStartUpMenu();
         choice = userInput.getStartUpChoice();
 
-        while(choice != references.EXIT_STARTUP) {
+        while(choice != ConstantReferences.EXIT_STARTUP) {
             if(choice == 1) {
-                subMenuRun(references.EXIT_CUSTOMER);
+                subMenuRun(ConstantReferences.EXIT_CUSTOMER);
             } else if(choice == 2) {
-                subMenuRun(references.EXIT_ADMINISTRATOR);
+                subMenuRun(ConstantReferences.EXIT_ADMINISTRATOR);
             }
             menus.printStartUpMenu();
             choice = userInput.getStartUpChoice();
@@ -41,11 +38,13 @@ public class ReservationSystem {
         choice = userInput.getUserMenuChoice(exitValue);
         while(choice != exitValue) {
             if(choice == 1) {
-                writer.writeReservation(references.RESERVATIONS, userInput.readReservation());
+                writer.writeReservation(ConstantReferences.RESERVATIONS, userInput.readReservation());
             } else if(choice == 2) {
-                writer.writeCancellation(references.CANCELLATIONS, userInput.readValidCancellation(reader));
+                writer.writeCancellation(ConstantReferences.CANCELLATIONS, userInput.readValidCancellation(reader));
             } else if(choice == 3) {
-                reader.getAllReservations().toString();
+                for(int i = 0; i < Reader.getAllReservations().size(); i++) {
+                    System.out.println(reader.getReservation(i).toString());
+                }
             } else if(choice == 4) {
                 reader.getAllCancellations().toString();
             }
@@ -56,9 +55,9 @@ public class ReservationSystem {
     }
 
     private void printRightMenu(int exitValue) {
-        if(exitValue == references.EXIT_CUSTOMER) {
+        if(exitValue == ConstantReferences.EXIT_CUSTOMER) {
             menus.printCustomerMenu();
-        } else if (exitValue == references.EXIT_ADMINISTRATOR) {
+        } else if (exitValue == ConstantReferences.EXIT_ADMINISTRATOR) {
             menus.printAdministratorMenu();
         }
     }
