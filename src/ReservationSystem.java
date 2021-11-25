@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ReservationSystem {
 
     private InputScanner userInput;
@@ -42,8 +44,9 @@ public class ReservationSystem {
             } else if(choice == 2) {
                 writer.writeCancellation(ConstantReferences.CANCELLATIONS, userInput.readValidCancellation(reader));
             } else if(choice == 3) {
-                for(int i = 0; i < Reader.getAllReservations().size(); i++) {
-                    System.out.println(reader.getReservation(i).toString());
+                int size = Reader.getAllReservations().size();
+                for(int i = 0; i < size; i++) {
+                    System.out.println(Reader.getAllReservations().get(i).toString());
                 }
             } else if(choice == 4) {
                 reader.getAllCancellations().toString();

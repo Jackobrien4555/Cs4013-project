@@ -131,10 +131,10 @@ public abstract class Reader {
         return allCancellations;
     }
 
-    public Reservation getReservation(int resNumber) {
-        for (int i = 0; i < allReservations.size(); i++) {
-            if(resNumber == allReservations.get(i).getResNumber()) {
-                return allReservations.get(i);
+    public static Reservation getReservation(int resNumber) {
+        for (Reservation Reservation : allReservations) {
+            if (resNumber == Reservation.getResNumber()) {
+                return Reservation;
             }
         }
         return null;

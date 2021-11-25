@@ -18,7 +18,7 @@ public class Writer {
 
         try {
             FileWriter writer = new FileWriter(filename, true);
-            writer.write(reservation.toString());
+            writer.write(reservation.toString() + "\n");
             writer.close();
         }
         catch (IOException exception) {

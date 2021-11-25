@@ -94,7 +94,7 @@ public class InputScanner {
         System.out.println("Enter the reservation number for the reservation you are cancelling.");
         System.out.println("-------------------------------------------------");
         System.out.print("Reservation number: ");
-        chosenReservation = getReservationFromUserReservationNumber(rReader);
+        chosenReservation = getReservationFromUserReservationNumber();
         userInputCancellation = new Cancellation(chosenReservation);
         return userInputCancellation;
     }
@@ -155,18 +155,26 @@ public class InputScanner {
         return input;
     }
 
-    private Reservation getReservationFromUserReservationNumber(Reader rReader) {
+    /**
+     * Asks for user input and returns the corresponding Reservation.
+     * @return
+     */
+    private Reservation getReservationFromUserReservationNumber() {
         Reservation chosenReservation;
 
-        int resNumber = getReservationNumber(rReader);
-        chosenReservation = rReader.getReservation(resNumber);
+        int resNumber = getReservationNumber();
+        chosenReservation = Reader.getReservation(resNumber);
 
         return chosenReservation;
     }
 
-    private int getReservationNumber(Reader rReader) {
+    /**
+     * Checks to see if the reservation number exists
+     * @return
+     */
+    private int getReservationNumber() {
         int resNumber = getNumber();
-        while(rReader.getReservation(resNumber) == null) {
+        while(Reader.getReservation(resNumber) == null) {
             System.out.print("Reservation you inputted does not exist. Try again: ");
             resNumber = getNumber();
         }
