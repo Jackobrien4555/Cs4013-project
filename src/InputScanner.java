@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class InputScanner {
     private Scanner sc;
     private InputValidator userValidator;
+    private ConstantReferences references;
 
     /**
      * Initialises the input scanner we are going to use to complete all the different requirements from our user.
@@ -28,7 +29,23 @@ public class InputScanner {
      * @return  The user's choice.
      */
     public int getStartUpChoice() {
-        return getUserMenuChoice(3);
+        return getUserMenuChoice(references.EXIT_STARTUP);
+    }
+
+    /**
+     * User can select a valid choice when selecting an option in the Customer screen.
+     * @return  The user's choice.
+     */
+    public int getCustomerChoice() {
+        return getUserMenuChoice(references.EXIT_CUSTOMER);
+    }
+
+    /**
+     * User can select a valid choice when selecting an option in the Administrator screen.
+     * @return  The user's choice.
+     */
+    public int getAdministratorChoice() {
+        return getUserMenuChoice(references.EXIT_ADMINISTRATOR);
     }
 
     /**
@@ -36,7 +53,7 @@ public class InputScanner {
      * @return  The user's choice.
      */
     public int getAnalyticsChoice() {
-        return getUserMenuChoice(4);
+        return getUserMenuChoice(references.EXIT_ANALYTICAL);
     }
 
     /**
@@ -89,7 +106,9 @@ public class InputScanner {
         System.out.println("Enter the reservation number for the reservation you are cancelling.");
         System.out.println("-------------------------------------------------");
         System.out.print("Reservation number: ");
-        chosenReservation =
+        chosenReservation = getReservationFromUserReservationNumber(rReader);
+        userInputCancellation = new Cancellation(chosenReservation);
+        return userInputCancellation;
     }
 
     /**
@@ -165,7 +184,19 @@ public class InputScanner {
     private Reservation getReservationFromUserReservationNumber(Reader rReader) {
         Reservation chosenReservation;
 
-        int
+        int resNumber = getReservationNumber(rReader);
+        chosenReservation = rReader.getReservation(resNumber);
+
+        return chosenReservation;
+    }
+
+    private int getReservationNumber(Reader rReader) {
+        int resNumber = getNumber();
+        while(rReader.getReservation(resNumber) == null) {
+            System.out.print("Reservation you inputted does not exist. Try again: ");
+            resNumber = getNumber();
+        }
+        return resNumber;
     }
 
     /**

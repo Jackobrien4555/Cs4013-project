@@ -42,11 +42,12 @@ public class PrintedMenus {
      */
     public void printAdministratorMenu() {
         String[] options = {"\n----ADMINISTRATOR MENU----",
-                "1. Show all reservations.",
-                "2. Make a reservation.",
-                "3. Cancel a reservation.",
-                "4. Data analysis.",
-                "5. Go back to login menu.",
+                "1. Make a reservation.",
+                "2. Cancel a reservation.",
+                "3. Show all reservations.",
+                "4. Show all cancellations.",
+                "5. Data analysis.",
+                "6. Go back to login menu.",
                 "------------------------",
                 "Please enter choice: "};
         printMenu(options);
