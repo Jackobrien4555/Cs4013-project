@@ -104,7 +104,7 @@ public abstract class Reader {
         // Add all the rooms in a reservation one-by-one.
         for (int i = 6; i < cells.length - 1; i += 2) {
             // cells[i] is the room type and Integer.parseInt(cells[i + 1]) will be the occupancy.
-            Room room = new Room(cells[i], Integer.parseInt(cells[i + 1]), 0);
+            Room room = new Room(cells[i], Integer.parseInt(cells[i + 1]));
             rooms.add(room);
         }
 

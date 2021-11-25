@@ -216,25 +216,22 @@ public class InputScanner {
     }
 
     /**
-     * Instructs the user on completing different rooms and reooms details.
+     * Instructs the user on completing different rooms and rooms details.
      * @param rooms The rooms arraylist given to us.
      * @return The completed Rooms arraylist with all the details given by the user.
      */
     private void readRoom(ArrayList<Room> rooms) {
-        int roomNum;
         String typeOfRoom;
         int occupancy;
 
         System.out.println("\n------- REQUESTING ROOM INFO -------");
         for(int i = 0; i < rooms.size(); i++) {
-            System.out.print("Enter room number: ");
-            roomNum = getNumber();
             System.out.print("Enter room type: ");
             typeOfRoom = sc.nextLine();
             System.out.print("Enter occupancy total (adults + children): ");
             occupancy = getOccupancy();
 
-            rooms.add(new Room(typeOfRoom, occupancy, roomNum));
+            rooms.add(new Room(typeOfRoom, occupancy));
         }
         System.out.print("--------------------------------------");
     }
