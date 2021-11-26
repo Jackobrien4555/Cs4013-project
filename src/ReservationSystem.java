@@ -7,6 +7,7 @@
  */
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ReservationSystem {
 
@@ -65,7 +66,13 @@ public class ReservationSystem {
             if(choice == 1) {
                 writer.writeReservation(ConstantReferences.RESERVATIONS, userInput.readReservation());
             } else if(choice == 2) {
-                writer.writeCancellation(ConstantReferences.CANCELLATIONS, userInput.readValidCancellation());
+                Cancellation cancellation = userInput.readValidCancellation();
+                int resNum = cancellation.getReservation().getResNumber();
+                writer.writeCancellation(ConstantReferences.CANCELLATIONS, cancellation);
+                ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
+                reservations.remove(ReservationCancellationManager.getReservation(resNum));
+                ReservationCancellationManager.setAllReservations(reservations);
+                writer.writeReservations(ConstantReferences.RESERVATIONS, reservations);
             } else if(choice == 3) {
                 int size = ReservationCancellationManager.getAllReservations().size();
                 for(int i = 0; i < size; i++) {

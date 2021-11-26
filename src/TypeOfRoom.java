@@ -31,14 +31,24 @@ public class TypeOfRoom {
 	 * @return typeOfRoom the type of the room
 	 */
 	public String getRoomType(){
-		return typeOfRoom;} 
-/**
- * returns the number of this type of room available
- * @return numAvailable returns the number of this type of room available
- */
+		return typeOfRoom;
+	}
+
+	/**
+	 * returns the number of this type of room available
+	 * @return numAvailable returns the number of this type of room available
+	 */
 	public int getNumAvailable() {
 		return numAvailable;
 		
+	}
+
+	public int getOccuMin() {
+			return occuMin;
+	}
+
+	public int getOccuMax() {
+		return occuMax;
 	}
 
 	public double[] getDailyRates() {
@@ -54,7 +64,7 @@ public class TypeOfRoom {
 	}
 
 
-	}
+}
 
 
 

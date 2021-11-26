@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The Writer class writes both reservations and cancellations
@@ -25,6 +26,22 @@ public class Writer {
             System.out.println("Error: Did not write file");
             exception.printStackTrace();
         }
+    }
+
+    public void writeReservations(String filename, ArrayList<Reservation> reservations) {
+
+        try {
+            FileWriter writer = new FileWriter(filename, false);
+            for (int i = 0; i < reservations.size(); i++) {
+                writer.write(reservations.get(i).toString() + "\n");
+            }
+            writer.close();
+        }
+        catch (IOException exception) {
+            System.out.println("Error: Did not write to file.");
+            exception.printStackTrace();
+        }
+
     }
 
     /**

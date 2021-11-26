@@ -122,23 +122,31 @@ public class InputScanner {
         validNum = Integer.parseInt(input);
         return validNum;
     }
-//
-//    private int getValidOccupancy() {
-//        String input;
-//        int validOccupancy;
-//        input = sc.nextLine();
-//        while (!userValidator.inputIsInteger(input)) {
-//            System.out.print("The input is not a valid positive number, make sure it is greater than 0. Try again: ");
-//            input = sc.nextLine();
-//        }
-//        validOccupancy = Integer.parseInt(input);
-//        for (int i = 0; i < HotelInitialiser.allHotels.size(); i++) {
-//            for (int j = 0; j < HotelInitialiser.allHotels.get(i).getTypeOfRooms().size(); j++) {
-//                String roomType = HotelInitialiser.allHotels.get(i).getRoomType(j).getRoomType();
-//                if (roomType.equalsIgnoreCase())
-//            }
-//        }
-//    }
+
+    /**
+     * Checks the input value from the user so that it is a valid occupancy depending on the typeOfRoom.
+     * @return A valid occupancy for the type of room.
+     */
+    private int getValidOccupancy(String typeOfRoom) {
+        int occuMin = 0;
+        int occuMax = 0;
+        for (int i = 0; i < HotelInitialiser.allHotels.size(); i++) {
+            for (int j = 0; j < HotelInitialiser.allHotels.get(i).getTypeOfRooms().size(); j++) {
+                String roomType = HotelInitialiser.allHotels.get(i).getRoomType(j).getRoomType();
+                if (roomType.equalsIgnoreCase(typeOfRoom)) {
+                    occuMin = HotelInitialiser.allHotels.get(i).getRoomType(j).getOccuMin();
+                    occuMax = HotelInitialiser.allHotels.get(i).getRoomType(j).getOccuMax();
+                    break;
+                }
+            }
+        }
+        int validOccupancy = getNumber();
+        while (validOccupancy < occuMin || validOccupancy > occuMax) {
+            System.out.print("The input is not a valid occupancy for the room type, try again between " + occuMin + " and " + occuMax + " : ");
+            validOccupancy = getNumber();
+        }
+        return validOccupancy;
+    }
 
     /**
      * Checks the input value from the user so that it is a valid Name.
@@ -277,7 +285,7 @@ public class InputScanner {
                 typeOfRoom = sc.nextLine();
             }
             System.out.print("Enter occupancy total: ");
-            occupancy = getNumber();
+            occupancy = getValidOccupancy(typeOfRoom);
 
             rooms.add(new Room(typeOfRoom, occupancy));
         }
