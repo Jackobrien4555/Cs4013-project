@@ -107,9 +107,9 @@ public class ReservationSystem {
             if(choice == 1) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
                 boolean showRoom = userInput.getYesOrNo();
-                System.out.print("Enter the starting date: ");
+                System.out.print("Enter the starting date (YYYY-MM-DD): ");
                 LocalDate dateCheckIn = userInput.getDate();
-                System.out.print("Enter the ending date: ");
+                System.out.print("Enter the ending date (YYYY-MM-DD): ");
                 LocalDate dateCheckOut = userInput.getDate();
                 while(dateCheckIn.compareTo(dateCheckOut) > 0) {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
@@ -119,9 +119,9 @@ public class ReservationSystem {
             } else if (choice == 2) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
                 boolean showRoom = userInput.getYesOrNo();
-                System.out.print("Enter the starting date: ");
+                System.out.print("Enter the starting date (YYYY-MM-DD): ");
                 LocalDate dateCheckIn = userInput.getDate();
-                System.out.print("Enter the ending date: ");
+                System.out.print("Enter the ending date (YYYY-MM-DD): ");
                 LocalDate dateCheckOut = userInput.getDate();
                 while(dateCheckIn.compareTo(dateCheckOut) > 0) {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
