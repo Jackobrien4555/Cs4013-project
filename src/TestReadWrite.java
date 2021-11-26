@@ -20,7 +20,7 @@ public class TestReadWrite {
         writer.writeReservation(writeRes, myRes);
         writer.writeCancellation(writeCan, myCan);
 
-        Reservation res = Reader.getReservation(7);
+        Reservation res = ReservationCancellationManager.getReservation(7);
 
         System.out.println();
     }
