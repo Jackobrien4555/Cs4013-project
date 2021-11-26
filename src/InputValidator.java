@@ -65,6 +65,12 @@ public class InputValidator {
         return (input.matches("\\d+") || input.matches("\\d+.\\d+"));
     }
 
+    /**
+     * Checks the input value from the user so that it is a valid reservation number and not already
+     * included in our reservations file.
+     * @param input The reseravation number.
+     * @return A valid reservation number.
+     */
     public boolean inputIsValidResNum(int input) {
         ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
         for (int i = 0; i < reservations.size(); i++) {
