@@ -10,7 +10,6 @@ public class PrintedMenus {
 
     /**
      * Menu that represents the startup login choices.
-     * @return Printed StartUp menu.
      */
     public void printStartUpMenu() {
         String[] options = {"\n------ STARTUP MENU ------",
@@ -24,7 +23,6 @@ public class PrintedMenus {
 
     /**
      * Menu that represents the customer login.
-     * @return Printed Customer menu.
      */
     public void printCustomerMenu() {
         String[] options = {"\n----- CUSTOMER MENU -----",
@@ -38,7 +36,6 @@ public class PrintedMenus {
 
     /**
      * Administrator menu that gives options that aren't available in the customer menu.
-     * @return Printed Administrator menu.
      */
     public void printAdministratorMenu() {
         String[] options = {"\n----- ADMINISTRATOR MENU -----",
@@ -55,7 +52,6 @@ public class PrintedMenus {
 
     /**
      * Analytical menu that gives options for different sections.
-     * @return Printed Analytics menu.
      */
     public void printAnalyticsMenu() {
         String[] options = {"\n------- ANALYTICS MENU -------",
@@ -71,7 +67,6 @@ public class PrintedMenus {
     /**
      * Method that prints out each String needed for the user.
      * @param options String arraylist given.
-     * @return Printed string arraylist.
      */
     private void printMenu(String[] options) {
         for(int i = 0; i < options.length; i++) {

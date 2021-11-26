@@ -1,5 +1,12 @@
+/**
+ * This class uses InputScanner, PrintedMenus and Reader along with ConstantReferences to create menus and
+ * sub menus so that the user can use all the different methods we have created.
+ *
+ * @author 20238029 Sergiu Mereacre
+ * @since 15/11/2021
+ */
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class ReservationSystem {
 
@@ -15,6 +22,10 @@ public class ReservationSystem {
         HotelInitialiser.initialise(HotelInitialiser.getFileCells(ConstantReferences.HOTELS));
     }
 
+    /**
+     * This is the main run function which helps run the startup menu. From this menu everything else
+     * gets run based on the user's selection. Without the run method nothing can be used by the user.
+     */
     public void run() {
         int choice;
 
@@ -33,6 +44,11 @@ public class ReservationSystem {
         System.out.println("\n---- QUITTING THE PROGRAM ----");
     }
 
+    /**
+     * This is a sub menu of the startup menu which helps execute functions and methods depending on
+     * the user's selection.
+     * @param exitValue The exit value of the chose menu.
+     */
     private void subMenuRun(int exitValue) {
         Writer writer = new Writer();
         int choice = 0;
@@ -43,7 +59,7 @@ public class ReservationSystem {
             if(choice == 1) {
                 writer.writeReservation(ConstantReferences.RESERVATIONS, userInput.readReservation());
             } else if(choice == 2) {
-                writer.writeCancellation(ConstantReferences.CANCELLATIONS, userInput.readValidCancellation(reader));
+                writer.writeCancellation(ConstantReferences.CANCELLATIONS, userInput.readValidCancellation());
             } else if(choice == 3) {
                 int size = Reader.getAllReservations().size();
                 for(int i = 0; i < size; i++) {
@@ -63,6 +79,11 @@ public class ReservationSystem {
 
     }
 
+    /**
+     * Co-Author: Edison Cai.
+     * This displays the analytical menu and includes all the different methods it might have to run based on the
+     * user's input.
+     */
     private void displayAnalyticalMenu() {
         int choice = 0;
         menus.printAnalyticsMenu();
@@ -99,6 +120,9 @@ public class ReservationSystem {
         }
     }
 
+    /**
+     * Method helps to pick between the customer and administrator depending on the exit value.
+     */
     private void printRightMenu(int exitValue) {
         if(exitValue == ConstantReferences.EXIT_CUSTOMER) {
             menus.printCustomerMenu();

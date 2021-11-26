@@ -17,8 +17,6 @@ public class InputScanner {
 
     /**
      * Initialises the input scanner we are going to use to complete all the different requirements from our user.
-     *
-     * @return Objects initialised.
      */
     public InputScanner() {
         sc = new Scanner(System.in);
@@ -27,25 +25,22 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option in the StartUp screen.
-     *
      * @return The user's choice.
      */
     public int getStartUpChoice() {
-        return getUserMenuChoice(references.EXIT_STARTUP);
+        return getUserMenuChoice(ConstantReferences.EXIT_STARTUP);
     }
 
     /**
      * User can select a valid choice when selecting an option in the Analytics screen.
-     *
      * @return The user's choice.
      */
     public int getAnalyticsChoice() {
-        return getUserMenuChoice(references.EXIT_ANALYTICAL);
+        return getUserMenuChoice(ConstantReferences.EXIT_ANALYTICAL);
     }
 
     /**
      * Takes the user through a bunch of reservation questions so a reservation instance can be completed.
-     *
      * @return Completed reservation.
      */
     public Reservation readReservation() {
@@ -91,7 +86,11 @@ public class InputScanner {
         return reservation;
     }
 
-    public Cancellation readValidCancellation(Reader rReader) {
+    /**
+     * This method checks to see if a reservation number is correct or not. If it is validated it can be cancelled.
+     * @return The user's chosen cancellation reference based on the reservation number.
+     */
+    public Cancellation readValidCancellation() {
         Cancellation userInputCancellation;
         Reservation chosenReservation;
         System.out.println("\n------ REQUESTING CANCELLATION INFORMATION ------");
@@ -105,7 +104,6 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option.
-     *
      * @param exitValue The highest value the user can input for a certain menu.
      * @return The user's choice.
      */
@@ -115,7 +113,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Number.
-     *
      * @return A valid number as Integer.
      */
     private int getNumber() {
@@ -132,7 +129,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid number in the range given.
-     *
      * @param minValueOfRange Minimum value of the range.
      * @param maxValueOfRange Maximum value of the range.
      * @return The choice the user has made inside the range we instructed it to.
@@ -150,7 +146,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Reservation Type.
-     *
      * @return A valid reservation type as a String.
      */
     private String getReservationType() {
@@ -165,9 +160,8 @@ public class InputScanner {
     }
 
     /**
-     * Asks for user input and returns the corresponding Reservation.
-     *
-     * @return
+     * Asks for user input reservation number and returns the corresponding reservation.
+     * @return Reservation based on the user reservation number.
      */
     private Reservation getReservationFromUserReservationNumber() {
         Reservation chosenReservation;
@@ -179,9 +173,8 @@ public class InputScanner {
     }
 
     /**
-     * Checks to see if the reservation number exists
-     *
-     * @return
+     * Asks the user for input and makes sure that the reservation number is valid.
+     * @return Valid reservation number.
      */
     private int getReservationNumber() {
         int resNumber = getNumber();
@@ -194,7 +187,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Date.
-     *
      * @return A valid date as a LocalDate.
      */
     public LocalDate getDate() {
@@ -209,6 +201,11 @@ public class InputScanner {
         return date;
     }
 
+    /**
+     * Co-Author: Edison Cai
+     * Asks the user for a Y or N input and returns a boolean expression.
+     * @return Boolean value depending on the users choice of Y or N.
+     */
     public boolean getYesOrNo() {
         String input;
         input = sc.nextLine();
@@ -226,7 +223,6 @@ public class InputScanner {
 
     /**
      * Instructs the user on completing different rooms and rooms details.
-     *
      * @param rooms The rooms arraylist given to us.
      * @return The completed Rooms arraylist with all the details given by the user.
      */

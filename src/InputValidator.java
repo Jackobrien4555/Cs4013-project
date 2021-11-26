@@ -93,6 +93,12 @@ public class InputValidator {
         return input.matches("\\d{4}-\\d{2}-\\d{2}");
     }
 
+    /**
+     * Validates if String correctly represents a yes or no answer from user.
+     *
+     * @param input String that is being checked.
+     * @return True or False for whether it's a valid yes or no answer.
+     */
     public boolean inputIsYesOrNo(String input){
         return input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("N");
     }
