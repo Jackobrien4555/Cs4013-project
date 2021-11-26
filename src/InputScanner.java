@@ -122,6 +122,23 @@ public class InputScanner {
         validNum = Integer.parseInt(input);
         return validNum;
     }
+//
+//    private int getValidOccupancy() {
+//        String input;
+//        int validOccupancy;
+//        input = sc.nextLine();
+//        while (!userValidator.inputIsInteger(input)) {
+//            System.out.print("The input is not a valid positive number, make sure it is greater than 0. Try again: ");
+//            input = sc.nextLine();
+//        }
+//        validOccupancy = Integer.parseInt(input);
+//        for (int i = 0; i < HotelInitialiser.allHotels.size(); i++) {
+//            for (int j = 0; j < HotelInitialiser.allHotels.get(i).getTypeOfRooms().size(); j++) {
+//                String roomType = HotelInitialiser.allHotels.get(i).getRoomType(j).getRoomType();
+//                if (roomType.equalsIgnoreCase())
+//            }
+//        }
+//    }
 
     /**
      * Checks the input value from the user so that it is a valid Name.

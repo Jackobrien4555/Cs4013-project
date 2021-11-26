@@ -70,11 +70,12 @@ public class InputValidator {
      * @return True or False for whether it's a valid room type.
      */
     public boolean isValidRoomType(String input) {
-        String[] roomTypes = {"Deluxe Double", "Deluxe Twin", "Deluxe Single", "Deluxe Family", "Executive Double",
-                "Executive Twin", "Executive Single", "Classic Double", "Classic Twin", "Classic Single"};
-        for (int i = 0; i < roomTypes.length; i++) {
-            if (roomTypes[i].equalsIgnoreCase(input)) {
-                return true;
+        for (int i = 0; i < HotelInitialiser.allHotels.size(); i++) {
+            for (int j = 0; j < HotelInitialiser.allHotels.get(i).getTypeOfRooms().size(); j++) {
+                String roomType = HotelInitialiser.allHotels.get(i).getRoomType(j).getRoomType();
+                if (roomType.equalsIgnoreCase(input)) {
+                    return true;
+                }
             }
         }
         return false;
