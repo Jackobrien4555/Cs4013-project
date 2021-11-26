@@ -54,7 +54,7 @@ public class InputScanner {
 
         System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
         System.out.print("Enter the reservation number: ");
-        resNumber = getNumber();
+        resNumber = getValidResNumber();
         System.out.print("Enter the reservation name (e.g. Jeff Simmons): ");
         resName = getName();
         System.out.print("Enter the reservation type (S or AP): ");
@@ -120,6 +120,15 @@ public class InputScanner {
             input = sc.nextLine();
         }
         validNum = Integer.parseInt(input);
+        return validNum;
+    }
+
+    private int getValidResNumber() {
+        int validNum = getNumber();
+        while(!userValidator.inputIsValidResNum(validNum)) {
+            System.out.print("The input reservation number already exists, try again: ");
+            validNum = getNumber();
+        }
         return validNum;
     }
 

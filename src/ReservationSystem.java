@@ -74,14 +74,16 @@ public class ReservationSystem {
                 ReservationCancellationManager.setAllReservations(reservations);
                 writer.writeReservations(ConstantReferences.RESERVATIONS, reservations);
             } else if(choice == 3) {
-                int size = ReservationCancellationManager.getAllReservations().size();
+                ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
+                int size = reservations.size();
                 for(int i = 0; i < size; i++) {
-                    System.out.println(ReservationCancellationManager.getAllReservations().get(i).toString());
+                    System.out.println(reservations.get(i).toString());
                 }
             } else if(choice == 4) {
-                int size = ReservationCancellationManager.getAllCancellations().size();
+                ArrayList<Cancellation> cancellations = ReservationCancellationManager.getAllCancellations();
+                int size = cancellations.size();
                 for(int i = 0; i < size; i++) {
-                    System.out.println(ReservationCancellationManager.getAllCancellations().get(i).toString());
+                    System.out.println(cancellations.get(i).toString());
                 }
             } else if(choice == 5) {
                 displayAnalyticalMenu();

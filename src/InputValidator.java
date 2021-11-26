@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * This class is necessary for other classes as it has various methods using regex
  * to check if an input that the user gives us is acceptable or not.
@@ -61,6 +63,16 @@ public class InputValidator {
      */
     public boolean inputIsDouble(String input) {
         return (input.matches("\\d+") || input.matches("\\d+.\\d+"));
+    }
+
+    public boolean inputIsValidResNum(int input) {
+        ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
+        for (int i = 0; i < reservations.size(); i++) {
+            if(reservations.get(i).getResNumber() == input) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
