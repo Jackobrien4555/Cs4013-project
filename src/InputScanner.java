@@ -123,6 +123,10 @@ public class InputScanner {
         return validNum;
     }
 
+    /**
+     * Checks the input value from the user so that it is a valid reservation and not already included in our reservations.
+     * @return A valid number as Integer.
+     */
     private int getValidResNumber() {
         int validNum = getNumber();
         while(!userValidator.inputIsValidResNum(validNum)) {
