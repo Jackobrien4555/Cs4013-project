@@ -33,7 +33,14 @@ public class InputValidator {
      * @return True or false for whether it's an integer or not.
      */
     public boolean inputIsInteger(String input) {
-        return input.matches("\\d+") || input.matches("[-\\d+]");
+        if (input.matches("\\d+") || input.matches("[-\\d+]")) {
+            if (Integer.parseInt(input) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     /**
@@ -54,16 +61,6 @@ public class InputValidator {
      */
     public boolean inputIsDouble(String input) {
         return (input.matches("\\d+") || input.matches("\\d+.\\d+"));
-    }
-
-    /**
-     * Validates if String correctly represents an occupancy.
-     *
-     * @param input String that is being checked.
-     * @return True or False for whether it's a valid occupancy.
-     */
-    public boolean isValidOccupancy(String input) {
-        return input.matches("[\\d][+][\\d]");
     }
 
     /**
@@ -91,6 +88,16 @@ public class InputValidator {
      */
     public boolean inputIsDate(String input) {
         return input.matches("\\d{4}-\\d{2}-\\d{2}");
+    }
+
+    /**
+     * Validates if String correctly represents a name
+     *
+     * @param input String that is being checked.
+     * @return True or False for whether it's a valid name.
+     */
+    public boolean inputIsName(String input) {
+        return input.matches("[a-zA-Z]+");
     }
 
     /**

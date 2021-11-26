@@ -52,20 +52,20 @@ public class InputScanner {
         ArrayList<Room> rooms;
         double totalCost;
 
-        System.out.println("\n--------- RESERVATION INFORMATION ---------");
+        System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
         System.out.print("Enter the reservation number: ");
         resNumber = getNumber();
-        System.out.print("Enter the reservation name: ");
-        resName = sc.nextLine();
+        System.out.print("Enter the reservation name (e.g. Jeff Simmons): ");
+        resName = getName();
         System.out.print("Enter the reservation type (S or AP): ");
         resType = getReservationType();
-        System.out.print("Enter a check in date: ");
+        System.out.print("Enter a check in date (e.g. YYYY-MM-DD): ");
         checkInDate = getDate();
         while (checkInDate.isBefore(LocalDate.now())) {
             System.out.print("You cannot reserve rooms for past dates, try again: ");
             checkInDate = getDate();
         }
-        System.out.print("Enter a check out date: ");
+        System.out.print("Enter a check out date (e.g. YYYY-MM-DD): ");
         checkOutDate = getDate();
         while (checkOutDate.compareTo(checkInDate) == 0 || checkOutDate.compareTo(checkInDate) < 0) {
             System.out.print("You cannot set the check out date before or same day as the check in date, try again: ");
@@ -73,11 +73,7 @@ public class InputScanner {
         }
         System.out.print("Enter the number of rooms: ");
         numberOfRooms = getNumber();
-        while (numberOfRooms == 0 || numberOfRooms < 0) {
-            System.out.print("You cannot set the number of rooms to 0 or less than 0, try again: ");
-            numberOfRooms = getNumber();
-        }
-        System.out.print("--------------------------------------------");
+        System.out.print("--------------------------------------------------------------");
         rooms = new ArrayList<Room>();
         readRoom(rooms, numberOfRooms);
 
@@ -120,11 +116,25 @@ public class InputScanner {
         int validNum;
         input = sc.nextLine();
         while (!userValidator.inputIsInteger(input)) {
-            System.out.print("The input is not a valid number. Try again: ");
+            System.out.print("The input is not a valid positive number, make sure it is greater than 0. Try again: ");
             input = sc.nextLine();
         }
         validNum = Integer.parseInt(input);
         return validNum;
+    }
+
+    /**
+     * Checks the input value from the user so that it is a valid Name.
+     * @return A valid name as a String.
+     */
+    private String getName() {
+        String input;
+        input = sc.nextLine();
+        while (!userValidator.inputIsName(input)) {
+            System.out.print("The input is not a valid name. Try again (e.g. Jeff Simmons): ");
+            input = sc.nextLine();
+        }
+        return input;
     }
 
     /**
@@ -230,14 +240,23 @@ public class InputScanner {
         String typeOfRoom;
         int occupancy;
 
-        System.out.println("\n----------- REQUESTING ROOM INFO -----------");
+        System.out.println("\n+++++++++++++++++ REQUESTING ROOM INFORMATION ++++++++++++++++");
         for (int i = 0; i < numberOfRooms; i++) {
+            System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
+            System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");
+            System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
+            System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
+            System.out.println("--------------------------------------------------------------");
             System.out.print("Enter room type: ");
             typeOfRoom = sc.nextLine();
             while (!userValidator.isValidRoomType(typeOfRoom)) {
-                System.out.print("This is not a valid input, these are some options: Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family,\n");
-                System.out.print("Executive Double, Executive Twin, Executive Single, Classic Double, Classic Twin, Classic Single.");
-                System.out.print("\nPlease enter your choice: ");
+                System.out.println("This is not a valid input, these are some options:");
+                System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
+                System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");
+                System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
+                System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
+                System.out.println("--------------------------------------------------------------");
+                System.out.print("Please enter your choice: ");
                 typeOfRoom = sc.nextLine();
             }
             System.out.print("Enter occupancy total: ");
@@ -245,6 +264,6 @@ public class InputScanner {
 
             rooms.add(new Room(typeOfRoom, occupancy));
         }
-        System.out.print("----------------------------------------------");
+        System.out.print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 }

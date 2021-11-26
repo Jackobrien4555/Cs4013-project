@@ -34,7 +34,7 @@ public class Writer {
      */
     public void writeCancellation(String filename, Cancellation cancellation) {
         // NEED TO DO, maybe create the file if the file doesn't exist
-        String newCancellation = cancellation.toString();
+        String newCancellation = cancellation.toString() + "\n";
 
         try {
             FileWriter writer = new FileWriter(filename, true);

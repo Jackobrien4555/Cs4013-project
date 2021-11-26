@@ -41,7 +41,13 @@ public class ReservationSystem {
             menus.printStartUpMenu();
             choice = userInput.getStartUpChoice();
         }
-        System.out.println("\n---- QUITTING THE PROGRAM ----");
+        System.out.println("\n__________                                             ________        .__  __    __  .__                ");
+        System.out.println("\\______   \\_______  ____   ________________    _____   \\_____  \\  __ __|__|/  |__/  |_|__| ____    ____  ");
+        System.out.println(" |     ___/\\_  __ \\/  _ \\ / ___\\_  __ \\__  \\  /     \\   /  / \\  \\|  |  \\  \\   __\\   __\\  |/    \\  / ___\\ ");
+        System.out.println(" |    |     |  | \\(  <_> ) /_/  >  | \\// __ \\|  Y Y  \\ /   \\_/.  \\  |  /  ||  |  |  | |  |   |  \\/ /_/  >");
+        System.out.println(" |____|     |__|   \\____/\\___  /|__|  (____  /__|_|  / \\_____\\ \\_/____/|__||__|  |__| |__|___|  /\\___  / ");
+        System.out.println("                        /_____/            \\/      \\/         \\__>                            \\//_____/  ");
+        System.out.println("                         Edison Cai, Sergiu Mereacre, Jack O'Brien, David Walsh                            ");
     }
 
     /**
