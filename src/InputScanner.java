@@ -79,6 +79,7 @@ public class InputScanner {
 
         reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
         reservation.setRooms(rooms);
+        ReservationCancellationManager.addReservation(reservation);
         return reservation;
     }
 

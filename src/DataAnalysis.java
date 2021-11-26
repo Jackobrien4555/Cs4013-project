@@ -148,10 +148,9 @@ public abstract class DataAnalysis {
                             // the check-out date.
 
                             //System.out.println(res.getCheckInDate());
-                            if(res.getCheckOutDate().compareTo(endDate) < 0){
+                            if (res.getCheckOutDate().compareTo(endDate) < 0) {
                                 costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), res.getCheckOutDate());
-                            }
-                            else{
+                            } else {
                                 costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), endDate);
                             }
 
@@ -163,7 +162,6 @@ public abstract class DataAnalysis {
                     }
                 }
             }
-
 
 
             result.add("Hotel income: " + hotelIncome);
@@ -196,10 +194,9 @@ public abstract class DataAnalysis {
 //                    }
                 // If the income of a Cancellation is 0, we can assume that it has been refunded. Add the would-be income of the reservation
                 // into cancellationLoss. Otherwise, add it to cancellationIncome and totalIncome.
-                if(can.getIncome() == 0){
+                if (can.getIncome() == 0) {
                     cancellationLoss += can.getReservation().getTotalCost();
-                }
-                else{
+                } else {
                     cancellationIncome += can.getIncome();
                     totalIncome += can.getIncome();
                 }
@@ -227,13 +224,10 @@ public abstract class DataAnalysis {
         return calculateIncomeAll(reservations, cancellations, startDate, endDate, true);
     }
 
-    /**
+    /*
      * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
      * TypeOfRoom-Integer(0) pairs. This will be used in the occupancy calculations
      * to keep track of every room's occupancy.
-     *
-     * @param rooms A list of TypeOfRoom objects.
-     * @return A HashMap mapping the names of each room in "rooms" to Integers
      */
     private static HashMap<String, Integer> getRoomsOfHotelInStringInt(ArrayList<TypeOfRoom> rooms) {
         HashMap<String, Integer> result = new HashMap<>();
@@ -245,13 +239,10 @@ public abstract class DataAnalysis {
         return result;
     }
 
-    /**
+    /*
      * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
      * TypeOfRoom-Double(0.0) pairs. This will be used in the income calculations
      * to keep track of every room's income.
-     *
-     * @param rooms A list of TypeOfRoom objects.
-     * @return A HashMap mapping the names of each room in "rooms" to Doubles
      */
     private static HashMap<String, Double> getRoomsOfHotelInStringDouble(ArrayList<TypeOfRoom> rooms) {
         HashMap<String, Double> result = new HashMap<>();
@@ -263,14 +254,9 @@ public abstract class DataAnalysis {
         return result;
     }
 
-    /**
+    /*
      * Returns the cost of a room by passing in the room's rates for the week,
      * the check-in date and the check-out date.
-     *
-     * @param rates    A room's rates for each day of the week.
-     * @param checkIn  The check-in date.
-     * @param checkOut The check-out date.
-     * @return The total cost to book a room.
      */
     private static int getCostOfRoom(double[] rates, LocalDate checkIn, LocalDate checkOut) {
         int result = 0;
@@ -287,14 +273,9 @@ public abstract class DataAnalysis {
         return result;
     }
 
-    /**
+    /*
      * Iterates through every room of every hotel to see if any of their names
      * match the one passed in through roomName and returns its corresponding TypeOfRoom object
-     *
-     * @param roomName  The name of a room
-     * @param allHotels An ArrayList of all hotels so that this method can iterate
-     *                  through every room
-     * @return The TypeOfRoom object that was represented by roomName
      */
     private static TypeOfRoom findRoomType(String roomName, ArrayList<Hotel> allHotels) {
         for (Hotel h : allHotels) {
@@ -305,5 +286,16 @@ public abstract class DataAnalysis {
             }
         }
         return null;
+    }
+
+    /**
+     * Print all analytics information.
+     * @param analytics List of Strings that contain various information on
+     *                  analytics.
+     */
+    public static void printAnalytics(ArrayList<String> analytics) {
+        for(String s : analytics){
+            System.out.println(s);
+        }
     }
 }

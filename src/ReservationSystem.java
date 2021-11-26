@@ -67,6 +67,7 @@ public class ReservationSystem {
                 writer.writeReservation(ConstantReferences.RESERVATIONS, userInput.readReservation());
             } else if(choice == 2) {
                 Cancellation cancellation = userInput.readValidCancellation();
+                ReservationCancellationManager.addCancellation(cancellation);
                 int resNum = cancellation.getReservation().getResNumber();
                 writer.writeCancellation(ConstantReferences.CANCELLATIONS, cancellation);
                 ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
@@ -115,7 +116,7 @@ public class ReservationSystem {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
                     dateCheckIn = userInput.getDate();
                 }
-                System.out.println(DataAnalysis.getOccupancyRatesAll(ReservationCancellationManager.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
+                DataAnalysis.printAnalytics(DataAnalysis.getOccupancyRatesAll(ReservationCancellationManager.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
             } else if (choice == 2) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
                 boolean showRoom = userInput.getYesOrNo();
@@ -127,7 +128,7 @@ public class ReservationSystem {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
                     dateCheckIn = userInput.getDate();
                 }
-                System.out.println(DataAnalysis.calculateIncomeAll(ReservationCancellationManager.getAllReservations(), ReservationCancellationManager.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));
+                DataAnalysis.printAnalytics(DataAnalysis.calculateIncomeAll(ReservationCancellationManager.getAllReservations(), ReservationCancellationManager.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));
 
             }
             menus.printAnalyticsMenu();
