@@ -88,10 +88,10 @@ public class InputValidator {
      * @return True or False for whether it's a valid room type.
      */
     public boolean isValidRoomType(String input) {
-        for (int i = 0; i < HotelInitialiser.allHotels.size(); i++) {
-            for (int j = 0; j < HotelInitialiser.allHotels.get(i).getTypeOfRooms().size(); j++) {
-                String roomType = HotelInitialiser.allHotels.get(i).getRoomType(j).getRoomType();
-                if (roomType.equalsIgnoreCase(input)) {
+        for (int i = 0; i < HotelInitialiser.getAllHotels().size(); i++) {
+            for (int j = 0; j < HotelInitialiser.getAllHotels().get(i).getTypeOfRooms().size(); j++) {
+                String roomType = HotelInitialiser.getAllHotels().get(i).getRoomType(j).getRoomType();
+                if (roomType.equals(input)) {
                     return true;
                 }
             }

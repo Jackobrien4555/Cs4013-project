@@ -38,7 +38,7 @@ public abstract class DataAnalysis {
         ArrayList<String> result = new ArrayList<>();
         result.add(String.format("This is the occupancy rate for every hotel and room between %s and %s:", startDate, endDate));
         // For every hotel
-        for (Hotel h : HotelInitialiser.allHotels) {
+        for (Hotel h : HotelInitialiser.getAllHotels()) {
             // Initialise the occupancy and the amount of rooms booked for a hotel.
             int hotelOccupancy = 0;
             int hotelRoomsAmount = 0;
@@ -121,7 +121,7 @@ public abstract class DataAnalysis {
         double cancellationLoss = 0;
 
         // For every hotel
-        for (Hotel h : HotelInitialiser.allHotels) {
+        for (Hotel h : HotelInitialiser.getAllHotels()) {
             int hotelIncome = 0;
 
             // Put all types of rooms of a hotel in "hotelRooms". All their incomes will be set to 0.
@@ -137,7 +137,7 @@ public abstract class DataAnalysis {
                         if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
                             double costOfRoom = 0;
                             // Getting the TypeOfRoom with all of its rates from the findRoomType method.
-                            TypeOfRoom room = findRoomType(res.getRooms().get(i).getRoomType(), HotelInitialiser.allHotels);
+                            TypeOfRoom room = findRoomType(res.getRooms().get(i).getRoomType(), HotelInitialiser.getAllHotels());
 
                             // Getting daily rates of a room.
                             double[] rates = room.getDailyRates();

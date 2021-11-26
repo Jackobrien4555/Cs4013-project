@@ -33,7 +33,7 @@ public class TestDataAnalysis {
         String end_date = "2024-09-03";
 
         ArrayList<String[]> reservations = new ArrayList<>();
-        HotelInitialiser.allHotels = HotelInitialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
+        HotelInitialiser.initialise(HotelInitialiser.getFileCells(hotelsFile));
 
         ArrayList<Reservation> reservationsAll = Reader.readReservations(fileRes);
         ArrayList<Cancellation> cancellationsAll = Reader.readCancellations(fileCan);

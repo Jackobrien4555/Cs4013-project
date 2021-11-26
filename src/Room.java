@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * class Room defines a room
@@ -63,7 +64,7 @@ public class Room {
      * @return
      * @author Jack O Brien
      */
-    public static boolean getAvailableRooms(Room room, LocalDate checkIn, LocalDate checkOut) {
+    public static boolean roomIsAvailable(Room room, LocalDate checkIn, LocalDate checkOut) {
         int amountBooked = 0;
         boolean result = true;
         for (Reservation res : ReservationCancellationManager.getAllReservations()) {
@@ -71,17 +72,15 @@ public class Room {
                 for (int i = 0; i < res.getNumberOfRooms(); i++) {
                     if (room.equals(res.getRooms().get(i))) {
                         amountBooked++;
-                        System.out.println("working");
 
-                        if (amountBooked >= (res.getNumberOfRooms())) {
+                        if (amountBooked >= res.getRooms().get(i).findRoomType().getNumAvailable()) {
                             result = false;
                         }
                     }
-
-
                 }
             }
         }
+        System.out.println("The amount of this room booked so far between " + checkIn.toString() + " and " + checkOut.toString() + ": " + amountBooked);
         return result;
     }
 
@@ -108,5 +107,24 @@ public class Room {
         }
 
         return result;
+    }
+
+    private TypeOfRoom findRoomType(){
+        for(Hotel h : HotelInitialiser.getAllHotels()){
+            for(TypeOfRoom t : h.getTypeOfRooms()){
+                if(t.getRoomType().equals(typeOfRoom)){
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return typeOfRoom.equals(room.typeOfRoom);
     }
 }

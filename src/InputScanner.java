@@ -75,7 +75,7 @@ public class InputScanner {
         numberOfRooms = getNumber();
         System.out.print("--------------------------------------------------------------");
         rooms = new ArrayList<Room>();
-        readRoom(rooms, numberOfRooms);
+        readRoom(rooms, numberOfRooms, checkInDate, checkOutDate);
 
         reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
         reservation.setRooms(rooms);
@@ -144,12 +144,13 @@ public class InputScanner {
     private int getValidOccupancy(String typeOfRoom) {
         int occuMin = 0;
         int occuMax = 0;
-        for (int i = 0; i < HotelInitialiser.allHotels.size(); i++) {
-            for (int j = 0; j < HotelInitialiser.allHotels.get(i).getTypeOfRooms().size(); j++) {
-                String roomType = HotelInitialiser.allHotels.get(i).getRoomType(j).getRoomType();
+
+        for (int i = 0; i < HotelInitialiser.getAllHotels().size(); i++) {
+            for (int j = 0; j < HotelInitialiser.getAllHotels().get(i).getTypeOfRooms().size(); j++) {
+                String roomType = HotelInitialiser.getAllHotels().get(i).getRoomType(j).getRoomType();
                 if (roomType.equalsIgnoreCase(typeOfRoom)) {
-                    occuMin = HotelInitialiser.allHotels.get(i).getRoomType(j).getOccuMin();
-                    occuMax = HotelInitialiser.allHotels.get(i).getRoomType(j).getOccuMax();
+                    occuMin = HotelInitialiser.getAllHotels().get(i).getRoomType(j).getOccuMin();
+                    occuMax = HotelInitialiser.getAllHotels().get(i).getRoomType(j).getOccuMax();
                     break;
                 }
             }
@@ -289,6 +290,56 @@ public class InputScanner {
             System.out.print("Enter room type: ");
             typeOfRoom = sc.nextLine();
             while (!userValidator.isValidRoomType(typeOfRoom)) {
+                System.out.println("This is not a valid input, these are some options:");
+                System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
+                System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");
+                System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
+                System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
+                System.out.println("--------------------------------------------------------------");
+                System.out.print("Please enter your choice: ");
+                typeOfRoom = sc.nextLine();
+            }
+
+            System.out.print("Enter occupancy total: ");
+            occupancy = getValidOccupancy(typeOfRoom);
+
+            rooms.add(new Room(typeOfRoom, occupancy));
+        }
+        System.out.print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    }
+
+    /**
+     * Instructs the user on completing different rooms and rooms details.
+     * @param rooms The rooms arraylist given to us.
+     * @return The completed Rooms arraylist with all the details given by the user.
+     */
+    private void readRoom(ArrayList<Room> rooms, int numberOfRooms, LocalDate checkIn, LocalDate checkOut) {
+        String typeOfRoom;
+        int occupancy;
+
+        System.out.println("\n+++++++++++++++++ REQUESTING ROOM INFORMATION ++++++++++++++++");
+        for (int i = 0; i < numberOfRooms; i++) {
+            System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
+            System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");
+            System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
+            System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
+            System.out.println("--------------------------------------------------------------");
+            System.out.print("Enter room type: ");
+            typeOfRoom = sc.nextLine();
+            while (!userValidator.isValidRoomType(typeOfRoom)) {
+                System.out.println("This is not a valid input, these are some options:");
+                System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
+                System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");
+                System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
+                System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
+                System.out.println("--------------------------------------------------------------");
+                System.out.print("Please enter your choice: ");
+                typeOfRoom = sc.nextLine();
+            }
+
+            // Checking to see if there are any rooms that are already completely booked
+            // between the check-in and check-out dates.
+            while (!Room.roomIsAvailable(new Room(typeOfRoom, 1), checkIn, checkOut)) {
                 System.out.println("This is not a valid input, these are some options:");
                 System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
                 System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");

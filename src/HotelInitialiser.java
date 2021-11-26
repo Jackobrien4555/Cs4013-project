@@ -19,7 +19,7 @@ public abstract class HotelInitialiser {
     protected final static int RATES_START_INDEX = 5;
     protected final static int RATES_END_INDEX = 11;
 
-    public static ArrayList<Hotel> allHotels;
+    private static ArrayList<Hotel> allHotels;
 
     /**
      * This method splits every line of the hotel details into cells of Strings.
@@ -87,7 +87,8 @@ public abstract class HotelInitialiser {
                 // Get the first room defined in the hotel and add it to newHotel.
                 TypeOfRoom newRoom = new TypeOfRoom(line[ROOM_INDEX], Integer.parseInt(line[OCCUPANCY_MIN_INDEX]),
                         Integer.parseInt(line[OCCUPANCY_MAX_INDEX]),
-                        getRates(Arrays.copyOfRange(line, RATES_START_INDEX, RATES_END_INDEX + 1)));
+                        getRates(Arrays.copyOfRange(line, RATES_START_INDEX, RATES_END_INDEX + 1)),
+                        Integer.parseInt(line[NUMBER_OF_ROOMS_INDEX]));
                 newHotel.addTypeOfRoom(newRoom);
 
                 i++;
@@ -97,7 +98,8 @@ public abstract class HotelInitialiser {
                     line = cells.get(i);
                     newRoom = new TypeOfRoom(line[ROOM_INDEX], Integer.parseInt(line[OCCUPANCY_MIN_INDEX]),
                             Integer.parseInt(line[OCCUPANCY_MAX_INDEX]),
-                            getRates(Arrays.copyOfRange(line, RATES_START_INDEX, RATES_END_INDEX + 1)));
+                            getRates(Arrays.copyOfRange(line, RATES_START_INDEX, RATES_END_INDEX + 1)),
+                            Integer.parseInt(line[NUMBER_OF_ROOMS_INDEX]));
                     newHotel.addTypeOfRoom(newRoom);
                     i++;
 
@@ -119,5 +121,13 @@ public abstract class HotelInitialiser {
             }
         }
         return result;
+    }
+
+    /**
+     * Get list of all hotels.
+     * @return An ArrayList of all Hotels found in the hotels csv.
+     */
+    public static ArrayList<Hotel> getAllHotels() {
+        return allHotels;
     }
 }
