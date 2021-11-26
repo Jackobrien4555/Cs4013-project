@@ -67,14 +67,14 @@ public class ReservationSystem {
             } else if(choice == 2) {
                 writer.writeCancellation(ConstantReferences.CANCELLATIONS, userInput.readValidCancellation());
             } else if(choice == 3) {
-                int size = Reader.getAllReservations().size();
+                int size = ReservationCancellationManager.getAllReservations().size();
                 for(int i = 0; i < size; i++) {
-                    System.out.println(Reader.getAllReservations().get(i).toString());
+                    System.out.println(ReservationCancellationManager.getAllReservations().get(i).toString());
                 }
             } else if(choice == 4) {
-                int size = Reader.getAllCancellations().size();
+                int size = ReservationCancellationManager.getAllCancellations().size();
                 for(int i = 0; i < size; i++) {
-                    System.out.println(Reader.getAllCancellations().get(i).toString());
+                    System.out.println(ReservationCancellationManager.getAllCancellations().get(i).toString());
                 }
             } else if(choice == 5) {
                 displayAnalyticalMenu();
@@ -106,7 +106,7 @@ public class ReservationSystem {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
                     dateCheckIn = userInput.getDate();
                 }
-                System.out.println(DataAnalysis.getOccupancyRatesAll(Reader.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
+                System.out.println(DataAnalysis.getOccupancyRatesAll(ReservationCancellationManager.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
             } else if (choice == 2) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
                 boolean showRoom = userInput.getYesOrNo();
@@ -118,7 +118,7 @@ public class ReservationSystem {
                     System.out.print("You cannot have the starting date be later than the ending date, try again: ");
                     dateCheckIn = userInput.getDate();
                 }
-                System.out.println(DataAnalysis.calculateIncomeAll(Reader.getAllReservations(), Reader.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));
+                System.out.println(DataAnalysis.calculateIncomeAll(ReservationCancellationManager.getAllReservations(), ReservationCancellationManager.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));
 
             }
             menus.printAnalyticsMenu();

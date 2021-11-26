@@ -12,8 +12,6 @@ import java.util.Scanner;
  * @author Edison Cai 20241135
  */
 public abstract class Reader {
-    private static ArrayList<Reservation> allReservations;
-    private static ArrayList<Cancellation> allCancellations;
 
     /**
      * Reads a file line-by-line, creates a Reservation object for
@@ -40,7 +38,7 @@ public abstract class Reader {
             System.out.println("An error has occurred: File not found");
         }
 
-        allReservations = reservations;
+        ReservationCancellationManager.setAllReservations(reservations);
         return reservations;
     }
 
@@ -78,7 +76,7 @@ public abstract class Reader {
             System.out.println("An error has occurred: File not found");
         }
 
-        allCancellations = cancellations;
+        ReservationCancellationManager.setAllCancellations(cancellations);
         return cancellations;
     }
 
@@ -115,28 +113,5 @@ public abstract class Reader {
                 numberOfRooms, rooms, totalCost);
     }
 
-    /**
-     * Gets list of reservations.
-     * @return List of all reservations.
-     */
-    public static ArrayList<Reservation> getAllReservations() {
-        return allReservations;
-    }
 
-    /**
-     * Gets list of cancellations.
-     * @return List of all cancellations
-     */
-    public static ArrayList<Cancellation> getAllCancellations() {
-        return allCancellations;
-    }
-
-    public static Reservation getReservation(int resNumber) {
-        for (Reservation Reservation : allReservations) {
-            if (resNumber == Reservation.getResNumber()) {
-                return Reservation;
-            }
-        }
-        return null;
-    }
 }

@@ -18,5 +18,4 @@ public class ConstantReferences {
     public final static int EXIT_ANALYTICAL = 3;
 
 
-
 }
