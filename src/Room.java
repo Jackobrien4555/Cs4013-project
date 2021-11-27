@@ -66,6 +66,7 @@ public class Room {
      */
     public static boolean roomIsAvailable(Room room, LocalDate checkIn, LocalDate checkOut) {
         int amountBooked = 0;
+        int maxCapacity = room.findRoomType().getNumAvailable();
         boolean result = true;
         for (Reservation res : ReservationCancellationManager.getAllReservations()) {
             if (res.getCheckInDate().compareTo(checkIn) >= 0 && res.getCheckInDate().compareTo(checkOut) < 0) {
@@ -73,14 +74,14 @@ public class Room {
                     if (room.equals(res.getRooms().get(i))) {
                         amountBooked++;
 
-                        if (amountBooked >= res.getRooms().get(i).findRoomType().getNumAvailable()) {
+                        if (amountBooked >= maxCapacity) {
                             result = false;
                         }
                     }
                 }
             }
         }
-        System.out.println("The amount of this room booked so far between " + checkIn.toString() + " and " + checkOut.toString() + ": " + amountBooked);
+        System.out.println("The amount of this room available far between " + checkIn.toString() + " and " + checkOut.toString() + ": " + (maxCapacity - amountBooked));
         return result;
     }
 
