@@ -23,9 +23,7 @@ public class InputValidator {
     public boolean inputIsInRange(String input, int minValueOfRange, int maxValueOfRange) {
         if (inputIsInteger(input)) {
             int inputAsInt = Integer.parseInt(input);
-            if (inputAsInt >= minValueOfRange && inputAsInt <= maxValueOfRange) {
-                return true;
-            }
+            return inputAsInt >= minValueOfRange && inputAsInt <= maxValueOfRange;
         }
         return false;
     }
@@ -42,11 +40,7 @@ public class InputValidator {
             return false;
         }
         if (input.matches("\\d+") || input.matches("[-\\d+]")) {
-            if (Integer.parseInt(input) > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return Integer.parseInt(input) > 0;
         }
         return false;
     }
@@ -80,8 +74,8 @@ public class InputValidator {
      */
     public boolean inputIsValidResNum(int input) {
         ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
-        for (int i = 0; i < reservations.size(); i++) {
-            if (reservations.get(i).getResNumber() == input) {
+        for (Reservation reservation : reservations) {
+            if (reservation.getResNumber() == input) {
                 return false;
             }
         }
@@ -130,7 +124,13 @@ public class InputValidator {
      * @return True or False for whether it's a valid name.
      */
     public boolean inputIsName(String input) {
-        return input.matches("[a-zA-Z]+");
+        // Make sure that there aren't any spaces at the start of end of the input.
+        if (input.charAt(0) == ' ' || input.charAt(input.length() - 1) == ' ') {
+            return false;
+        }
+
+        return input.matches("[a-zA-Z ]+");
+
     }
 
     /**
