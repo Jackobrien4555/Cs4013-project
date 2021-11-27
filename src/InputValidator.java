@@ -140,15 +140,6 @@ public class InputValidator {
             return false;
         }
 
-        // True for -1
-        try{
-            if(Integer.parseInt(input) == -1){
-                return true;
-            }
-        } catch (NumberFormatException e){
-            return false;
-        }
-
 
         return input.matches("[a-zA-Z ]+");
 

@@ -80,4 +80,6 @@ public class HotelGUI extends Application {
         Scene scene = new Scene(vBox0, 200, 100);
         return scene;
     }
+
+
 }

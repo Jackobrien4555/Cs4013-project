@@ -58,33 +58,54 @@ public class InputScanner {
         System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
         System.out.print("Enter the reservation number(-1 to quit): ");
         resNumber = getValidResNumber();
-        if(resNumber == -1){
+        if (resNumber == -1) {
             return null;
         }
+
         System.out.print("Enter the reservation name (e.g. Jeff Simmons)(-1 to quit): ");
         resName = getName();
-        if(resName.equals("-1")){
+        if (resName == null) {
             return null;
         }
+
         System.out.print("Enter the reservation type (S or AP): ");
         resType = getReservationType();
+        if (resType.equals("-1")) {
+            return null;
+        }
+
         System.out.print("Enter a check in date (e.g. YYYY-MM-DD): ");
         checkInDate = getDate();
+        if (checkInDate == null) {
+            return null;
+        }
         while (checkInDate.isBefore(LocalDate.now())) {
             System.out.print("You cannot reserve rooms for past dates, try again: ");
             checkInDate = getDate();
         }
         System.out.print("Enter a check out date (e.g. YYYY-MM-DD): ");
         checkOutDate = getDate();
+        if (checkOutDate == null) {
+            return null;
+        }
+
         while (checkOutDate.compareTo(checkInDate) == 0 || checkOutDate.compareTo(checkInDate) < 0) {
             System.out.print("You cannot set the check out date before or same day as the check in date, try again: ");
             checkOutDate = getDate();
         }
+
         System.out.print("Enter the number of rooms: ");
         numberOfRooms = getNumber();
+        if(numberOfRooms == -1){
+            return null;
+        }
 
         rooms = new ArrayList<Room>();
-        readRoom(rooms, numberOfRooms, checkInDate, checkOutDate);
+        rooms = readRoom(numberOfRooms, checkInDate, checkOutDate);
+
+        if(rooms == null){
+            return null;
+        }
 
         reservation = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
         reservation.setTotalCost(reservation.getTotalCost());
@@ -132,15 +153,18 @@ public class InputScanner {
         String input;
         int validNum;
         input = sc.nextLine();
+
+        // If the user wants to quit.
+        if (input.equals("-1")) {
+            return -1;
+        }
+
         while (!userValidator.inputIsInteger(input)) {
             System.out.print("The input is not a valid positive number, make sure it is greater than 0. Try again: ");
             input = sc.nextLine();
         }
 
-        // If the user wants to quit.
-        if(Integer.parseInt(input) == -1){
-            return -1;
-        }
+
         validNum = Integer.parseInt(input);
         return validNum;
     }
@@ -194,13 +218,13 @@ public class InputScanner {
     private String getName() {
         String input;
         input = sc.nextLine();
+
+        if (input.equals("-1")) {
+            return null;
+        }
         while (!userValidator.inputIsName(input)) {
             System.out.print("The input is not a valid name. Try again (e.g. Jeff Simmons): ");
             input = sc.nextLine();
-        }
-
-        if(Integer.parseInt(input) == -1){
-            return "-1";
         }
 
         return input;
@@ -232,6 +256,11 @@ public class InputScanner {
     private String getReservationType() {
         String input;
         input = sc.nextLine();
+
+        if (input.equals("-1")) {
+            return "-1";
+        }
+
         while (!userValidator.isValidReservationType(input)) {
             System.out.print("The input type is invalid. Enter a new value S (Standard) or AP (Advanced Purchase): ");
             input = sc.nextLine();
@@ -276,6 +305,11 @@ public class InputScanner {
     public LocalDate getDate() {
         String input;
         input = sc.nextLine();
+
+        if (input.equals("-1")) {
+            return null;
+        }
+
         LocalDate date;
         while (!userValidator.inputIsDate(input)) {
             System.out.print("The date input is invalid. Enter a new value in the format YYYY-MM-DD. Try again: ");
@@ -347,12 +381,12 @@ public class InputScanner {
     /**
      * Instructs the user on completing different rooms and rooms details.
      *
-     * @param rooms The rooms arraylist given to us.
      * @return The completed Rooms arraylist with all the details given by the user.
      */
-    private void readRoom(ArrayList<Room> rooms, int numberOfRooms, LocalDate checkIn, LocalDate checkOut) {
+    private ArrayList<Room> readRoom(int numberOfRooms, LocalDate checkIn, LocalDate checkOut) {
         String typeOfRoom;
         int occupancy;
+        ArrayList<Room> rooms = new ArrayList<>();
 
         System.out.println("\n+++++++++++++++++ REQUESTING ROOM INFORMATION ++++++++++++++++");
         for (int i = 0; i < numberOfRooms; i++) {
@@ -363,6 +397,9 @@ public class InputScanner {
             System.out.println("--------------------------------------------------------------");
             System.out.print("Enter room type: ");
             typeOfRoom = sc.nextLine();
+            if(typeOfRoom.equals("-1")){
+                return null;
+            }
             while (!userValidator.isValidRoomType(typeOfRoom)) {
                 System.out.println("This is not a valid input, these are some options:");
                 System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
@@ -372,6 +409,9 @@ public class InputScanner {
                 System.out.println("--------------------------------------------------------------");
                 System.out.print("Please enter your choice: ");
                 typeOfRoom = sc.nextLine();
+                if(typeOfRoom.equals("-1")){
+                    return null;
+                }
             }
 
             // Checking to see if there are any rooms that are already completely booked
@@ -385,6 +425,9 @@ public class InputScanner {
                 System.out.println("--------------------------------------------------------------");
                 System.out.print("Please enter your choice: ");
                 typeOfRoom = sc.nextLine();
+                if(typeOfRoom.equals("-1")){
+                    return null;
+                }
             }
             System.out.print("Enter occupancy total: ");
             occupancy = getValidOccupancy(typeOfRoom);
@@ -392,5 +435,6 @@ public class InputScanner {
             rooms.add(new Room(typeOfRoom, occupancy));
         }
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        return rooms;
     }
 }
