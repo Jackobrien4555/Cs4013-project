@@ -64,7 +64,13 @@ public class ReservationSystem {
         choice = userInput.getUserMenuChoice(exitValue);
         while(choice != exitValue) {
             if(choice == 1) {
-                writer.writeReservation(ConstantReferences.RESERVATIONS, userInput.readReservation());
+                Reservation reservationToBeAdded = userInput.readReservation();
+                if(reservationToBeAdded != null){
+                    writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
+                }
+                else{
+                    choice = exitValue;
+                }
             } else if(choice == 2) {
                 Cancellation cancellation = userInput.readValidCancellation();
                 ReservationCancellationManager.addCancellation(cancellation);

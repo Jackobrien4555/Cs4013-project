@@ -56,10 +56,16 @@ public class InputScanner {
         double totalCost;
 
         System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
-        System.out.print("Enter the reservation number: ");
+        System.out.print("Enter the reservation number(-1 to quit): ");
         resNumber = getValidResNumber();
-        System.out.print("Enter the reservation name (e.g. Jeff Simmons): ");
+        if(resNumber == -1){
+            return null;
+        }
+        System.out.print("Enter the reservation name (e.g. Jeff Simmons)(-1 to quit): ");
         resName = getName();
+        if(resName.equals("-1")){
+            return null;
+        }
         System.out.print("Enter the reservation type (S or AP): ");
         resType = getReservationType();
         System.out.print("Enter a check in date (e.g. YYYY-MM-DD): ");
@@ -130,6 +136,11 @@ public class InputScanner {
             System.out.print("The input is not a valid positive number, make sure it is greater than 0. Try again: ");
             input = sc.nextLine();
         }
+
+        // If the user wants to quit.
+        if(Integer.parseInt(input) == -1){
+            return -1;
+        }
         validNum = Integer.parseInt(input);
         return validNum;
     }
@@ -187,6 +198,11 @@ public class InputScanner {
             System.out.print("The input is not a valid name. Try again (e.g. Jeff Simmons): ");
             input = sc.nextLine();
         }
+
+        if(Integer.parseInt(input) == -1){
+            return "-1";
+        }
+
         return input;
     }
 

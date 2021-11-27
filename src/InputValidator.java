@@ -39,6 +39,17 @@ public class InputValidator {
         if (input.length() > 9) {
             return false;
         }
+
+        // Also true if the input is -1.
+        try{
+            if(Integer.parseInt(input) == -1){
+                return true;
+            }
+        } catch (NumberFormatException e){
+            return false;
+        }
+
+
         if (input.matches("\\d+") || input.matches("[-\\d+]")) {
             return Integer.parseInt(input) > 0;
         }
@@ -128,6 +139,16 @@ public class InputValidator {
         if (input.charAt(0) == ' ' || input.charAt(input.length() - 1) == ' ') {
             return false;
         }
+
+        // True for -1
+        try{
+            if(Integer.parseInt(input) == -1){
+                return true;
+            }
+        } catch (NumberFormatException e){
+            return false;
+        }
+
 
         return input.matches("[a-zA-Z ]+");
 
