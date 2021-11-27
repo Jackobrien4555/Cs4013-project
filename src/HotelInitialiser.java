@@ -46,11 +46,8 @@ public abstract class HotelInitialiser {
         return result;
     }
 
-    /**
+    /*
      * Converts rates of a hotel room from a String array to an integer array.
-     *
-     * @param rates Rates of a room in Strings.
-     * @return Rates of a room in integers.
      */
     private static double[] getRates(String[] rates) {
         double[] doubleRates = new double[rates.length];

@@ -35,6 +35,10 @@ public class InputValidator {
      * @return True or false for whether it's an integer or not.
      */
     public boolean inputIsInteger(String input) {
+        // Making sure that the integer isn't too large to cause a NumberFormatException.
+        if(input.length() > 9){
+            return false;
+        }
         if (input.matches("\\d+") || input.matches("[-\\d+]")) {
             if (Integer.parseInt(input) > 0) {
                 return true;
