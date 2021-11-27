@@ -94,7 +94,7 @@ public class Room {
      * @return The total cost to book a room.
      * @author Jack O Brien
      */
-    private static int getCostOfRoom(double[] rates, LocalDate checkIn, LocalDate checkOut) {
+    public static int getCostOfRoom(double[] rates, LocalDate checkIn, LocalDate checkOut) {
         int result = 0;
 
         // Iterate through the dates
@@ -109,7 +109,7 @@ public class Room {
         return result;
     }
 
-    private TypeOfRoom findRoomType(){
+    public TypeOfRoom findRoomType(){
         for(Hotel h : HotelInitialiser.getAllHotels()){
             for(TypeOfRoom t : h.getTypeOfRooms()){
                 if(t.getRoomType().equals(typeOfRoom)){
