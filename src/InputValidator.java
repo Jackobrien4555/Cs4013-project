@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +38,7 @@ public class InputValidator {
      */
     public boolean inputIsInteger(String input) {
         // Making sure that the integer isn't too large to cause a NumberFormatException.
-        if(input.length() > 9){
+        if (input.length() > 9) {
             return false;
         }
         if (input.matches("\\d+") || input.matches("[-\\d+]")) {
@@ -72,13 +74,14 @@ public class InputValidator {
     /**
      * Checks the input value from the user so that it is a valid reservation number and not already
      * included in our reservations file.
+     *
      * @param input The reseravation number.
      * @return A valid reservation number.
      */
     public boolean inputIsValidResNum(int input) {
         ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
         for (int i = 0; i < reservations.size(); i++) {
-            if(reservations.get(i).getResNumber() == input) {
+            if (reservations.get(i).getResNumber() == input) {
                 return false;
             }
         }
@@ -110,7 +113,14 @@ public class InputValidator {
      * @return True or False for whether it's a valid date.
      */
     public boolean inputIsDate(String input) {
-        return input.matches("\\d{4}-\\d{2}-\\d{2}");
+
+        // Checking if the input can be parsed.
+        try {
+            LocalDate.parse(input);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     /**
@@ -129,7 +139,7 @@ public class InputValidator {
      * @param input String that is being checked.
      * @return True or False for whether it's a valid yes or no answer.
      */
-    public boolean inputIsYesOrNo(String input){
+    public boolean inputIsYesOrNo(String input) {
         return input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("N");
     }
 }
