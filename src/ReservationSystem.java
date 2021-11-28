@@ -33,10 +33,10 @@ public class ReservationSystem {
         menus.printStartUpMenu();
         choice = userInput.getStartUpChoice();
 
-        while(choice != ConstantReferences.EXIT_STARTUP) {
-            if(choice == 1) {
+        while (choice != ConstantReferences.EXIT_STARTUP) {
+            if (choice == 1) {
                 subMenuRun(ConstantReferences.EXIT_CUSTOMER);
-            } else if(choice == 2) {
+            } else if (choice == 2) {
                 subMenuRun(ConstantReferences.EXIT_ADMINISTRATOR);
             }
             menus.printStartUpMenu();
@@ -54,6 +54,7 @@ public class ReservationSystem {
     /**
      * This is a sub menu of the startup menu which helps execute functions and methods depending on
      * the user's selection.
+     *
      * @param exitValue The exit value of the chose menu.
      */
     private void subMenuRun(int exitValue) {
@@ -62,37 +63,43 @@ public class ReservationSystem {
         printRightMenu(exitValue);
 
         choice = userInput.getUserMenuChoice(exitValue);
-        while(choice != exitValue) {
-            if(choice == 1) {
+        while (choice != exitValue) {
+            if (choice == 1) {
                 Reservation reservationToBeAdded = userInput.readReservation();
-                if(reservationToBeAdded != null){
+                if (reservationToBeAdded != null) {
                     writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
-                }
-                else{
+                } else {
                     choice = exitValue;
                 }
-            } else if(choice == 2) {
+            } else if (choice == 2) {
                 Cancellation cancellation = userInput.readValidCancellation();
-                ReservationCancellationManager.addCancellation(cancellation);
-                int resNum = cancellation.getReservation().getResNumber();
-                writer.writeCancellation(ConstantReferences.CANCELLATIONS, cancellation);
-                ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
-                reservations.remove(ReservationCancellationManager.getReservation(resNum));
-                ReservationCancellationManager.setAllReservations(reservations);
-                writer.writeReservations(ConstantReferences.RESERVATIONS, reservations);
-            } else if(choice == 3) {
+
+                if (cancellation != null) {
+                    ReservationCancellationManager.addCancellation(cancellation);
+                    int resNum = cancellation.getReservation().getResNumber();
+                    writer.writeCancellation(ConstantReferences.CANCELLATIONS, cancellation);
+                    ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
+                    reservations.remove(ReservationCancellationManager.getReservation(resNum));
+                    ReservationCancellationManager.setAllReservations(reservations);
+                    writer.writeReservations(ConstantReferences.RESERVATIONS, reservations);
+
+                } else {
+                    choice = exitValue;
+                }
+
+            } else if (choice == 3) {
                 ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
                 int size = reservations.size();
-                for(int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) {
                     System.out.println(reservations.get(i).toString());
                 }
-            } else if(choice == 4) {
+            } else if (choice == 4) {
                 ArrayList<Cancellation> cancellations = ReservationCancellationManager.getAllCancellations();
                 int size = cancellations.size();
-                for(int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) {
                     System.out.println(cancellations.get(i).toString());
                 }
-            } else if(choice == 5) {
+            } else if (choice == 5) {
                 displayAnalyticalMenu();
             }
             printRightMenu(exitValue);
@@ -111,30 +118,59 @@ public class ReservationSystem {
         menus.printAnalyticsMenu();
         choice = userInput.getAnalyticsChoice();
         while (choice != ConstantReferences.EXIT_ANALYTICAL) {
-            if(choice == 1) {
+            if (choice == 1) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
-                boolean showRoom = userInput.getYesOrNo();
-                System.out.print("Enter the starting date (YYYY-MM-DD): ");
-                LocalDate dateCheckIn = userInput.getDate();
-                System.out.print("Enter the ending date (YYYY-MM-DD): ");
-                LocalDate dateCheckOut = userInput.getDate();
-                while(dateCheckIn.compareTo(dateCheckOut) > 0) {
-                    System.out.print("You cannot have the starting date be later than the ending date, try again: ");
-                    dateCheckIn = userInput.getDate();
+
+                // -1 means return, 0 means false, 1 means true.
+                int showRoomIndicator = userInput.getYesOrNo();
+                boolean showRoom = false;
+
+                if (showRoomIndicator != -1) {
+                    if(showRoomIndicator == 1){
+                        showRoom = true;
+                    }
+
+                    System.out.print("Enter the starting date (YYYY-MM-DD): ");
+                    LocalDate dateCheckIn = userInput.getDate();
+                    if(dateCheckIn == null){
+                        continue;
+                    }
+
+                    System.out.print("Enter the ending date (YYYY-MM-DD): ");
+                    LocalDate dateCheckOut = userInput.getDate();
+                    if(dateCheckOut == null){
+                        continue;
+                    }
+
+                    while (dateCheckIn.compareTo(dateCheckOut) > 0) {
+                        System.out.print("You cannot have the starting date be later than the ending date, try again: ");
+                        dateCheckIn = userInput.getDate();
+                    }
+                    DataAnalysis.printAnalytics(DataAnalysis.getOccupancyRatesAll(ReservationCancellationManager.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
+
                 }
-                DataAnalysis.printAnalytics(DataAnalysis.getOccupancyRatesAll(ReservationCancellationManager.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
+
+
             } else if (choice == 2) {
                 System.out.println("Do you also want to show rooms that aren't booked? Y/N");
-                boolean showRoom = userInput.getYesOrNo();
-                System.out.print("Enter the starting date (YYYY-MM-DD): ");
-                LocalDate dateCheckIn = userInput.getDate();
-                System.out.print("Enter the ending date (YYYY-MM-DD): ");
-                LocalDate dateCheckOut = userInput.getDate();
-                while(dateCheckIn.compareTo(dateCheckOut) > 0) {
-                    System.out.print("You cannot have the starting date be later than the ending date, try again: ");
-                    dateCheckIn = userInput.getDate();
+                int showRoomIndicator = userInput.getYesOrNo();
+                boolean showRoom = false;
+
+                if(showRoomIndicator != -1){
+                    if(showRoomIndicator == 1){
+                        showRoom = true;
+                    }
+                    System.out.print("Enter the starting date (YYYY-MM-DD): ");
+                    LocalDate dateCheckIn = userInput.getDate();
+                    System.out.print("Enter the ending date (YYYY-MM-DD): ");
+                    LocalDate dateCheckOut = userInput.getDate();
+                    while (dateCheckIn.compareTo(dateCheckOut) > 0) {
+                        System.out.print("You cannot have the starting date be later than the ending date, try again: ");
+                        dateCheckIn = userInput.getDate();
+                    }
+                    DataAnalysis.printAnalytics(DataAnalysis.calculateIncomeAll(ReservationCancellationManager.getAllReservations(), ReservationCancellationManager.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));
+
                 }
-                DataAnalysis.printAnalytics(DataAnalysis.calculateIncomeAll(ReservationCancellationManager.getAllReservations(), ReservationCancellationManager.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));
 
             }
             menus.printAnalyticsMenu();
@@ -146,7 +182,7 @@ public class ReservationSystem {
      * Method helps to pick between the customer and administrator depending on the exit value.
      */
     private void printRightMenu(int exitValue) {
-        if(exitValue == ConstantReferences.EXIT_CUSTOMER) {
+        if (exitValue == ConstantReferences.EXIT_CUSTOMER) {
             menus.printCustomerMenu();
         } else if (exitValue == ConstantReferences.EXIT_ADMINISTRATOR) {
             menus.printAdministratorMenu();
