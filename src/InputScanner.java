@@ -56,31 +56,31 @@ public class InputScanner {
         double totalCost;
 
         System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
-        System.out.print("Enter the reservation number(-1 to quit): ");
+        System.out.print("Enter the reservation number (-1 to quit): ");
         resNumber = getValidResNumber();
         if (resNumber == -1) {
             return null;
         }
 
-        System.out.print("Enter the reservation name (e.g. Jeff Simmons)(-1 to quit): ");
+        System.out.print("Enter the reservation name (e.g. Jeff Simmons) (-1 to quit): ");
         resName = getName();
         if (resName == null) {
             return null;
         }
 
-        System.out.print("Enter the reservation type (S or AP)(-1 to quit): ");
+        System.out.print("Enter the reservation type (S or AP) (-1 to quit): ");
         resType = getReservationType();
         if (resType.equals("-1")) {
             return null;
         }
 
-        System.out.print("Enter a check in date (e.g. YYYY-MM-DD)(-1 to quit): ");
+        System.out.print("Enter a check in date (e.g. YYYY-MM-DD) (-1 to quit): ");
         checkInDate = getDate();
         if (checkInDate == null) {
             return null;
         }
         while (checkInDate.isBefore(LocalDate.now())) {
-            System.out.print("You cannot reserve rooms for past dates, try again(-1 to quit): ");
+            System.out.print("You cannot reserve rooms for past dates, try again (-1 to quit): ");
             checkInDate = getDate();
 
             if (checkInDate == null) {
@@ -88,14 +88,14 @@ public class InputScanner {
             }
         }
 
-        System.out.print("Enter a check out date (e.g. YYYY-MM-DD)(-1 to quit): ");
+        System.out.print("Enter a check out date (e.g. YYYY-MM-DD) (-1 to quit): ");
         checkOutDate = getDate();
         if (checkOutDate == null) {
             return null;
         }
 
         while (checkOutDate.compareTo(checkInDate) == 0 || checkOutDate.compareTo(checkInDate) < 0) {
-            System.out.print("You cannot set the check out date before or same day as the check in date, try again(-1 to quit): ");
+            System.out.print("You cannot set the check out date before or same day as the check in date, try again (-1 to quit): ");
             checkOutDate = getDate();
 
             if (checkOutDate == null) {
@@ -103,7 +103,7 @@ public class InputScanner {
             }
         }
 
-        System.out.print("Enter the number of rooms(-1 to quit): ");
+        System.out.print("Enter the number of rooms (-1 to quit): ");
         numberOfRooms = getNumber();
         if (numberOfRooms == -1) {
             return null;
@@ -137,12 +137,19 @@ public class InputScanner {
         System.out.println("\n------ REQUESTING CANCELLATION INFORMATION ------");
         System.out.println("Enter the reservation number for the reservation you are cancelling.");
         System.out.println("-------------------------------------------------");
-        System.out.print("Reservation number(-1 to quit): ");
+        System.out.print("Reservation number (-1 to quit): ");
         chosenReservation = getReservationFromUserReservationNumber();
 
         if (chosenReservation == null) {
             return null;
         }
+        System.out.println("Are you sure you want to cancel " + chosenReservation.getResNumber() + " ?");
+        System.out.print("Type your answer (Y/N): ");
+        int confirmation = getYesOrNo();
+        if(confirmation == 0 || confirmation == -1) {
+           return null;
+        }
+
         userInputCancellation = new Cancellation(chosenReservation);
         return userInputCancellation;
     }
@@ -173,7 +180,7 @@ public class InputScanner {
         }
 
         while (!userValidator.inputIsInteger(input)) {
-            System.out.print("The input is not a valid positive number, make sure it is greater than 0. Try again(-1 to quit): ");
+            System.out.print("The input is not a valid positive number, make sure it is greater than 0. Try again (-1 to quit): ");
             input = sc.nextLine();
 
             if (input.equals("-1")) {
@@ -194,7 +201,7 @@ public class InputScanner {
     private int getValidResNumber() {
         int validNum = getNumber();
         while (!userValidator.inputIsValidResNum(validNum)) {
-            System.out.print("The input reservation number already exists, try again(-1 to quit): ");
+            System.out.print("The input reservation number already exists, try again (-1 to quit): ");
             validNum = getNumber();
 
             if (getNumber() == -1) {
@@ -231,7 +238,7 @@ public class InputScanner {
         }
 
         while (validOccupancy < occuMin || validOccupancy > occuMax) {
-            System.out.print("The input is not a valid occupancy for the room type, try again between " + occuMin + " and " + occuMax + "(-1 to quit): ");
+            System.out.print("The input is not a valid occupancy for the room type, try again between " + occuMin + " and " + occuMax + " (-1 to quit): ");
             validOccupancy = getNumber();
 
             if (validOccupancy == -1) {
@@ -254,7 +261,7 @@ public class InputScanner {
             return null;
         }
         while (!userValidator.inputIsName(input)) {
-            System.out.print("The input is not a valid name. Try again (e.g. Jeff Simmons)(-1 to quit): ");
+            System.out.print("The input is not a valid name. Try again (e.g. Jeff Simmons) (-1 to quit): ");
             input = sc.nextLine();
 
             if (input.equals("-1")) {
@@ -277,7 +284,7 @@ public class InputScanner {
 
         choice = sc.nextLine();
         while (!userValidator.inputIsInRange(choice, minValueOfRange, maxValueOfRange)) {
-            System.out.print("The input is invalid. Enter a new value from the range " + minValueOfRange + " to " + maxValueOfRange + "(-1 to quit): ");
+            System.out.print("The input is invalid. Enter a new value from the range " + minValueOfRange + " to " + maxValueOfRange + " (-1 to quit): ");
             choice = sc.nextLine();
             if (choice.equals("-1")) {
                 return -1;
@@ -300,7 +307,7 @@ public class InputScanner {
         }
 
         while (!userValidator.isValidReservationType(input)) {
-            System.out.print("The input type is invalid. Enter a new value S (Standard) or AP (Advanced Purchase)(-1 to quit): ");
+            System.out.print("The input type is invalid. Enter a new value S (Standard) or AP (Advanced Purchase) (-1 to quit): ");
             input = sc.nextLine();
 
             if (input.equals("-1")) {
@@ -341,7 +348,7 @@ public class InputScanner {
             return -1;
         }
         while (ReservationCancellationManager.getReservation(resNumber) == null) {
-            System.out.print("Reservation you inputted does not exist. Try again(-1 to quit): ");
+            System.out.print("Reservation you inputted does not exist. Try again (-1 to quit): ");
             resNumber = getNumber();
 
             if (resNumber == -1) {
@@ -366,7 +373,7 @@ public class InputScanner {
 
         LocalDate date;
         while (!userValidator.inputIsDate(input)) {
-            System.out.print("The date input is invalid. Enter a new value in the format YYYY-MM-DD. Try again(-1 to quit): ");
+            System.out.print("The date input is invalid. Enter a new value in the format YYYY-MM-DD. Try again (-1 to quit): ");
             input = sc.nextLine();
 
             if (input.equals("-1")) {
@@ -392,7 +399,7 @@ public class InputScanner {
         }
         int result = 0;
         while (!userValidator.inputIsYesOrNo(input)) {
-            System.out.print("The input is invalid. Please enter 'Y' or 'N'(-1 to quit): ");
+            System.out.print("The input is invalid. Please enter 'Y' or 'N' (-1 to quit): ");
             input = sc.nextLine();
 
             if (input.equals("-1")) {
@@ -423,7 +430,7 @@ public class InputScanner {
             System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
             System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
             System.out.println("--------------------------------------------------------------");
-            System.out.print("Enter room type(-1 to quit): ");
+            System.out.print("Enter room type (-1 to quit): ");
             typeOfRoom = sc.nextLine();
             while (!userValidator.isValidRoomType(typeOfRoom)) {
                 System.out.println("This is not a valid input, these are some options:");
@@ -432,11 +439,11 @@ public class InputScanner {
                 System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
                 System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
                 System.out.println("--------------------------------------------------------------");
-                System.out.print("Please enter your choice(-1 to quit): ");
+                System.out.print("Please enter your choice (-1 to quit): ");
                 typeOfRoom = sc.nextLine();
             }
 
-            System.out.print("Enter occupancy total(-1 to quit): ");
+            System.out.print("Enter occupancy total (-1 to quit): ");
             occupancy = getValidOccupancy(typeOfRoom);
 
             rooms.add(new Room(typeOfRoom, occupancy));
@@ -461,7 +468,7 @@ public class InputScanner {
             System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
             System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
             System.out.println("--------------------------------------------------------------");
-            System.out.print("Enter room type(-1 to quit): ");
+            System.out.print("Enter room type (-1 to quit): ");
             typeOfRoom = sc.nextLine();
             if (typeOfRoom.equals("-1")) {
                 return null;
@@ -473,7 +480,7 @@ public class InputScanner {
                 System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
                 System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
                 System.out.println("--------------------------------------------------------------");
-                System.out.print("Please enter your choice(-1 to quit): ");
+                System.out.print("Please enter your choice (-1 to quit): ");
                 typeOfRoom = sc.nextLine();
                 if (typeOfRoom.equals("-1")) {
                     return null;
@@ -489,13 +496,13 @@ public class InputScanner {
                 System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
                 System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
                 System.out.println("--------------------------------------------------------------");
-                System.out.print("Please enter your choice(-1 to quit): ");
+                System.out.print("Please enter your choice (-1 to quit): ");
                 typeOfRoom = sc.nextLine();
                 if (typeOfRoom.equals("-1")) {
                     return null;
                 }
             }
-            System.out.print("Enter occupancy total(-1 to quit): ");
+            System.out.print("Enter occupancy total (-1 to quit): ");
             occupancy = getValidOccupancy(typeOfRoom);
             if (occupancy == -1) {
                 return null;
