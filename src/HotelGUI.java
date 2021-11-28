@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 
 import javafx.scene.control.Button;
@@ -10,10 +11,12 @@ import javafx.scene.text.Text;
 import javafx.application.Application;
 import javafx.scene.Scene;
 
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
 public class HotelGUI extends Application {
+    private static Stage mainStage = new Stage();
 
     public static void main(String[] args) {
         Application.launch();
@@ -24,13 +27,20 @@ public class HotelGUI extends Application {
     //  private final Button button4;
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Hotel Login");
-        primaryStage.setScene(initialiseLogin());
-        primaryStage.show();
+        mainStage.setTitle("Hotel Login");
+        mainStage.setScene(createLogin());
+        mainStage.show();
     }
 
-    public static Scene initialiseLogin(){
+    private static Scene createChoice(boolean isAdmin){
 
+        VBox main = new VBox();
+        main.setAlignment(Pos.CENTER);
+        return new Scene(main, 800, 500);
+
+    }
+
+    private static Scene createLogin(){
         VBox vBox0 = new VBox();
         vBox0.setMinHeight(700);
         vBox0.setPrefHeight(400.0);
@@ -60,6 +70,10 @@ public class HotelGUI extends Application {
         vBox3.setPrefWidth(100.0);
         vBox3.setAlignment(Pos.CENTER);
         Button button4 = new Button();
+        button4.setOnAction(event -> {
+            mainStage.setTitle("User Choices");
+            mainStage.setScene(createChoice(false));
+        });
         button4.setText("User");
         button4.setAlignment(Pos.CENTER);
         button4.setMnemonicParsing(false);
@@ -77,9 +91,8 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(vBox3);
 
-        Scene scene = new Scene(vBox0, 200, 100);
-        return scene;
+        //return new Scene(vBox0, 200, 100);
+        return new Scene(vBox0, 800, 500);
+
     }
-
-
 }

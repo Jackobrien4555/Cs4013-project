@@ -164,6 +164,7 @@ public class Reservation {
     /**
      * This method returns a String that lists all the details of the reservation.
      */
+    @Override
     public String toString() {
         String reservationInfo = resNumber + "," + resName + "," + resType + "," + checkInDate.toString() + "," + checkOutDate.toString()
                 + "," + numberOfRooms + ",";
