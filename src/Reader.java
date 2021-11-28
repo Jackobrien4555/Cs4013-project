@@ -81,11 +81,37 @@ public abstract class Reader {
     }
 
     /**
+     * Reading list of admins.
+     * @param filepath
+     * @return
+     */
+    public static ArrayList<User> readUsers(String filepath){
+        ArrayList<User> users = new ArrayList<>();
+
+        try {
+            File file = new File(filepath);
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                // Preparing the user.
+                User user = null;
+                String[] cells = reader.nextLine().split(",");
+
+                String name = cells[0];
+                String password = cells[1];
+                users.add(new User(name, password));
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error has occurred: File not found");
+        }
+
+        ReservationCancellationManager.setAllUsers(users);
+        return users;
+    }
+
+    /*
      * By taking in an array of Strings as values for a Reservation, a new Reservation
      * instance is created and returned.
-     *
-     * @param cells Array of Strings that holds all the values for a reservation.
-     * @return The converted Reservation using the values provided by "cells".
      */
     private static Reservation lineToReservation(String[] cells) {
         // Converting all values in "cells" to their appropriate types.

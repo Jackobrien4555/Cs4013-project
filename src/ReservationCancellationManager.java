@@ -10,6 +10,16 @@ public abstract class ReservationCancellationManager {
     private static ArrayList<Reservation> allReservations;
     private static ArrayList<Cancellation> allCancellations;
 
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public static void setAllUsers(ArrayList<User> allUsers) {
+        ReservationCancellationManager.allUsers = allUsers;
+    }
+
+    private static ArrayList<User> allUsers;
+
     public static Reservation getReservation(int resNumber) {
         for (Reservation Reservation : allReservations) {
             if (resNumber == Reservation.getResNumber()) {
@@ -60,6 +70,7 @@ public abstract class ReservationCancellationManager {
 
     /**
      * Adding a Reservation to allReservations.
+     *
      * @param res Reservation to be added.
      */
     public static void addReservation(Reservation res) {
@@ -68,6 +79,7 @@ public abstract class ReservationCancellationManager {
 
     /**
      * Adding a Cancellation to allCancellations.
+     *
      * @param can Cancellation to be added.
      */
     public static void addCancellation(Cancellation can) {
