@@ -785,6 +785,7 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(button4);
         return new Scene(vBox0, 800, 500);
+        mainStage.setResizable(false);
     }
 
 
