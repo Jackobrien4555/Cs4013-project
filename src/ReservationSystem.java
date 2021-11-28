@@ -36,15 +36,17 @@ public class ReservationSystem {
             if (choice == 1) {
                 subMenuRun(ConstantReferences.EXIT_CUSTOMER);
             } else if (choice == 2) {
-                System.out.print("Username: ");
+                System.out.print("Username (-1 to quit): ");
                 String username = userInput.getUsername();
                 if (username == null) {
-                    break;
+                    choice = 0;
+                    continue;
                 }
-                System.out.print("Password: ");
+                System.out.print("Password (-1 to quit): ");
                 String password = userInput.getPassword(username);
                 if (password == null) {
-                    break;
+                    choice = 0;
+                    continue;
                 }
                 subMenuRun(ConstantReferences.EXIT_ADMINISTRATOR);
             }
