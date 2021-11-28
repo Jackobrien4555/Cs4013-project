@@ -1,42 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-    Copyright (c) 2017, Gluon and/or its affiliates.
-    All rights reserved. Use is subject to license terms.
-
-    This file is available and licensed under the following license:
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions
-    are met:
-
-   - Redistributions of source code must retain the above copyright
-     notice, this list of conditions and the following disclaimer.
-   - Redistributions in binary form must reproduce the above copyright
-     notice, this list of conditions and the following disclaimer in
-     the documentation and/or other materials provided with the distribution.
-   - Neither the name of Oracle Corporation and Gluon nor the names of its
-     contributors may be used to endorse or promote products derived
-     from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
+<?import com.gluonhq.charm.glisten.control.DropdownButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -53,31 +26,32 @@
             </Text>
          </children>
       </VBox>
+      <DropdownButton prefHeight="18.0" prefWidth="125.0">
+          <items>
+              <MenuItem text="Hotel Occupancy Analytics" />
+              <MenuItem text="Financial Analytics" />
+          </items>
+         <effect>
+            <SepiaTone />
+         </effect>
+      </DropdownButton>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to show rooms that aren't booked?">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
       <HBox alignment="CENTER" prefHeight="49.0" prefWidth="600.0" spacing="30.0">
          <VBox.margin>
             <Insets left="30.0" />
          </VBox.margin>
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Dates to get occupancy rates for all Hotels and Room" />
-         </children>
       </HBox>
+      <CheckBox mnemonicParsing="false" text="Yes" textFill="#1eb017" />
+      <CheckBox mnemonicParsing="false" text="No" textFill="#ef0808" />
       <HBox alignment="CENTER" prefHeight="49.0" prefWidth="600.0" spacing="30.0">
          <VBox.margin>
             <Insets left="30.0" />
          </VBox.margin>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start date:" />
-            <DatePicker />
-            <Text layoutX="147.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="49.0" prefWidth="600.0" spacing="30.0">
-         <VBox.margin>
-            <Insets left="30.0" />
-         </VBox.margin>
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" />
-            <DatePicker />
             <Text layoutX="143.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
       </HBox>
@@ -113,6 +87,11 @@
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="761.0" />
+                  <ScrollPane prefHeight="163.0" prefWidth="759.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="134.0" prefHeight="200.0" prefWidth="761.0" />
                   <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="400.0" prefWidth="102.0" text="Return" />
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="258.0" prefHeight="200.0" prefWidth="761.0" />
