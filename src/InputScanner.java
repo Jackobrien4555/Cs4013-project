@@ -384,6 +384,56 @@ public class InputScanner {
         return date;
     }
 
+    public String getUsername() {
+        String input;
+        input = sc.nextLine();
+
+        if (input.equals("-1")) {
+            return null;
+        }
+
+        while (!userValidator.inputIsUsername(input)) {
+            System.out.print("The username given is not a valid username, please try again (-1 to quit): ");
+            input = sc.nextLine();
+
+            if (input.equals("-1")) {
+                return null;
+            }
+        }
+
+        return input;
+    }
+
+    public String getPassword(String username) {
+        User user = getUser(username);
+        String input;
+        input = sc.nextLine();
+
+        if (input.equals(-1)) {
+            return null;
+        }
+
+        while (!input.equalsIgnoreCase(user.getPassword())) {
+            System.out.print("The password for this username is incorrect, please try again (-1 to quit): ");
+            input = sc.nextLine();
+
+            if (input.equals("-1")) {
+                return null;
+            }
+        }
+
+        return input;
+    }
+
+    public User getUser(String username) {
+        for (User user : Reader.readUsers(ConstantReferences.ADMINS)) {
+            if (username.equalsIgnoreCase(user.getUsername())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     /**
      * Co-Author: Edison Cai
      * Asks the user for a Y or N input and returns a boolean expression.

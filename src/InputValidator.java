@@ -145,6 +145,15 @@ public class InputValidator {
 
     }
 
+    public boolean inputIsUsername(String input) {
+        for (User user : Reader.readUsers(ConstantReferences.ADMINS)) {
+            if (input.equalsIgnoreCase(user.getUsername())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Validates if String correctly represents a yes or no answer from user.
      *
