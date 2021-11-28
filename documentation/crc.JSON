@@ -37,10 +37,16 @@
     "type": 1,
     "responsibilities": [
       "Defines a room(ie. type,occupancy,room number)",
-      "Stores room"
+      "Stores room",
+      "Finds how many rooms of this type are available between two dates",
+      "Returns the cost of a room by passing in the room's rates for the week"
     ],
     "collaborators": [
-      ""
+      "Reservation",
+      "ReservationCancellationManager",
+      "TypeOfRoom",
+      "Hotel",
+      "HotelInitialiser"
     ]
   },
   {
@@ -166,18 +172,6 @@
     ]
   },
   {
-    "name": "RandomReservationsGenerator",
-    "superclasses": "",
-    "subclasses": "",
-    "type": 1,
-    "responsibilities": [
-      "Used to generate random reservations"
-    ],
-    "collaborators": [
-      ""
-    ]
-  },
-  {
     "name": "Reader",
     "superclasses": "",
     "subclasses": "",
@@ -204,6 +198,47 @@
       "Reservation",
       "Cancellation",
       ""
+    ]
+  },
+  {
+    "name": "ReservationCancellationManager",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Keeps track of all the reservations ",
+      " Provides numerous functionalities for these reservations."
+    ],
+    "collaborators": [
+      "Reservation",
+      "Cancellation"
+    ]
+  },
+  {
+    "name": "ReservationSystem",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Creates menus and sub menus so that the user can use all the different methods we have created.",
+      "Contains main run function which runs the startup menu"
+    ],
+    "collaborators": [
+      "InputScanner",
+      "PrintedMenus",
+      "Reader"
+    ]
+  },
+  {
+    "name": "SystemMain",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Main driver of text UI"
+    ],
+    "collaborators": [
+      "ReservationSystem"
     ]
   }
 ]
