@@ -38,6 +38,9 @@ public class ReservationSystem {
             } else if (choice == 2) {
                 System.out.print("Username: ");
                 String username = userInput.getUsername();
+                if (username == null) {
+                    break;
+                }
                 System.out.print("Password: ");
                 String password = userInput.getPassword(username);
                 if (password == null) {
