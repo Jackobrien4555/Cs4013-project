@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 
 public class HotelGUI extends Application {
 
+    public static void main(String[] args) {
+        Application.launch();
+    }
 
     //  private final VBox vBox0;
     //   private final Button button5;
@@ -77,4 +80,6 @@ public class HotelGUI extends Application {
         Scene scene = new Scene(vBox0, 200, 100);
         return scene;
     }
+
+
 }
