@@ -143,6 +143,13 @@ public class InputScanner {
         if (chosenReservation == null) {
             return null;
         }
+        System.out.println("Are you sure you want to cancel " + chosenReservation.getResNumber() + " ?");
+        System.out.print("Type your answer (Y/N): ");
+        int confirmation = getYesOrNo();
+        if(confirmation == 0 || confirmation == -1) {
+           return null;
+        }
+
         userInputCancellation = new Cancellation(chosenReservation);
         return userInputCancellation;
     }
