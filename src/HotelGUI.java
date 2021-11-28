@@ -686,7 +686,7 @@ public class HotelGUI extends Application {
 
         Text invalidEnd = new Text("Invalid end date.");
         invalidStart.setVisible(true);
-        hBox9.getChildren().add(invalidEnd);
+        hBox13.getChildren().add(invalidEnd);
 
         Text text16 = new Text();
         text16.setStrokeWidth(0.0);
@@ -716,6 +716,10 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox17.getChildren().add(textField19);
+
+        Text invalidRoomNum = new Text("Invalid number of rooms.");
+        invalidRoomNum.setVisible(true);
+        hBox17.getChildren().add(invalidRoomNum);
 
         // Adding child to parent
         vBox0.getChildren().add(hBox17);
