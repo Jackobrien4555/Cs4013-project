@@ -1,13 +1,13 @@
 To compile the text UI version:
-javac SystemMain.java
+javac -cp . SystemMain.java
 
 To run the text UI version:
-java SystemMain
+java -cp . SystemMain
 
 To compile the GUI version:
-javac --module-path "PATH TO JAVAFX LIB" --add-modules javafx.controls,javafx.fxml HotelGUI.java
-In my case, javac --module-path "C:\javafx\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml HotelGUI.java
+javac -cp . --module-path "PATH TO JAVAFX LIB" --add-modules javafx.controls,javafx.fxml HotelGUI.java
+In my case, javac -cp . --module-path "C:\javafx\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml HotelGUI.java
 
 To run the GUI version:
-java --module-path "PATH TO JAVAFX LIB" --add-modules javafx.controls,javafx.fxml HotelGUI
-In my case, java --module-path "C:\javafx\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml HotelGUI
+java -cp . --module-path "PATH TO JAVAFX LIB" --add-modules javafx.controls,javafx.fxml HotelGUI
+In my case, java -cp . --module-path "C:\javafx\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml HotelGUI

@@ -13,7 +13,6 @@ public class ReservationSystem {
 
     private InputScanner userInput;
     private PrintedMenus menus;
-    private Reader reader;
 
     public ReservationSystem() {
         menus = new PrintedMenus();

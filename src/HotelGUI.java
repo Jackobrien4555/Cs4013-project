@@ -16,7 +16,12 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-
+/**
+ * This is the main driver of the GUI version
+ * of the reservation system.
+ *
+ * @author Edison Cai 20241135
+ */
 public class HotelGUI extends Application {
     private static final Stage mainStage = new Stage();
     private static boolean isAdmin = false;
@@ -463,6 +468,17 @@ public class HotelGUI extends Application {
         scrollPane14.setFitToWidth(true);
 
         // Adding child to parent
+        Button button4 = new Button();
+        button4.setText("Return to Choices");
+        button4.setOnAction(event -> {
+            mainStage.setScene(createAdminChoicesGUI());
+        });
+        button4.setMnemonicParsing(false);
+
+        // Adding child to parent
+        vBox0.getChildren().add(button4);
+
+        // Adding child to parent
         vBox0.getChildren().add(scrollPane14);
         return new Scene(vBox0, 800, 500);
 
@@ -502,12 +518,32 @@ public class HotelGUI extends Application {
         Text text4 = new Text();
         text4.setStrokeWidth(0.0);
         text4.setStrokeType(StrokeType.OUTSIDE);
-        text4.setText("Name:");
+        text4.setText("Reservation Number:");
 
         // Adding child to parent
         hBox3.getChildren().add(text4);
         TextField textField5 = new TextField();
-        textField5.setPromptText("e.g. John Smith");
+        textField5.setPromptText("e.g. 10421");
+        Text invalidResNumber = new Text("The input is not a valid positive number, make sure it is greater than 0.");
+        invalidResNumber.setStyle("-fx-text-fill: red;");
+
+        // Adding child to parent
+        vBox0.getChildren().add(vBox1);
+        HBox hBoxName = new HBox();
+        hBoxName.setPrefHeight(49.0);
+        hBoxName.setSpacing(70.0);
+        hBoxName.setPrefWidth(600.0);
+        hBoxName.setAlignment(Pos.CENTER);
+        Text textName = new Text();
+        textName.setStrokeWidth(0.0);
+        textName.setStrokeType(StrokeType.OUTSIDE);
+        textName.setText("Name:");
+
+        // Adding child to parent
+        hBox3.getChildren().add(text4);
+        TextField textFieldName = new TextField();
+        textFieldName.setPromptText("e.g. John Smith");
+        Text invalidName = new Text("");
 
         // Adding child to parent
         hBox3.getChildren().add(textField5);
@@ -727,6 +763,7 @@ public class HotelGUI extends Application {
         scrollPane3.setPrefWidth(200.0);
 
         VBox allReservations = new VBox();
+        allReservations.setSpacing(30);
 
         ArrayList<Cancellation> cancellations = ReservationCancellationManager.getAllCancellations();
         for (Cancellation cancellation : cancellations) {
