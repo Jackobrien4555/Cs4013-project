@@ -532,70 +532,87 @@ public class HotelGUI extends Application {
     private static Scene createMakeReservationsGUI() {
         mainStage.setTitle("Making reservation");
 
-        VBox main = new VBox();
-        main.setMinHeight(700);
-        main.setPrefHeight(1000);
-        main.setSpacing(20.0);
-        main.setMaxHeight(1700);
-        main.setPrefWidth(1000);
-        main.setMinWidth(700);
-        main.setAlignment(Pos.CENTER);
-        main.setMaxWidth(1700);
+        VBox vBox0 = new VBox();
+        vBox0.setMinHeight(700);
+        vBox0.setPrefHeight(1000);
 
-        VBox heading = new VBox();
-        heading.setPrefHeight(79.0);
-        heading.setPrefWidth(211.0);
-        heading.setAlignment(Pos.CENTER);
-        Text headingText = new Text();
-        headingText.setStrokeWidth(0.0);
-        headingText.setStrokeType(StrokeType.OUTSIDE);
-        headingText.setText("Book a Reservation");
+        vBox0.setSpacing(20.0);
+        vBox0.setMaxHeight(1700);
+        vBox0.setPrefWidth(1000);
+        vBox0.setMinWidth(700);
+        vBox0.setAlignment(Pos.CENTER);
+        vBox0.setMaxWidth(1700);
+        VBox vBox1 = new VBox();
+        vBox1.setPrefHeight(79.0);
+        vBox1.setPrefWidth(211.0);
+        vBox1.setAlignment(Pos.CENTER);
+        Text text2 = new Text();
+        text2.setStrokeWidth(0.0);
+        text2.setStrokeType(StrokeType.OUTSIDE);
+        text2.setText("Book a Reservation");
 
         // Adding child to parent
-        heading.getChildren().add(headingText);
-        // Adding child to parent
-        main.getChildren().add(heading);
+        vBox1.getChildren().add(text2);
 
-        HBox reservationNumberChoice = new HBox();
-        reservationNumberChoice.setPrefHeight(49.0);
-        reservationNumberChoice.setSpacing(70.0);
-        reservationNumberChoice.setPrefWidth(600.0);
-        reservationNumberChoice.setAlignment(Pos.CENTER);
-        Text resNumText = new Text();
-        resNumText.setStrokeWidth(0.0);
-        resNumText.setStrokeType(StrokeType.OUTSIDE);
-        resNumText.setText("Reservation Number:");
         // Adding child to parent
-        reservationNumberChoice.getChildren().add(resNumText);
+        vBox0.getChildren().add(vBox1);
 
+        ////////////////////
+        HBox hBoxNum = new HBox();
+        hBoxNum.setPrefHeight(49.0);
+        hBoxNum.setSpacing(70.0);
+        hBoxNum.setPrefWidth(600.0);
+        hBoxNum.setAlignment(Pos.CENTER);
+
+        Text textNum = new Text();
+        textNum.setStrokeWidth(0.0);
+        textNum.setStrokeType(StrokeType.OUTSIDE);
+        textNum.setText("Reservation Number:");
+
+        // Adding child to parent
+        hBoxNum.getChildren().add(textNum);
+        TextField textFieldNum = new TextField();
+        textFieldNum.setPromptText("e.g. 421562");
+
+
+
+        // Adding child to parent
+        hBoxNum.getChildren().add(textFieldNum);
+
+        Text invalidNum = new Text("Not a valid reservation number.");
+        invalidNum.setVisible(true);
+        hBoxNum.getChildren().add(invalidNum);
+
+        vBox0.getChildren().add(hBoxNum);
+        /////////////
+
+        HBox hBox3 = new HBox();
+        hBox3.setPrefHeight(49.0);
+        hBox3.setSpacing(70.0);
+        hBox3.setPrefWidth(600.0);
+        hBox3.setAlignment(Pos.CENTER);
+
+
+
+        Text text4 = new Text();
+        text4.setStrokeWidth(0.0);
+        text4.setStrokeType(StrokeType.OUTSIDE);
+        text4.setText("Name:");
+
+        // Adding child to parent
+        hBox3.getChildren().add(text4);
         TextField textField5 = new TextField();
-        textField5.setPromptText("e.g. 10421");
-        Text invalidResNumber = new Text("The input is not a valid positive number, make sure it is greater than 0.");
-        invalidResNumber.setStyle("-fx-text-fill: red;");
+        textField5.setPromptText("e.g. John Smith");
 
         // Adding child to parent
-        main.getChildren().add(heading);
-        HBox hBoxName = new HBox();
-        hBoxName.setPrefHeight(49.0);
-        hBoxName.setSpacing(70.0);
-        hBoxName.setPrefWidth(600.0);
-        hBoxName.setAlignment(Pos.CENTER);
-        Text textName = new Text();
-        textName.setStrokeWidth(0.0);
-        textName.setStrokeType(StrokeType.OUTSIDE);
-        textName.setText("Name:");
+        hBox3.getChildren().add(textField5);
+
+        Text invalidName = new Text("Not a valid name (No numbers allowed).");
+        invalidNum.setVisible(true);
+        hBox3.getChildren().add(invalidName);
 
         // Adding child to parent
-        reservationNumberChoice.getChildren().add(resNumText);
-        TextField textFieldName = new TextField();
-        textFieldName.setPromptText("e.g. John Smith");
-        Text invalidName = new Text("");
-
-        // Adding child to parent
-        reservationNumberChoice.getChildren().add(textField5);
-
-        // Adding child to parent
-        main.getChildren().add(reservationNumberChoice);
+        vBox0.getChildren().add(hBox3);
         HBox hBox6 = new HBox();
         hBox6.setPrefHeight(49.0);
         hBox6.setSpacing(30.0);
@@ -609,13 +626,15 @@ public class HotelGUI extends Application {
         // Adding child to parent
         hBox6.getChildren().add(text7);
         ChoiceBox choiceBox8 = new ChoiceBox();
+        choiceBox8.getItems().add("S");
+        choiceBox8.getItems().add("AP");
         choiceBox8.setPrefWidth(150.0);
 
         // Adding child to parent
         hBox6.getChildren().add(choiceBox8);
 
         // Adding child to parent
-        main.getChildren().add(hBox6);
+        vBox0.getChildren().add(hBox6);
         HBox hBox9 = new HBox();
         hBox9.setPrefHeight(49.0);
         hBox9.setSpacing(30.0);
@@ -632,6 +651,11 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox9.getChildren().add(datePicker11);
+
+        Text invalidStart = new Text("Invalid start date.");
+        invalidStart.setVisible(true);
+        hBox9.getChildren().add(invalidStart);
+
         Text text12 = new Text();
         text12.setStrokeWidth(0.0);
         text12.setStrokeType(StrokeType.OUTSIDE);
@@ -642,7 +666,7 @@ public class HotelGUI extends Application {
         hBox9.getChildren().add(text12);
 
         // Adding child to parent
-        main.getChildren().add(hBox9);
+        vBox0.getChildren().add(hBox9);
         HBox hBox13 = new HBox();
         hBox13.setPrefHeight(49.0);
         hBox13.setSpacing(30.0);
@@ -659,6 +683,11 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox13.getChildren().add(datePicker15);
+
+        Text invalidEnd = new Text("Invalid end date.");
+        invalidStart.setVisible(true);
+        hBox9.getChildren().add(invalidEnd);
+
         Text text16 = new Text();
         text16.setStrokeWidth(0.0);
         text16.setStrokeType(StrokeType.OUTSIDE);
@@ -669,7 +698,7 @@ public class HotelGUI extends Application {
         hBox13.getChildren().add(text16);
 
         // Adding child to parent
-        main.getChildren().add(hBox13);
+        vBox0.getChildren().add(hBox13);
         HBox hBox17 = new HBox();
         hBox17.setPrefHeight(49.0);
         hBox17.setSpacing(30.0);
@@ -689,7 +718,7 @@ public class HotelGUI extends Application {
         hBox17.getChildren().add(textField19);
 
         // Adding child to parent
-        main.getChildren().add(hBox17);
+        vBox0.getChildren().add(hBox17);
         ScrollPane scrollPane20 = new ScrollPane();
         scrollPane20.setPrefHeight(450.0);
         scrollPane20.setPrefWidth(774.0);
@@ -697,30 +726,22 @@ public class HotelGUI extends Application {
         scrollPane20.setFitToWidth(true);
 
         // Adding child to parent
-        main.getChildren().add(scrollPane20);
+        vBox0.getChildren().add(scrollPane20);
         Button button21 = new Button();
         button21.setText("Book Reservation");
         button21.setMnemonicParsing(false);
 
         // Adding child to parent
-        main.getChildren().add(button21);
+        vBox0.getChildren().add(button21);
         Button button22 = new Button();
         button22.setLayoutX(338.0);
         button22.setLayoutY(582.0);
         button22.setText("Return to Choices");
-        button22.setOnAction(event -> {
-            if (isAdmin) {
-                mainStage.setScene(createAdminChoicesGUI());
-            } else {
-                mainStage.setScene(createUserChoicesGUI());
-            }
-
-        });
         button22.setMnemonicParsing(false);
 
         // Adding child to parent
-        main.getChildren().add(button22);
-        return new Scene(main, 800, 500);
+        vBox0.getChildren().add(button22);
+        return new Scene(vBox0, 800, 500);
     }
 
     //Done
