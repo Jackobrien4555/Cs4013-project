@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 public class HotelGUI extends Application {
     private static final Stage mainStage = new Stage();
+    private static boolean isAdmin = false;
 
     public static void main(String[] args) {
         Application.launch();
@@ -32,6 +33,66 @@ public class HotelGUI extends Application {
      *
      * @author Jack O'Brien
      */
+    private static Scene createLogin() {
+        VBox vBox0 = new VBox();
+        vBox0.setMinHeight(700);
+        vBox0.setPrefHeight(400.0);
+        //vBox0.setXmlns("http://javafx.com/javafx/17");
+        //          vBox0.setFx("http://javafx.com/fxml/1");
+        vBox0.setMaxHeight(1700);
+        vBox0.setPrefWidth(600.0);
+        vBox0.setMinWidth(700);
+        vBox0.setMaxWidth(700);
+        VBox vBox1 = new VBox();
+        vBox1.setPrefHeight(53.0);
+        vBox1.setPrefWidth(500.0);
+        vBox1.setAlignment(Pos.CENTER);
+        Text text2 = new Text();
+        text2.setStrokeWidth(0.0);
+        text2.setStrokeType(StrokeType.OUTSIDE);
+        text2.setText("Are you accessing the Reservation System as an User or an Admin?");
+
+        // Adding child to parent
+        vBox1.getChildren().add(text2);
+
+        // Adding child to parent
+        vBox0.getChildren().add(vBox1);
+        VBox vBox3 = new VBox();
+        vBox3.setPrefHeight(200.0);
+        vBox3.setSpacing(25.0);
+        vBox3.setPrefWidth(100.0);
+        vBox3.setAlignment(Pos.CENTER);
+        Button button4 = new Button();
+        button4.setOnAction(event -> {
+            isAdmin = false;
+            mainStage.setScene(createUserChoicesGUI());
+        });
+        button4.setText("User");
+        button4.setAlignment(Pos.CENTER);
+        button4.setMnemonicParsing(false);
+
+        // Adding child to parent
+        vBox3.getChildren().add(button4);
+        Button button5 = new Button();
+        button5.setContentDisplay(ContentDisplay.CENTER);
+        button5.setText("Admin");
+        button5.setAlignment(Pos.CENTER);
+        button5.setOnAction(event -> {
+            isAdmin = true;
+            mainStage.setScene(createAdminChoicesGUI());
+        });
+        button5.setMnemonicParsing(false);
+        vBox3.getChildren().add(button5);
+
+
+        // Adding child to parent
+        vBox0.getChildren().add(vBox3);
+
+        //return new Scene(vBox0, 200, 100);
+        return new Scene(vBox0, 800, 500);
+
+    }
+
     private static Scene createAdminChoicesGUI() {
         mainStage.setTitle("Admin Interface");
         VBox vBox0 = new VBox();
@@ -70,9 +131,9 @@ public class HotelGUI extends Application {
             mainStage.setScene(createMakeReservationsGUI());
         });
         button4.setMnemonicParsing(false);
-
         // Adding child to parent
         vBox3.getChildren().add(button4);
+
         Button button5 = new Button();
         button5.setLayoutX(10.0);
         button5.setMinWidth(150.0);
@@ -82,9 +143,33 @@ public class HotelGUI extends Application {
             mainStage.setScene(createCancellationsGUI());
         });
         button5.setMnemonicParsing(false);
-
         // Adding child to parent
         vBox3.getChildren().add(button5);
+
+        Button button7 = new Button();
+        button7.setLayoutX(10.0);
+        button7.setMinWidth(150.0);
+        button7.setLayoutY(60.0);
+        button7.setText("Show all Reservations");
+        button7.setOnAction(event -> {
+            mainStage.setScene(createShowReservationsGUI());
+        });
+        button7.setMnemonicParsing(false);
+        // Adding child to parent
+        vBox3.getChildren().add(button7);
+
+        Button button8 = new Button();
+        button8.setLayoutX(10.0);
+        button8.setMinWidth(150.0);
+        button8.setLayoutY(60.0);
+        button8.setText("Show all Cancellations");
+        button8.setOnAction(event -> {
+            mainStage.setScene(createShowCancellationsGUI());
+        });
+        button8.setMnemonicParsing(false);
+        // Adding child to parent
+        vBox3.getChildren().add(button8);
+
         Button button6 = new Button();
         button6.setLayoutX(10.0);
         button6.setMinWidth(150.0);
@@ -94,7 +179,6 @@ public class HotelGUI extends Application {
             mainStage.setScene(createLogin());
         });
         button6.setMnemonicParsing(false);
-
         // Adding child to parent
         vBox3.getChildren().add(button6);
 
@@ -336,7 +420,12 @@ public class HotelGUI extends Application {
         button22.setLayoutY(582.0);
         button22.setText("Return to Choices");
         button22.setOnAction(event -> {
-            mainStage.setScene(createLogin());
+            if(isAdmin){
+                mainStage.setScene(createAdminChoicesGUI());
+            }
+            else{
+                mainStage.setScene(createUserChoicesGUI());
+            }
         });
         button22.setMnemonicParsing(false);
 
@@ -621,7 +710,13 @@ public class HotelGUI extends Application {
         button22.setLayoutY(582.0);
         button22.setText("Return to Choices");
         button22.setOnAction(event -> {
-            mainStage.setScene(createLogin());
+            if(isAdmin){
+                mainStage.setScene(createAdminChoicesGUI());
+            }
+            else{
+                mainStage.setScene(createUserChoicesGUI());
+            }
+
         });
         button22.setMnemonicParsing(false);
 
@@ -675,62 +770,49 @@ public class HotelGUI extends Application {
         return new Scene(vBox0, 800, 500);
     }
 
-    private static Scene createLogin() {
+    private static Scene createShowCancellationsGUI() {
+        mainStage.setTitle("Show Cancellations");
         VBox vBox0 = new VBox();
         vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(400.0);
-        //vBox0.setXmlns("http://javafx.com/javafx/17");
-        //          vBox0.setFx("http://javafx.com/fxml/1");
+        vBox0.setPrefHeight(1000);
+
         vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(600.0);
+        vBox0.setPrefWidth(1000);
         vBox0.setMinWidth(700);
-        vBox0.setMaxWidth(700);
+        vBox0.setAlignment(Pos.CENTER);
+        vBox0.setMaxWidth(1700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(53.0);
-        vBox1.setPrefWidth(500.0);
+        vBox1.setPrefHeight(50.0);
+        vBox1.setSpacing(30.0);
+        vBox1.setPrefWidth(600.0);
         vBox1.setAlignment(Pos.CENTER);
         Text text2 = new Text();
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
-        text2.setText("Are you accessing the Reservation System as an User or an Admin?");
+        text2.setText("Showing all cancellations:");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
 
         // Adding child to parent
         vBox0.getChildren().add(vBox1);
-        VBox vBox3 = new VBox();
-        vBox3.setPrefHeight(200.0);
-        vBox3.setSpacing(25.0);
-        vBox3.setPrefWidth(100.0);
-        vBox3.setAlignment(Pos.CENTER);
+        ScrollPane scrollPane3 = new ScrollPane();
+        scrollPane3.setPrefHeight(300.0);
+        scrollPane3.setPrefWidth(200.0);
+
+        // Adding child to parent
+        vBox0.getChildren().add(scrollPane3);
         Button button4 = new Button();
+        button4.setText("Return to Choices");
         button4.setOnAction(event -> {
-            mainStage.setTitle("User Choices");
-            mainStage.setScene(createUserChoicesGUI());
+            mainStage.setScene(createLogin());
         });
-        button4.setText("User");
-        button4.setAlignment(Pos.CENTER);
         button4.setMnemonicParsing(false);
 
         // Adding child to parent
-        vBox3.getChildren().add(button4);
-        Button button5 = new Button();
-        button5.setContentDisplay(ContentDisplay.CENTER);
-        button5.setText("Admin");
-        button5.setAlignment(Pos.CENTER);
-        button5.setOnAction(event -> {
-            mainStage.setScene(createAdminChoicesGUI());
-        });
-        button5.setMnemonicParsing(false);
-        vBox3.getChildren().add(button5);
-
-
-        // Adding child to parent
-        vBox0.getChildren().add(vBox3);
-
-        //return new Scene(vBox0, 200, 100);
+        vBox0.getChildren().add(button4);
         return new Scene(vBox0, 800, 500);
-
     }
+
+
 }
