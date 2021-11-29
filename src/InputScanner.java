@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class InputScanner {
     private Scanner sc;
     private InputValidator userValidator;
-    private int currentNumber = 14;
 
     /**
      * Initialises the input scanner we are going to use to complete all the different requirements from our user.
@@ -119,8 +118,22 @@ public class InputScanner {
         System.out.println("Thank you! Your reservation will cost: \u20AC" + reservation.getTotalCost());
         System.out.print("--------------------------------------------------------------");
         ReservationCancellationManager.addReservation(reservation);
-        updateCurrentNumber();
         return reservation;
+    }
+
+    public int getNumberNeeded() {
+        int max = 0;
+        for (int i = 0; i < ReservationCancellationManager.getAllReservations().size(); i++) {
+            if (max < ReservationCancellationManager.getAllReservations().get(i).getResNumber()){
+                max = ReservationCancellationManager.getAllReservations().get(i).getResNumber();
+            }
+        }
+        for (int j = 0; j < ReservationCancellationManager.getAllCancellations().size(); j++) {
+            if (max < ReservationCancellationManager.getAllCancellations().get(j).getReservation().getResNumber()) {
+                max = ReservationCancellationManager.getAllCancellations().get(j).getReservation().getResNumber();
+            }
+        }
+        return max + 1;
     }
 
     /**
@@ -454,14 +467,6 @@ public class InputScanner {
         }
 
         return result;
-    }
-
-    private void updateCurrentNumber() {
-        currentNumber += 1;
-    }
-
-    private int getNumberNeeded() {
-        return currentNumber +1;
     }
 
     /**
