@@ -1,8 +1,10 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
@@ -44,6 +46,7 @@ public class HotelGUI extends Application {
         HotelInitialiser.initialise(HotelInitialiser.getFileCells(ConstantReferences.HOTELS));
         mainStage.setTitle("Hotel Login");
         mainStage.setScene(createLogin());
+        mainStage.setResizable(false);
         mainStage.show();
     }
 
@@ -97,7 +100,7 @@ public class HotelGUI extends Application {
         button5.setAlignment(Pos.CENTER);
         button5.setOnAction(event -> {
             isAdmin = true;
-            mainStage.setScene(createAdminChoicesGUI());
+            mainStage.setScene(createUsernamePasswordGUI());
         });
         button5.setMnemonicParsing(false);
         vBox3.getChildren().add(button5);
@@ -217,6 +220,68 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(vBox3);
 
         return new Scene(vBox0, 800, 500);
+    }
+
+    private static Scene createUsernamePasswordGUI() {
+        StackPane root = new StackPane();
+        VBox vBox = new VBox();
+
+        vBox.setSpacing(8);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+
+        // Making text fields.
+        TextField textFieldUsername = new TextField();
+        PasswordField textFieldPassword = new PasswordField();
+
+        Text invalidLogin = new Text("Invalid login.");
+        invalidLogin.setVisible(false);
+
+        Button buttonLogin = new Button();
+        buttonLogin.setContentDisplay(ContentDisplay.CENTER);
+        buttonLogin.setText("Login");
+        buttonLogin.setAlignment(Pos.CENTER);
+        buttonLogin.setOnAction(event -> {
+
+
+            if (validator.inputIsUsername(textFieldUsername.getText())) {
+                User user = userInput.getUser(textFieldUsername.getText());
+
+                if (textFieldPassword.getText().equalsIgnoreCase(user.getPassword())) {
+                    mainStage.setScene(createAdminChoicesGUI());
+                } else {
+                    invalidLogin.setVisible(true);
+                }
+
+            } else {
+                invalidLogin.setVisible(true);
+            }
+        });
+        buttonLogin.setMnemonicParsing(false);
+
+        Button buttonReturn = new Button();
+        buttonReturn.setContentDisplay(ContentDisplay.CENTER);
+        buttonReturn.setText("Return");
+        buttonReturn.setAlignment(Pos.CENTER);
+        buttonReturn.setOnAction(event -> {
+            mainStage.setScene(createLogin());
+        });
+        buttonReturn.setMnemonicParsing(false);
+
+        vBox.getChildren().addAll(
+                new Label("Username"),
+                textFieldUsername,
+                new Label("Password"),
+                textFieldPassword,
+                invalidLogin,
+                buttonLogin,
+                buttonReturn);
+        root.getChildren().addAll(vBox);
+
+
+        Scene scene = new Scene(root, 400, 400);
+        mainStage.setTitle("Login");
+
+        return scene;
     }
 
     //Done
@@ -982,16 +1047,15 @@ public class HotelGUI extends Application {
             invalidRoomNum.setVisible(false);
         }
 
-        for(Node node : allRoomPickers.getChildren()){
+        for (Node node : allRoomPickers.getChildren()) {
             VBox vbox = (VBox) node;
             ChoiceBox<String> chooseHotel = (ChoiceBox<String>) vbox.getChildren().get(1);
             ChoiceBox<String> chooseRoom = (ChoiceBox<String>) vbox.getChildren().get(2);
             ChoiceBox<Integer> chooseOccupancy = (ChoiceBox<Integer>) vbox.getChildren().get(3);
 
-            if(chooseHotel.getValue() != null && chooseRoom != null && chooseOccupancy.getValue() != null){
+            if (chooseHotel.getValue() != null && chooseRoom != null && chooseOccupancy.getValue() != null) {
                 rooms.add(new Room(chooseRoom.getValue(), chooseOccupancy.getValue()));
-            }
-            else{
+            } else {
                 validReservation = false;
                 rooms.clear();
                 break;
@@ -1047,10 +1111,10 @@ public class HotelGUI extends Application {
 
             chooseRoom.getSelectionModel().selectedItemProperty()
                     .addListener((v, oldValue, newValue) -> {
-                        if(newValue != null){
+                        if (newValue != null) {
                             TypeOfRoom selectedRoom = HotelInitialiser.getHotel(chooseHotel.getValue()).findTypeOfRoom(newValue);
                             chooseOccupancy.getItems().clear();
-                            for(int j = selectedRoom.getOccuMin(); j <= selectedRoom.getOccuMax(); j++){
+                            for (int j = selectedRoom.getOccuMin(); j <= selectedRoom.getOccuMax(); j++) {
                                 chooseOccupancy.getItems().add(j);
                             }
                         }

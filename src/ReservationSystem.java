@@ -101,12 +101,12 @@ public class ReservationSystem {
             } else if (choice == 3) {
                 ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
                 for (Reservation reservation : reservations) {
-                    System.out.println(reservation.toString());
+                    System.out.println(reservation.reservationFormat());
                 }
             } else if (choice == 4) {
                 ArrayList<Cancellation> cancellations = ReservationCancellationManager.getAllCancellations();
                 for (Cancellation cancellation : cancellations) {
-                    System.out.println(cancellation.toString());
+                    System.out.println(cancellation.cancellationFormat());
                 }
             } else if (choice == 5) {
                 displayAnalyticalMenu();
@@ -128,7 +128,7 @@ public class ReservationSystem {
         choice = userInput.getAnalyticsChoice();
         while (choice != ConstantReferences.EXIT_ANALYTICAL) {
             if (choice == 1) {
-                System.out.print("Do you also want to show rooms that aren't booked? Y/N (-1 to quit):");
+                System.out.print("Do you also want to show rooms that aren't booked? Y/N (-1 to quit): ");
 
                 // -1 means return, 0 means false, 1 means true.
                 int showRoomIndicator = userInput.getYesOrNo();
