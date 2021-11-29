@@ -1,4 +1,6 @@
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 
 import javafx.scene.control.*;
@@ -736,114 +738,20 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(scrollPane20);
+
+        // Show this text when the reservation has been successful.
+        Text successText = new Text("Successfully made reservation!");
+        successText.setVisible(false);
+        vBox0.getChildren().add(successText);
+
         Button button21 = new Button();
         button21.setText("Book Reservation");
         button21.setMnemonicParsing(false);
 
         button21.setOnAction(event -> {
-            Reservation reservationToBeAdded = null;
-            int resNumber = 0;
-            String resName = null, resType = null;
-            LocalDate checkInDate = null, checkOutDate = null;
-            int numberOfRooms = 0;
-            ArrayList<Room> rooms = null;
-            boolean validReservation = true;
-
-            try {
-                resNumber = Integer.parseInt(textFieldNum.getText());
-            } catch (NumberFormatException e) {
-                validReservation = false;
-                invalidNum.setVisible(true);
-            }
-
-            try {
-                numberOfRooms = Integer.parseInt(textFieldRoomNum.getText());
-            } catch (NumberFormatException e) {
-                validReservation = false;
-                invalidRoomNum.setVisible(true);
-            }
-
-            if (!validator.inputIsValidResNum(resNumber)) {
-                validReservation = false;
-                invalidRoomNum.setVisible(true);
-            }
-            else{
-                invalidRoomNum.setVisible(false);
-            }
-
-            if (validator.inputIsName(textFieldName.getText())) {
-                resName = textFieldName.getText();
-                invalidName.setVisible(false);
-            } else {
-                validReservation = false;
-                invalidName.setVisible(true);
-            }
-
-            if (!choiceBox8.getSelectionModel().isEmpty()) {
-                if (choiceBox8.getSelectionModel().getSelectedItem().equals("S")) {
-                    resType = "S";
-                    invalidType.setVisible(false);
-                } else if (choiceBox8.getSelectionModel().getSelectedItem().equals("AP")) {
-                    resType = "AP";
-                    invalidType.setVisible(false);
-                } else {
-                    validReservation = false;
-                    invalidType.setVisible(true);
-                }
-            }
-            else{
-                validReservation = false;
-                invalidType.setVisible(true);
-            }
-
-            if (datePickerStart.getValue() != null) {
-                if (!datePickerStart.getValue().isBefore(LocalDate.now())) {
-                    checkInDate = datePickerStart.getValue();
-                    invalidStart.setVisible(false);
-                } else {
-                    validReservation = false;
-                    invalidStart.setVisible(true);
-                }
-            } else {
-                validReservation = false;
-                invalidStart.setVisible(true);
-            }
-
-
-            if (datePickerEnd.getValue() != null) {
-                if (datePickerEnd.getValue().compareTo(datePickerStart.getValue()) == 0 || datePickerEnd.getValue().compareTo(datePickerStart.getValue()) < 0) {
-                    validReservation = false;
-                    invalidEnd.setVisible(true);
-                } else {
-                    checkOutDate = datePickerEnd.getValue();
-                    invalidEnd.setVisible(false);
-                }
-            } else {
-                validReservation = false;
-                invalidEnd.setVisible(true);
-            }
-
-
-            if (!validator.inputIsInteger(Integer.toString(numberOfRooms))) {
-                validReservation = false;
-                invalidRoomNum.setVisible(true);
-            }
-            else{
-                invalidRoomNum.setVisible(false);
-            }
-
-            if (validReservation) {
-                reservationToBeAdded = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
-                reservationToBeAdded.setTotalCost(reservationToBeAdded.getTotalCost());
-                reservationToBeAdded.setRooms(rooms);
-                reservationToBeAdded.setTotalCost(reservationToBeAdded.getTotalCost());
-                System.out.println("Thank you! Your reservation will cost: \u20AC" + reservationToBeAdded.getTotalCost());
-                System.out.print("--------------------------------------------------------------");
-                ReservationCancellationManager.addReservation(reservationToBeAdded);
-                writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
-            }
-
-
+            createReservation(textFieldNum, invalidNum, textFieldRoomNum, invalidRoomNum,
+                    textFieldName, invalidName, choiceBox8, invalidType, datePickerStart,
+                    invalidStart, datePickerEnd, invalidEnd, successText);
         });
 
         // Adding child to parent
@@ -867,6 +775,8 @@ public class HotelGUI extends Application {
 
 
     }
+
+
 
     private static VBox createRoomBooker() {
         VBox createRoom = new VBox();
@@ -987,5 +897,114 @@ public class HotelGUI extends Application {
         mainStage.setResizable(false);
         return new Scene(vBox0, 800, 500);
 
+    }
+
+    private static void createReservation(TextField textFieldNum, Text invalidNum, TextField textFieldRoomNum, Text invalidRoomNum, TextField textFieldName, Text invalidName, ChoiceBox choiceBox8, Text invalidType, DatePicker datePickerStart,
+                                                 Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, Text successText){
+        Reservation reservationToBeAdded = null;
+        int resNumber = 0;
+        String resName = null, resType = null;
+        LocalDate checkInDate = null, checkOutDate = null;
+        int numberOfRooms = 0;
+        ArrayList<Room> rooms = null;
+        boolean validReservation = true;
+
+        try {
+            resNumber = Integer.parseInt(textFieldNum.getText());
+        } catch (NumberFormatException e) {
+            validReservation = false;
+            invalidNum.setVisible(true);
+        }
+
+        try {
+            numberOfRooms = Integer.parseInt(textFieldRoomNum.getText());
+        } catch (NumberFormatException e) {
+            validReservation = false;
+            invalidRoomNum.setVisible(true);
+        }
+
+        if (!validator.inputIsValidResNum(resNumber)) {
+            validReservation = false;
+            invalidRoomNum.setVisible(true);
+        }
+        else{
+            invalidRoomNum.setVisible(false);
+        }
+
+        if (validator.inputIsName(textFieldName.getText())) {
+            resName = textFieldName.getText();
+            invalidName.setVisible(false);
+        } else {
+            validReservation = false;
+            invalidName.setVisible(true);
+        }
+
+        if (!choiceBox8.getSelectionModel().isEmpty()) {
+            if (choiceBox8.getSelectionModel().getSelectedItem().equals("S")) {
+                resType = "S";
+                invalidType.setVisible(false);
+            } else if (choiceBox8.getSelectionModel().getSelectedItem().equals("AP")) {
+                resType = "AP";
+                invalidType.setVisible(false);
+            } else {
+                validReservation = false;
+                invalidType.setVisible(true);
+            }
+        }
+        else{
+            validReservation = false;
+            invalidType.setVisible(true);
+        }
+
+        if (datePickerStart.getValue() != null) {
+            if (!datePickerStart.getValue().isBefore(LocalDate.now())) {
+                checkInDate = datePickerStart.getValue();
+                invalidStart.setVisible(false);
+            } else {
+                validReservation = false;
+                invalidStart.setVisible(true);
+            }
+        } else {
+            validReservation = false;
+            invalidStart.setVisible(true);
+        }
+
+
+        if (datePickerEnd.getValue() != null) {
+            if (datePickerEnd.getValue().compareTo(datePickerStart.getValue()) == 0 || datePickerEnd.getValue().compareTo(datePickerStart.getValue()) < 0) {
+                validReservation = false;
+                invalidEnd.setVisible(true);
+            } else {
+                checkOutDate = datePickerEnd.getValue();
+                invalidEnd.setVisible(false);
+            }
+        } else {
+            validReservation = false;
+            invalidEnd.setVisible(true);
+        }
+
+
+        if (!validator.inputIsInteger(Integer.toString(numberOfRooms))) {
+            validReservation = false;
+            invalidRoomNum.setVisible(true);
+        }
+        else{
+            invalidRoomNum.setVisible(false);
+        }
+
+        if (validReservation) {
+            reservationToBeAdded = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
+            reservationToBeAdded.setTotalCost(reservationToBeAdded.getTotalCost());
+            reservationToBeAdded.setRooms(rooms);
+            reservationToBeAdded.setTotalCost(reservationToBeAdded.getTotalCost());
+            System.out.println("Thank you! Your reservation will cost: \u20AC" + reservationToBeAdded.getTotalCost());
+            System.out.print("--------------------------------------------------------------");
+            ReservationCancellationManager.addReservation(reservationToBeAdded);
+            writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
+            successText.setVisible(true);
+        }
+        else{
+            successText.setVisible(false);
+        }
     }
 }
