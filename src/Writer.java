@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ public class Writer {
         try {
             FileWriter writer = new FileWriter(filename, false);
 
-            for (int i = 0; i < reservations.size(); i++) {
-                writer.write(reservations.get(i).toString() + "\n");
+            for (Reservation reservation : reservations) {
+                writer.write(reservation.toString() + "\n");
             }
 
             writer.close();

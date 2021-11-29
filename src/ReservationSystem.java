@@ -1,3 +1,8 @@
+
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 /**
  * This class uses InputScanner, PrintedMenus and Reader along with ConstantReferences to create menus and
  * sub menus so that the user can use all the different methods we have created.
@@ -5,14 +10,10 @@
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class ReservationSystem {
 
-    private InputScanner userInput;
-    private PrintedMenus menus;
+    private final InputScanner userInput;
+    private final PrintedMenus menus;
 
     public ReservationSystem() {
         menus = new PrintedMenus();
@@ -70,7 +71,7 @@ public class ReservationSystem {
      */
     private void subMenuRun(int exitValue) {
         Writer writer = new Writer();
-        int choice = 0;
+        int choice;
         printRightMenu(exitValue);
 
         choice = userInput.getUserMenuChoice(exitValue);
@@ -79,8 +80,6 @@ public class ReservationSystem {
                 Reservation reservationToBeAdded = userInput.readReservation();
                 if (reservationToBeAdded != null) {
                     writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
-                } else {
-                    choice = exitValue;
                 }
             } else if (choice == 2) {
                 Cancellation cancellation = userInput.readValidCancellation();
@@ -94,8 +93,6 @@ public class ReservationSystem {
                     ReservationCancellationManager.setAllReservations(reservations);
                     writer.writeReservations(ConstantReferences.RESERVATIONS, reservations);
 
-                } else {
-                    choice = exitValue;
                 }
 
             } else if (choice == 3) {
@@ -123,7 +120,7 @@ public class ReservationSystem {
      * user's input.
      */
     private void displayAnalyticalMenu() {
-        int choice = 0;
+        int choice;
         menus.printAnalyticsMenu();
         choice = userInput.getAnalyticsChoice();
         while (choice != ConstantReferences.EXIT_ANALYTICAL) {
@@ -135,19 +132,19 @@ public class ReservationSystem {
                 boolean showRoom = false;
 
                 if (showRoomIndicator != -1) {
-                    if(showRoomIndicator == 1){
+                    if (showRoomIndicator == 1) {
                         showRoom = true;
                     }
 
                     System.out.print("Enter the starting date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckIn = userInput.getDate();
-                    if(dateCheckIn == null){
+                    if (dateCheckIn == null) {
                         continue;
                     }
 
                     System.out.print("Enter the ending date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckOut = userInput.getDate();
-                    if(dateCheckOut == null){
+                    if (dateCheckOut == null) {
                         continue;
                     }
 
@@ -165,19 +162,19 @@ public class ReservationSystem {
                 int showRoomIndicator = userInput.getYesOrNo();
                 boolean showRoom = false;
 
-                if(showRoomIndicator != -1){
-                    if(showRoomIndicator == 1){
+                if (showRoomIndicator != -1) {
+                    if (showRoomIndicator == 1) {
                         showRoom = true;
                     }
                     System.out.print("Enter the starting date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckIn = userInput.getDate();
-                    if(dateCheckIn == null){
+                    if (dateCheckIn == null) {
                         continue;
                     }
 
                     System.out.print("Enter the ending date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckOut = userInput.getDate();
-                    if(dateCheckOut == null){
+                    if (dateCheckOut == null) {
                         continue;
                     }
 

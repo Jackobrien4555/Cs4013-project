@@ -8,11 +8,8 @@ import java.util.ArrayList;
 	 */
 
 	public class Hotel {
-		private String typeHotel;
-		private ArrayList<TypeOfRoom> typeOfRooms;
-		//private String name;
-	   // private String rating;
-	   // private String location;
+		private final String typeHotel;
+		private final ArrayList<TypeOfRoom> typeOfRooms;
 	    
 		/**
 		 * Creates hotel object
@@ -20,7 +17,7 @@ import java.util.ArrayList;
 		 */
 		public Hotel(String typeOfHotel) {
 			this.typeHotel = typeOfHotel;
-			typeOfRooms = new ArrayList<TypeOfRoom>();
+			typeOfRooms = new ArrayList<>();
 		}
 
 		/**
@@ -39,34 +36,8 @@ import java.util.ArrayList;
 	public TypeOfRoom getRoomType(int i) {
 		return typeOfRooms.get(i);
 	}
-	
-	/**
-	 * gets the total number of rooms
-	 * @return t the total number of rooms
-	 */
-	//public int getTotalRooms() {
-	//	int t=0;
-	//	for(int i=0 ; i < typeOfRooms.size();i++) {
-	//		t += typeOfRooms.get(i).getNumAvailable();
-	//		}
-	//	return t;
-	//	}
-	
-	/**
-	 * checks if hotel has the type of room asked for
-	 * @param type the type of room asked for
-	 * @return true or false whether or not room exists
-	 */
-	public boolean hasType(String type) {
-		for(int i=0; i < typeOfRooms.size();i++) {
-		if(typeOfRooms.get(i).getRoomType().equals(type)) {
-			return true;
-	}
-	}
-		return false;
-	}
-	
-	/**
+
+		/**
 	 * returns array of roomtypes
 	 * @return typeOfRoom list of all roomtypes 
 	 */

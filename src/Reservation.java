@@ -7,10 +7,12 @@ import java.util.ArrayList;
  */
 
 public class Reservation {
-    private int resNumber;
-    private String resName, resType;
-    private LocalDate checkInDate, checkOutDate;
-    private int numberOfRooms;
+    private final int resNumber;
+    private final String resName;
+    private final String resType;
+    private final LocalDate checkInDate;
+    private final LocalDate checkOutDate;
+    private final int numberOfRooms;
     private ArrayList<Room> rooms = new ArrayList<>();
     private double totalCost;
 
@@ -142,31 +144,24 @@ public class Reservation {
     }
 
     /**
-     * This method applies the 5% Advanced Purchase (AP) discount.
-     */
-    public void applyAPDiscount() {
-        totalCost = totalCost - (totalCost * 0.05);
-    }
-
-    /**
      * This method returns a String that lists all the details of the reservation and is compatible with a csv file.
      */
     @Override
     public String toString() {
-        String reservationInfo = resNumber + "," + resName + "," + resType + "," + checkInDate.toString() + "," + checkOutDate.toString()
-                + "," + numberOfRooms + ",";
+        StringBuilder reservationInfo = new StringBuilder(resNumber + "," + resName + "," + resType + "," + checkInDate.toString() + "," + checkOutDate.toString()
+                + "," + numberOfRooms + ",");
 
         for (int i = 0; i < numberOfRooms; i++) {
             if (i == numberOfRooms - 1) {
-                reservationInfo += rooms.get(i).getRoomType() + "," + rooms.get(i).getRoomOccupancy();
+                reservationInfo.append(rooms.get(i).getRoomType()).append(",").append(rooms.get(i).getRoomOccupancy());
             } else {
-                reservationInfo += rooms.get(i).getRoomType() + "," + rooms.get(i).getRoomOccupancy() + ",";
+                reservationInfo.append(rooms.get(i).getRoomType()).append(",").append(rooms.get(i).getRoomOccupancy()).append(",");
             }
         }
 
-        reservationInfo += "," + totalCost;
+        reservationInfo.append(",").append(totalCost);
 
-        return reservationInfo;
+        return reservationInfo.toString();
     }
 
     /**

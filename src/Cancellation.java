@@ -16,16 +16,17 @@ public class Cancellation {
      */
     public Cancellation(Reservation reservation) {
         this.reservation = reservation;
-    }
 
-    /**
-     * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
-     * @param reservation The reservation that is being cancelled.
-     * @param cancellationDate The date on which the cancellation was made.
-     */
-    public Cancellation(Reservation reservation, LocalDate cancellationDate) {
-        this.reservation = reservation;
-        this.cancellationDate = cancellationDate;
+        this.cancellationDate = LocalDate.now();
+
+        // If reservation is AP or if it's S and within 2 days of check-in, there will be no refunds.
+        // The money will go towards the hotel.
+        if(reservation.getResType().equals("AP") || (reservation.getResType().equals("S") && cancellationDate.isAfter(reservation.getCheckInDate().minusDays(2)))){
+            income = reservation.getTotalCost();
+        }
+        else{
+            income = 0;
+        }
     }
 
     /**
@@ -65,47 +66,11 @@ public class Cancellation {
     }
 
     /**
-     * This method sets the reservation.
-     * @param reservation the reservation.
-     */
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
-
-    /**
-     * This method sets the cancellation date for the reservation.
-     * @param cancellationDate the date that the reservation is cancelled.
-     */
-    public void setCancellationDate(LocalDate cancellationDate) {
-        this.cancellationDate = cancellationDate;
-    }
-
-    /**
-     * This method sets the total income of the reservation.
-     * @param income the total income to be set.
-     */
-    public void setIncome(double income) {
-        this.income = income;
-    }
-
-    /**
-     * This method checks whether a reservation is refundable or not.
-     */
-    public boolean isRefundable() {
-        // Need to work on this
-        if (reservation.getResType().equalsIgnoreCase("s")/* && cancellationDate < reservation.getCheckInDate()*/) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Returns a string that represents the data contained by a cancellation and is compatible with a csv file.
      */
     public String toString() {
         String reservationString = reservation.toString();
-        return reservationString + "," + LocalDate.now().toString() + "," + income;
+        return reservationString + "," + LocalDate.now() + "," + income;
     }
 
     public String cancellationFormat() {

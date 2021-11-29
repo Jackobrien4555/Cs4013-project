@@ -1,6 +1,4 @@
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * class Room defines a room
@@ -9,8 +7,8 @@ import java.util.Objects;
  * @since 05/11/2021
  */
 public class Room {
-    private String typeOfRoom;
-    private int amountOfOccupants;
+    private final String typeOfRoom;
+    private final int amountOfOccupants;
 
     /**
      * @param type      the type of room
@@ -40,28 +38,11 @@ public class Room {
     }
 
     /**
-     * sets the type of room
-     *
-     * @param type the type of room
-     */
-    public void setRoomType(String type) {
-        typeOfRoom = type;
-    }
-
-    /**
-     * sets the amount able to stay in room
-     *
-     * @param amount the amount able to stay in room
-     */
-    public void setRoomOccupancy(int amount) {
-        amountOfOccupants = amount;
-    }
-
-    /**
-     * @param room
-     * @param checkIn
-     * @param checkOut
-     * @return
+     * Checks if a room is available to be booked between two dates.
+     * @param room The Room object to be checked.
+     * @param checkIn The starting date to be checked.
+     * @param checkOut The ending date to be checked.
+     * @return A boolean value indicating whether the room is available for booking.
      * @author Jack O Brien
      */
     public static boolean roomIsAvailable(Room room, LocalDate checkIn, LocalDate checkOut) {
@@ -102,7 +83,6 @@ public class Room {
         while (checkIn.compareTo(checkOut) < 0) {
             // checkInDate.getDayOfWeek().getValue() returns an int
             // 1 is Monday, 7 is Sunday. To get the corresponding rate, subtract 1.
-            int value = checkIn.getDayOfWeek().getValue();
             result += rates[checkIn.getDayOfWeek().getValue() - 1];
             checkIn = checkIn.plusDays(1);
         }

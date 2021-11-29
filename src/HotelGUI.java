@@ -40,7 +40,7 @@ public class HotelGUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Reader.readReservations(ConstantReferences.RESERVATIONS);
         Reader.readCancellations(ConstantReferences.CANCELLATIONS);
         HotelInitialiser.initialise(HotelInitialiser.getFileCells(ConstantReferences.HOTELS));
@@ -58,8 +58,6 @@ public class HotelGUI extends Application {
         VBox vBox0 = new VBox();
         vBox0.setMinHeight(700);
         vBox0.setPrefHeight(400.0);
-        //vBox0.setXmlns("http://javafx.com/javafx/17");
-        //          vBox0.setFx("http://javafx.com/fxml/1");
         vBox0.setMaxHeight(1700);
         vBox0.setPrefWidth(600.0);
         vBox0.setMinWidth(700);
@@ -149,9 +147,7 @@ public class HotelGUI extends Application {
         button4.setMinWidth(150.0);
         button4.setLayoutY(10.0);
         button4.setText("Make a Reservation");
-        button4.setOnAction(event -> {
-            mainStage.setScene(createMakeReservationsGUI());
-        });
+        button4.setOnAction(event -> mainStage.setScene(createMakeReservationsGUI()));
         button4.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button4);
@@ -161,9 +157,7 @@ public class HotelGUI extends Application {
         button5.setMinWidth(150.0);
         button5.setLayoutY(35.0);
         button5.setText("Cancel Reservation");
-        button5.setOnAction(event -> {
-            mainStage.setScene(createCancellationsGUI());
-        });
+        button5.setOnAction(event -> mainStage.setScene(createCancellationsGUI()));
         button5.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button5);
@@ -173,9 +167,7 @@ public class HotelGUI extends Application {
         button7.setMinWidth(150.0);
         button7.setLayoutY(60.0);
         button7.setText("Show all Reservations");
-        button7.setOnAction(event -> {
-            mainStage.setScene(createShowReservationsGUI());
-        });
+        button7.setOnAction(event -> mainStage.setScene(createShowReservationsGUI()));
         button7.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button7);
@@ -185,9 +177,7 @@ public class HotelGUI extends Application {
         button8.setMinWidth(150.0);
         button8.setLayoutY(60.0);
         button8.setText("Show all Cancellations");
-        button8.setOnAction(event -> {
-            mainStage.setScene(createShowCancellationsGUI());
-        });
+        button8.setOnAction(event -> mainStage.setScene(createShowCancellationsGUI()));
         button8.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button8);
@@ -197,9 +187,7 @@ public class HotelGUI extends Application {
         buttonDataAnalysis.setMinWidth(150.0);
         buttonDataAnalysis.setLayoutY(60.0);
         buttonDataAnalysis.setText("Show Data Analysis");
-        buttonDataAnalysis.setOnAction(event -> {
-            mainStage.setScene(createDataAnalysisGUI());
-        });
+        buttonDataAnalysis.setOnAction(event -> mainStage.setScene(createDataAnalysisGUI()));
         buttonDataAnalysis.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(buttonDataAnalysis);
@@ -209,9 +197,7 @@ public class HotelGUI extends Application {
         button6.setMinWidth(150.0);
         button6.setLayoutY(60.0);
         button6.setText("Return to Login");
-        button6.setOnAction(event -> {
-            mainStage.setScene(createLogin());
-        });
+        button6.setOnAction(event -> mainStage.setScene(createLogin()));
         button6.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button6);
@@ -262,9 +248,7 @@ public class HotelGUI extends Application {
         buttonReturn.setContentDisplay(ContentDisplay.CENTER);
         buttonReturn.setText("Return");
         buttonReturn.setAlignment(Pos.CENTER);
-        buttonReturn.setOnAction(event -> {
-            mainStage.setScene(createLogin());
-        });
+        buttonReturn.setOnAction(event -> mainStage.setScene(createLogin()));
         buttonReturn.setMnemonicParsing(false);
 
         vBox.getChildren().addAll(
@@ -319,9 +303,7 @@ public class HotelGUI extends Application {
         button4.setMinWidth(200.0);
         button4.setLayoutY(10.0);
         button4.setText("Make a Reservation");
-        button4.setOnAction(event -> {
-            mainStage.setScene(createMakeReservationsGUI());
-        });
+        button4.setOnAction(event -> mainStage.setScene(createMakeReservationsGUI()));
 
         button4.setMnemonicParsing(false);
 
@@ -332,9 +314,7 @@ public class HotelGUI extends Application {
         button5.setMinWidth(200.0);
         button5.setLayoutY(35.0);
         button5.setText("Cancel Reservation");
-        button5.setOnAction(event -> {
-            mainStage.setScene(createCancellationsGUI());
-        });
+        button5.setOnAction(event -> mainStage.setScene(createCancellationsGUI()));
         button5.setMnemonicParsing(false);
 
         // Adding child to parent
@@ -344,9 +324,7 @@ public class HotelGUI extends Application {
         button6.setMinWidth(200.0);
         button6.setLayoutY(60.0);
         button6.setText("Return to Login");
-        button6.setOnAction(event -> {
-            mainStage.setScene(createLogin());
-        });
+        button6.setOnAction(event -> mainStage.setScene(createLogin()));
         button6.setMnemonicParsing(false);
 
         // Adding child to parent
@@ -493,10 +471,9 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
-        String[] optionsToChoose = {"Hotel Occupancy Analytics", "Financial Analytics"};
         // Adding child to parent
         vBox0.getChildren().add(vBox1);
-        ChoiceBox choiceBox = new ChoiceBox();
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
         choiceBox.getItems().add("Hotel Occupancy Analytics");
         choiceBox.getItems().add("Financial Analytics");
         choiceBox.setValue("Hotel Occupancy Analytics");
@@ -520,8 +497,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(hBox5);
-        CheckBox checkBox6 = new CheckBox();
-        ChoiceBox yesOrNo = new ChoiceBox();
+        ChoiceBox<String> yesOrNo = new ChoiceBox<>();
         yesOrNo.setValue("Yes");
         yesOrNo.getItems().add("Yes");
         yesOrNo.getItems().add("No");
@@ -597,10 +573,8 @@ public class HotelGUI extends Application {
         buttonStartAnalysis.setText("Start Analysis");
         buttonStartAnalysis.setMnemonicParsing(false);
 
-        buttonStartAnalysis.setOnAction(event -> {
-            showValidAnalysis(choiceBox, yesOrNo, datePickerStart,
-                    invalidStart, datePickerEnd, invalidEnd, scrollPane11);
-        });
+        buttonStartAnalysis.setOnAction(event -> showValidAnalysis(choiceBox, yesOrNo, datePickerStart,
+                invalidStart, datePickerEnd, invalidEnd, scrollPane11));
 
         // Adding child to parent
         vBox0.getChildren().add(buttonStartAnalysis);
@@ -609,9 +583,7 @@ public class HotelGUI extends Application {
         buttonReturn.setText("Return");
         buttonReturn.setMnemonicParsing(false);
 
-        buttonReturn.setOnAction(event -> {
-            mainStage.setScene(createAdminChoicesGUI());
-        });
+        buttonReturn.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
 
         // Adding child to parent
         vBox0.getChildren().add(buttonReturn);
@@ -850,11 +822,9 @@ public class HotelGUI extends Application {
         button21.setText("Book Reservation");
         button21.setMnemonicParsing(false);
 
-        button21.setOnAction(event -> {
-            createReservation(textFieldRoomNum, invalidRoomNum,
-                    textFieldName, invalidName, choiceBox8, invalidType, datePickerStart,
-                    invalidStart, datePickerEnd, invalidEnd, scrollPane20, (HBox) scrollPane20.getContent(), successText);
-        });
+        button21.setOnAction(event -> createReservation(textFieldRoomNum, invalidRoomNum,
+                textFieldName, invalidName, choiceBox8, invalidType, datePickerStart,
+                invalidStart, datePickerEnd, invalidEnd, (HBox) scrollPane20.getContent(), successText));
 
         // Adding child to parent
         vBox0.getChildren().add(button21);
@@ -923,9 +893,7 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(scrollPane3);
         Button button4 = new Button();
         button4.setText("Return to Choices");
-        button4.setOnAction(event -> {
-            mainStage.setScene(createAdminChoicesGUI());
-        });
+        button4.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
         button4.setMnemonicParsing(false);
 
         // Adding child to parent
@@ -979,9 +947,7 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(scrollPane3);
         Button button4 = new Button();
         button4.setText("Return to Choices");
-        button4.setOnAction(event -> {
-            mainStage.setScene(createAdminChoicesGUI());
-        });
+        button4.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
         button4.setMnemonicParsing(false);
 
         // Adding child to parent
@@ -999,8 +965,8 @@ public class HotelGUI extends Application {
     @author Edison Cai 20241135
      */
     private static void createReservation(TextField textFieldRoomNum, Text invalidRoomNum, TextField textFieldName, Text invalidName, ChoiceBox<String> choiceBox8, Text invalidType, DatePicker datePickerStart,
-                                          Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, ScrollPane roomPickers, HBox allRoomPickers, Text successText) {
-        Reservation reservationToBeAdded = null;
+                                          Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, HBox allRoomPickers, Text successText) {
+        Reservation reservationToBeAdded;
         String resName = null, resType = null;
         LocalDate checkInDate = null, checkOutDate = null;
         int numberOfRooms = 0;
@@ -1117,9 +1083,9 @@ public class HotelGUI extends Application {
             Text roomText = new Text("Room " + i);
 
 
-            ChoiceBox<String> chooseHotel = new ChoiceBox<String>();
-            ChoiceBox<String> chooseRoom = new ChoiceBox<String>();
-            ChoiceBox<Integer> chooseOccupancy = new ChoiceBox<Integer>();
+            ChoiceBox<String> chooseHotel = new ChoiceBox<>();
+            ChoiceBox<String> chooseRoom = new ChoiceBox<>();
+            ChoiceBox<Integer> chooseOccupancy = new ChoiceBox<>();
 
             for (Hotel h : HotelInitialiser.getAllHotels()) {
                 chooseHotel.getItems().add(h.getHotelType());
@@ -1160,7 +1126,7 @@ public class HotelGUI extends Application {
     /*
     Check if the values are valid for data analysis.
      */
-    private static boolean showValidAnalysis(ChoiceBox choiceBox, ChoiceBox yesOrNo, DatePicker datePickerStart, Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, ScrollPane scrollPane11) {
+    private static void showValidAnalysis(ChoiceBox<String> choiceBox, ChoiceBox<String> yesOrNo, DatePicker datePickerStart, Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, ScrollPane scrollPane11) {
         LocalDate startDate = null, endDate = null;
         boolean showUnoccupiedRooms = false;
         boolean validAnalysis = true;
@@ -1215,6 +1181,5 @@ public class HotelGUI extends Application {
         }
 
 
-        return false;
     }
 }

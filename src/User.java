@@ -8,9 +8,9 @@
 public class User {
 
     // Stores the username for the user.
-    private String username;
+    private final String username;
     // Stores the password for the user.
-    private String password;
+    private final String password;
 
     // Creating an instance of a User.
     public User(String username, String password) {

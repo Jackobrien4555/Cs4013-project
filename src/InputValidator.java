@@ -1,3 +1,8 @@
+
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * This class is necessary for other classes as it has various methods using regex
  * to check if an input that the user gives us is acceptable or not.
@@ -5,11 +10,6 @@
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
 public class InputValidator {
 
     /**
@@ -64,28 +64,6 @@ public class InputValidator {
      */
     public boolean isValidReservationType(String input) {
         return (input.equalsIgnoreCase("s") || input.equalsIgnoreCase("ap"));
-    }
-
-//    Check's if the input is a valid double number.
-//    public boolean inputIsDouble(String input) {
-//        return (input.matches("\\d+") || input.matches("\\d+.\\d+"));
-//    }
-
-    /**
-     * Checks the input value from the user so that it is a valid reservation number and not already
-     * included in our reservations file.
-     *
-     * @param input The reseravation number.
-     * @return A valid reservation number.
-     */
-    public boolean inputIsValidResNum(int input) {
-        ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
-        for (Reservation reservation : reservations) {
-            if (reservation.getResNumber() == input) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

@@ -47,7 +47,7 @@ public abstract class HotelInitialiser {
     }
 
     /*
-     * Converts rates of a hotel room from a String array to an integer array.
+     * Convert rates of a hotel room from a String array to an integer array.
      */
     private static double[] getRates(String[] rates) {
         double[] doubleRates = new double[rates.length];
@@ -63,9 +63,8 @@ public abstract class HotelInitialiser {
      * Initialises all the Hotels with all their and places them in an ArrayList.
      *
      * @param cells A list of lines represented as String arrays containing all hotel and room details and values.
-     * @return An ArrayList of all Hotel objects that can be created from "cells".
      */
-    public static ArrayList<Hotel> initialise(ArrayList<String[]> cells) {
+    public static void initialise(ArrayList<String[]> cells) {
         ArrayList<Hotel> result = new ArrayList<>();
 
         // Going through every line.
@@ -104,7 +103,7 @@ public abstract class HotelInitialiser {
                     if (i == cells.size()) {
                         result.add(newHotel);
                         allHotels = result;
-                        return result;
+                        return;
                     }
                 }
 
@@ -117,7 +116,6 @@ public abstract class HotelInitialiser {
                 result.add(newHotel);
             }
         }
-        return result;
     }
 
     /**
@@ -144,8 +142,8 @@ public abstract class HotelInitialiser {
 
     /**
      * Returns the Hotel object from the name specified.
-     * @param hotelName
-     * @return
+     * @param hotelName The name of the hotel in String form.
+     * @return The corresponding Hotel object extracted from the list of all hotels.
      */
     public static Hotel getHotel(String hotelName){
         for(Hotel h : getAllHotels()){

@@ -1,8 +1,3 @@
-
-/**
- * Main driver of text UI.
- */
-
 /**
  * This class uses ReservationSystem which brings up the command line interface with all the menus
  * and sub menus so that the project can be run.

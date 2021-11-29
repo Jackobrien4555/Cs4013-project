@@ -19,9 +19,8 @@ public abstract class Reader {
      * is list also populated.
      *
      * @param filepath The file path of the file to be read from.
-     * @return A list of Reservations extracted from the specified file path.
      */
-    public static ArrayList<Reservation> readReservations(String filepath) {
+    public static void readReservations(String filepath) {
         ArrayList<Reservation> reservations = new ArrayList<>();
         try {
             File file = new File(filepath);
@@ -39,7 +38,6 @@ public abstract class Reader {
         }
 
         ReservationCancellationManager.setAllReservations(reservations);
-        return reservations;
     }
 
     /**
@@ -47,16 +45,15 @@ public abstract class Reader {
      * all of them. They are placed in an ArrayList and returned.
      *
      * @param filepath The file path of the file to be read from.
-     * @return A list of Cancellations extracted from the specified file path.
      */
-    public static ArrayList<Cancellation> readCancellations(String filepath) {
+    public static void readCancellations(String filepath) {
         ArrayList<Cancellation> cancellations = new ArrayList<>();
         try {
             File file = new File(filepath);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 // Preparing the reservation part of the cancellation.
-                Reservation reservation = null;
+                Reservation reservation;
                 String[] cells = reader.nextLine().split(",");
 
                 // Getting some extra values that would be present in a cancellation.
@@ -77,13 +74,12 @@ public abstract class Reader {
         }
 
         ReservationCancellationManager.setAllCancellations(cancellations);
-        return cancellations;
     }
 
     /**
      * Reading list of admins.
-     * @param filepath
-     * @return
+     * @param filepath File path to the list of admin usernames and passwords.
+     * @return A list of User objects gathered from the filepath.
      */
     public static ArrayList<User> readUsers(String filepath){
         ArrayList<User> users = new ArrayList<>();
@@ -93,7 +89,6 @@ public abstract class Reader {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 // Preparing the user.
-                User user = null;
                 String[] cells = reader.nextLine().split(",");
 
                 String name = cells[0];

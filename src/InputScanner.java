@@ -1,3 +1,8 @@
+
+
+import java.time.LocalDate;
+import java.util.*;
+
 /**
  * This class uses InputValidator and allows users to actually input their choices
  * using the Scanner utility. Also allows them to re-enter until they reach a choice that is valid.
@@ -5,14 +10,9 @@
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
-
-import java.time.LocalDate;
-import java.util.*;
-import java.util.Scanner;
-
 public class InputScanner {
-    private Scanner sc;
-    private InputValidator userValidator;
+    private final Scanner sc;
+    private final InputValidator userValidator;
 
     /**
      * Initialises the input scanner we are going to use to complete all the different requirements from our user.
@@ -24,6 +24,7 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option in the StartUp screen.
+     *
      * @return The user's choice.
      */
     public int getStartUpChoice() {
@@ -32,6 +33,7 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option in the Analytics screen.
+     *
      * @return The user's choice.
      */
     public int getAnalyticsChoice() {
@@ -40,6 +42,7 @@ public class InputScanner {
 
     /**
      * Takes the user through a bunch of reservation questions so a reservation instance can be completed.
+     *
      * @return Completed reservation.
      */
     public Reservation readReservation() {
@@ -120,12 +123,13 @@ public class InputScanner {
     /**
      * Goes through all the reservations and cancellations and checks to see what is the next number available
      * for a reservation number.
+     *
      * @return A valid reservation number.
      */
     public int getNumberNeeded() {
         int max = 0;
         for (int i = 0; i < ReservationCancellationManager.getAllReservations().size(); i++) {
-            if (max < ReservationCancellationManager.getAllReservations().get(i).getResNumber()){
+            if (max < ReservationCancellationManager.getAllReservations().get(i).getResNumber()) {
                 max = ReservationCancellationManager.getAllReservations().get(i).getResNumber();
             }
         }
@@ -139,6 +143,7 @@ public class InputScanner {
 
     /**
      * This method checks to see if a reservation number is correct or not. If it is validated it can be cancelled.
+     *
      * @return The user's chosen cancellation reference based on the reservation number.
      */
     public Cancellation readValidCancellation() {
@@ -155,18 +160,25 @@ public class InputScanner {
         System.out.println("Are you sure you want to cancel " + chosenReservation.getResNumber() + "?");
         System.out.print("Type your answer (Y/N): ");
         int confirmation = getYesOrNo();
-        if(confirmation == 0 || confirmation == -1) {
-           return null;
+        if (confirmation == 0 || confirmation == -1) {
+            return null;
         }
 
-        System.out.println("You have successfully cancelled the reservation with reservation number " + chosenReservation.getResNumber() + ".");
-        System.out.println("-------------------------------------------------");
+
+
+
         userInputCancellation = new Cancellation(chosenReservation);
+
+        System.out.println("You have successfully cancelled the reservation with reservation number " + chosenReservation.getResNumber() + ".");
+        System.out.println("Your refund value is: \u20AC" + (chosenReservation.getTotalCost() - userInputCancellation.getIncome()));
+        System.out.println("-------------------------------------------------");
+
         return userInputCancellation;
     }
 
     /**
      * User can select a valid choice when selecting an option.
+     *
      * @param exitValue The highest value the user can input for a certain menu.
      * @return The user's choice.
      */
@@ -176,6 +188,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Number.
+     *
      * @return A valid number as Integer.
      */
     private int getNumber() {
@@ -202,22 +215,9 @@ public class InputScanner {
         return validNum;
     }
 
-//    Method used for getting a valid reservation number when we let user's choose.
-//    private int getValidResNumber() {
-//        int validNum = getNumber();
-//        while (!userValidator.inputIsValidResNum(validNum)) {
-//            System.out.print("The input reservation number already exists, try again (-1 to quit): ");
-//            validNum = getNumber();
-//
-//            if (getNumber() == -1) {
-//                return -1;
-//            }
-//        }
-//        return validNum;
-//    }
-
     /**
      * Checks the input value from the user so that it is a valid occupancy depending on the typeOfRoom.
+     *
      * @return A valid occupancy for the type of room.
      */
     private int getValidOccupancy(String typeOfRoom) {
@@ -254,6 +254,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Name.
+     *
      * @return A valid name as a String.
      */
     private String getName() {
@@ -277,6 +278,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid number in the range given.
+     *
      * @param minValueOfRange Minimum value of the range.
      * @param maxValueOfRange Maximum value of the range.
      * @return The choice the user has made inside the range we instructed it to.
@@ -297,6 +299,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid number in the range given.
+     *
      * @param minValueOfRange Minimum value of the range.
      * @param maxValueOfRange Maximum value of the range.
      * @return The choice the user has made inside the range we instructed it to.
@@ -317,6 +320,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Reservation Type.
+     *
      * @return A valid reservation type as a String.
      */
     private String getReservationType() {
@@ -341,6 +345,7 @@ public class InputScanner {
 
     /**
      * Asks for user input reservation number and returns the corresponding reservation.
+     *
      * @return Reservation based on the user reservation number.
      */
     private Reservation getReservationFromUserReservationNumber() {
@@ -358,6 +363,7 @@ public class InputScanner {
 
     /**
      * Asks the user for input and makes sure that the reservation number is valid.
+     *
      * @return Valid reservation number.
      */
     private int getReservationNumber() {
@@ -379,6 +385,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Date.
+     *
      * @return A valid date as a LocalDate.
      */
     public LocalDate getDate() {
@@ -404,6 +411,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Username from the Admins csv file.
+     *
      * @return A valid username as a String.
      */
     public String getUsername() {
@@ -428,6 +436,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Password for a specific username.
+     *
      * @return A valid password as a String.
      */
     public String getPassword(String username) {
@@ -453,6 +462,7 @@ public class InputScanner {
 
     /**
      * Based on the username it returns a specific user.
+     *
      * @return A valid user based on the username.
      */
     public User getUser(String username) {
@@ -496,9 +506,10 @@ public class InputScanner {
     /**
      * Co-Creator: Edison Cai
      * Instructs the user on completing different rooms and rooms details.
+     *
      * @param numberOfRooms Number of rooms the user needs.
-     * @param checkIn Date the user wants to check in.
-     * @param checkOut Date the user wants to check out.
+     * @param checkIn       Date the user wants to check in.
+     * @param checkOut      Date the user wants to check out.
      * @return The completed Rooms arraylist with all the details given by the user.
      */
     private ArrayList<Room> readRoom(int numberOfRooms, LocalDate checkIn, LocalDate checkOut) {
@@ -549,8 +560,8 @@ public class InputScanner {
             }
 
             // Getting the capitalised room name.
-            for(TypeOfRoom room : HotelInitialiser.getAllRooms()){
-                if(typeOfRoom.equalsIgnoreCase(room.getRoomType())){
+            for (TypeOfRoom room : HotelInitialiser.getAllRooms()) {
+                if (typeOfRoom.equalsIgnoreCase(room.getRoomType())) {
                     typeOfRoom = room.getRoomType();
                     break;
                 }

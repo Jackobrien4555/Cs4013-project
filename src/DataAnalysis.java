@@ -12,17 +12,6 @@ import java.util.Map;
  * @since 27/10/2021
  */
 public abstract class DataAnalysis {
-    /*
-    All of these constant ints refer to the index of different values in a reservation
-    line
-     */
-    private static final int RES_NUMBER_INDEX = 0;
-    private static final int RES_NAME_INDEX = 1;
-    private static final int RES_TYPE_INDEX = 2;
-    private static final int RES_START_INDEX = 3;
-    private static final int RES_END_INDEX = 4;
-    private static final int ROOM_NUMBER_INDEX = 5;
-    private static final int FIRST_ROOM_INDEX = 6;
 
     /**
      * Returns the occupancy figures for each hotel and room type
@@ -85,19 +74,6 @@ public abstract class DataAnalysis {
     }
 
     /**
-     * Returns the occupancy figures for each hotel and room type
-     * over a specific period of time. By default, unoccupied rooms will also be
-     * printed out.
-     *
-     * @param reservations List of reservations
-     * @param startDate    The start date of analysis
-     * @param endDate      The end date of analysis
-     */
-    public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, LocalDate startDate, LocalDate endDate) {
-        return getOccupancyRatesAll(reservations, startDate, endDate, true);
-    }
-
-    /**
      * Returns the income figures for each hotel and room type
      * over a specific period of time.
      *
@@ -115,7 +91,7 @@ public abstract class DataAnalysis {
 
         // Initialising a HashMap of String/Double tuples. The String is the Hotel type
         // the double will be the income that a hotel has generated.
-        HashMap<String, Double> hotelRooms = new HashMap<>();
+        HashMap<String, Double> hotelRooms;
         double totalIncome = 0;
         double cancellationIncome = 0;
         double cancellationLoss = 0;
@@ -135,7 +111,7 @@ public abstract class DataAnalysis {
                     // Go through every room of a reservation, find out what type of room they are.
                     for (int i = 0; i < res.getNumberOfRooms(); i++) {
                         if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
-                            double costOfRoom = 0;
+                            double costOfRoom;
                             // Getting the TypeOfRoom with all of its rates from the findRoomType method.
                             TypeOfRoom room = findRoomType(res.getRooms().get(i).getRoomType(), HotelInitialiser.getAllHotels());
 
@@ -210,20 +186,6 @@ public abstract class DataAnalysis {
         return result;
     }
 
-    /**
-     * Returns the income figures for each hotel and room type
-     * over a specific period of time. By default, unoccupied rooms will also be
-     * printed out.
-     *
-     * @param reservations  A list of all reservations
-     * @param cancellations A list of all cancellations
-     * @param startDate     The start date of analysis
-     * @param endDate       The end date of analysis
-     */
-    public static ArrayList<String> calculateIncomeAll(ArrayList<Reservation> reservations, ArrayList<Cancellation> cancellations, LocalDate startDate, LocalDate endDate) {
-        return calculateIncomeAll(reservations, cancellations, startDate, endDate, true);
-    }
-
     /*
      * Helper function that places all TypeOfRoom objects in "rooms" into a HashMap with
      * TypeOfRoom-Integer(0) pairs. This will be used in the occupancy calculations
@@ -265,7 +227,6 @@ public abstract class DataAnalysis {
         while (checkIn.compareTo(checkOut) < 0) {
             // checkInDate.getDayOfWeek().getValue() returns an int
             // 1 is Monday, 7 is Sunday. To get the corresponding rate, subtract 1.
-            int value = checkIn.getDayOfWeek().getValue();
             result += rates[checkIn.getDayOfWeek().getValue() - 1];
             checkIn = checkIn.plusDays(1);
         }
