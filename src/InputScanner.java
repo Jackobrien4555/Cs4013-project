@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class InputScanner {
     private Scanner sc;
     private InputValidator userValidator;
+    private int currentNumber = 14;
 
     /**
      * Initialises the input scanner we are going to use to complete all the different requirements from our user.
@@ -54,7 +55,7 @@ public class InputScanner {
         ArrayList<Room> rooms;
 
         System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
-        resNumber = ReservationCancellationManager.getAllReservations().size() + 1;
+        resNumber = getNumberNeeded();
         System.out.println("Your reservation number is " + resNumber + ".");
 
         System.out.print("Enter the reservation name (e.g. Jeff Simmons) (-1 to quit): ");
@@ -118,6 +119,7 @@ public class InputScanner {
         System.out.println("Thank you! Your reservation will cost: \u20AC" + reservation.getTotalCost());
         System.out.print("--------------------------------------------------------------");
         ReservationCancellationManager.addReservation(reservation);
+        updateCurrentNumber();
         return reservation;
     }
 
@@ -138,7 +140,7 @@ public class InputScanner {
         if (chosenReservation == null) {
             return null;
         }
-        System.out.println("Are you sure you want to cancel " + chosenReservation.getResNumber() + " ?");
+        System.out.println("Are you sure you want to cancel " + chosenReservation.getResNumber() + "?");
         System.out.print("Type your answer (Y/N): ");
         int confirmation = getYesOrNo();
         if(confirmation == 0 || confirmation == -1) {
@@ -454,6 +456,13 @@ public class InputScanner {
         return result;
     }
 
+    private void updateCurrentNumber() {
+        currentNumber += 1;
+    }
+
+    private int getNumberNeeded() {
+        return currentNumber +1;
+    }
 
     /**
      * Co-Creator: Edison Cai
