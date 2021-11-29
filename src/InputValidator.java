@@ -98,7 +98,7 @@ public class InputValidator {
         for (int i = 0; i < HotelInitialiser.getAllHotels().size(); i++) {
             for (int j = 0; j < HotelInitialiser.getAllHotels().get(i).getTypeOfRooms().size(); j++) {
                 String roomType = HotelInitialiser.getAllHotels().get(i).getRoomType(j).getRoomType();
-                if (roomType.equals(input)) {
+                if (roomType.equalsIgnoreCase(input)) {
                     return true;
                 }
             }

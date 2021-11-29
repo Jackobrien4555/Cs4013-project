@@ -81,7 +81,7 @@ public class Room {
                 }
             }
         }
-        System.out.println("The amount of this room available far between " + checkIn.toString() + " and " + checkOut.toString() + ": " + (maxCapacity - amountBooked));
+        System.out.println("The amount of this room available so far between " + checkIn.toString() + " and " + checkOut.toString() + ": " + (maxCapacity - amountBooked));
         return result;
     }
 
@@ -113,7 +113,7 @@ public class Room {
     public TypeOfRoom findRoomType(){
         for(Hotel h : HotelInitialiser.getAllHotels()){
             for(TypeOfRoom t : h.getTypeOfRooms()){
-                if(t.getRoomType().equals(typeOfRoom)){
+                if(t.getRoomType().equalsIgnoreCase(typeOfRoom)){
                     return t;
                 }
             }

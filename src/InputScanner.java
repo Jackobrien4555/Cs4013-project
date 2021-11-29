@@ -121,6 +121,12 @@ public class InputScanner {
         return reservation;
     }
 
+    /**
+     * Goes through all the reservations and cancellations and checks to see what is the next number available
+     * for a reservation number.
+     *
+     * @return A valid reservation number.
+     */
     public int getNumberNeeded() {
         int max = 0;
         for (int i = 0; i < ReservationCancellationManager.getAllReservations().size(); i++) {
