@@ -1,6 +1,3 @@
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 
 import javafx.scene.control.*;
@@ -13,7 +10,6 @@ import javafx.scene.text.Text;
 import javafx.application.Application;
 import javafx.scene.Scene;
 
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -628,7 +624,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox6.getChildren().add(text7);
-        ChoiceBox choiceBox8 = new ChoiceBox();
+        ChoiceBox<String> choiceBox8 = new ChoiceBox<>();
         choiceBox8.getItems().add("S");
         choiceBox8.getItems().add("AP");
         choiceBox8.setPrefWidth(150.0);
@@ -721,6 +717,7 @@ public class HotelGUI extends Application {
         TextField textFieldRoomNum = new TextField();
         textFieldRoomNum.setPromptText("e.g. 2");
 
+
         // Adding child to parent
         hBox17.getChildren().add(textFieldRoomNum);
 
@@ -739,6 +736,20 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(scrollPane20);
 
+        // Adding a listener to the content of the text field.
+        textFieldRoomNum.textProperty().addListener((v, oldValue, newValue) -> {
+            try {
+                int numberOfRooms = Integer.parseInt(textFieldRoomNum.getText());
+
+                if (validator.inputIsInteger(Integer.toString(numberOfRooms))) {
+                    scrollPane20.setContent(createRoomsPicker(numberOfRooms));
+                } else {
+                    scrollPane20.setContent(null);
+                }
+            } catch (NumberFormatException ignored) {
+            }
+        });
+
         // Show this text when the reservation has been successful.
         Text successText = new Text("Successfully made reservation!");
         successText.setVisible(false);
@@ -751,7 +762,7 @@ public class HotelGUI extends Application {
         button21.setOnAction(event -> {
             createReservation(textFieldNum, invalidNum, textFieldRoomNum, invalidRoomNum,
                     textFieldName, invalidName, choiceBox8, invalidType, datePickerStart,
-                    invalidStart, datePickerEnd, invalidEnd, successText);
+                    invalidStart, datePickerEnd, invalidEnd, scrollPane20, successText);
         });
 
         // Adding child to parent
@@ -775,7 +786,6 @@ public class HotelGUI extends Application {
 
 
     }
-
 
 
     private static VBox createRoomBooker() {
@@ -899,8 +909,14 @@ public class HotelGUI extends Application {
 
     }
 
-    private static void createReservation(TextField textFieldNum, Text invalidNum, TextField textFieldRoomNum, Text invalidRoomNum, TextField textFieldName, Text invalidName, ChoiceBox choiceBox8, Text invalidType, DatePicker datePickerStart,
-                                                 Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, Text successText){
+    /*
+    Creates a reservation by taking in the values of every field.
+    Checks if an attempt to create a reservation is invalid, and updates
+    the invalid texts if so.
+    @author Edison Cai 20241135
+     */
+    private static void createReservation(TextField textFieldNum, Text invalidNum, TextField textFieldRoomNum, Text invalidRoomNum, TextField textFieldName, Text invalidName, ChoiceBox<String> choiceBox8, Text invalidType, DatePicker datePickerStart,
+                                          Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, ScrollPane roomPickers, Text successText) {
         Reservation reservationToBeAdded = null;
         int resNumber = 0;
         String resName = null, resType = null;
@@ -926,8 +942,7 @@ public class HotelGUI extends Application {
         if (!validator.inputIsValidResNum(resNumber)) {
             validReservation = false;
             invalidRoomNum.setVisible(true);
-        }
-        else{
+        } else {
             invalidRoomNum.setVisible(false);
         }
 
@@ -950,8 +965,7 @@ public class HotelGUI extends Application {
                 validReservation = false;
                 invalidType.setVisible(true);
             }
-        }
-        else{
+        } else {
             validReservation = false;
             invalidType.setVisible(true);
         }
@@ -987,8 +1001,7 @@ public class HotelGUI extends Application {
         if (!validator.inputIsInteger(Integer.toString(numberOfRooms))) {
             validReservation = false;
             invalidRoomNum.setVisible(true);
-        }
-        else{
+        } else {
             invalidRoomNum.setVisible(false);
         }
 
@@ -1002,9 +1015,61 @@ public class HotelGUI extends Application {
             ReservationCancellationManager.addReservation(reservationToBeAdded);
             writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
             successText.setVisible(true);
-        }
-        else{
+        } else {
             successText.setVisible(false);
         }
+    }
+
+    /*
+    Creates and returns a HBox containing all the choices for rooms.
+     */
+    private static HBox createRoomsPicker(int rooms) {
+        HBox allRoomChoices = new HBox();
+
+        if (rooms > 100) {
+            return null;
+        }
+
+        // For every number of rooms, create a room picker.
+        for (int i = 1; i <= rooms; i++) {
+            VBox roomPicker = new VBox();
+
+            ChoiceBox<String> chooseHotel = new ChoiceBox<String>();
+            ChoiceBox<String> chooseRoom = new ChoiceBox<String>();
+            ChoiceBox<Integer> chooseOccupancy = new ChoiceBox<Integer>();
+
+            for (Hotel h : HotelInitialiser.getAllHotels()) {
+                chooseHotel.getItems().add(h.getHotelType());
+            }
+
+            chooseHotel.getSelectionModel().selectedItemProperty()
+                    .addListener((v, oldValue, newValue) -> {
+                        chooseRoom.getItems().clear();
+                        chooseOccupancy.getItems().clear();
+                        for (TypeOfRoom room : HotelInitialiser.getHotel(newValue).getTypeOfRooms()) {
+
+                            chooseRoom.getItems().add(room.getRoomType());
+                        }
+                    });
+
+            chooseRoom.getSelectionModel().selectedItemProperty()
+                    .addListener((v, oldValue, newValue) -> {
+                        if(newValue != null){
+                            TypeOfRoom selectedRoom = HotelInitialiser.getHotel(chooseHotel.getValue()).findTypeOfRoom(newValue);
+                            chooseOccupancy.getItems().clear();
+                            for(int j = selectedRoom.getOccuMin(); j <= selectedRoom.getOccuMax(); j++){
+                                chooseOccupancy.getItems().add(j);
+                            }
+                        }
+                    });
+
+            roomPicker.getChildren().add(chooseHotel);
+            roomPicker.getChildren().add(chooseRoom);
+            roomPicker.getChildren().add(chooseOccupancy);
+
+            allRoomChoices.getChildren().add(roomPicker);
+        }
+        allRoomChoices.setSpacing(10.0);
+        return allRoomChoices;
     }
 }

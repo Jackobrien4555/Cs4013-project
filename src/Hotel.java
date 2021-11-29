@@ -81,6 +81,15 @@ import java.util.ArrayList;
 	public void addTypeOfRoom ( TypeOfRoom newR) {
 		typeOfRooms.add(newR);
 	}
+
+	public TypeOfRoom findTypeOfRoom(String roomName){
+		for(TypeOfRoom r : getTypeOfRooms()){
+			if (roomName.equals(r.getRoomType())){
+				return r;
+			}
+		}
+		return null;
+	}
 	}
 	
 

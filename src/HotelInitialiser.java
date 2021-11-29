@@ -122,9 +122,37 @@ public abstract class HotelInitialiser {
 
     /**
      * Get list of all hotels.
+     *
      * @return An ArrayList of all Hotels found in the hotels csv.
      */
     public static ArrayList<Hotel> getAllHotels() {
         return allHotels;
+    }
+
+    /**
+     * Returns all types of rooms that the booker can choose.
+     *
+     * @return All types of rooms that the booker can choose.
+     */
+    public static ArrayList<TypeOfRoom> getAllRooms() {
+        ArrayList<TypeOfRoom> allRooms = new ArrayList<>();
+        for(Hotel h : allHotels){
+            allRooms.addAll(h.getTypeOfRooms());
+        }
+        return allRooms;
+    }
+
+    /**
+     * Returns the Hotel object from the name specified.
+     * @param hotelName
+     * @return
+     */
+    public static Hotel getHotel(String hotelName){
+        for(Hotel h : getAllHotels()){
+            if(hotelName.equals(h.getHotelType())){
+                return h;
+            }
+        }
+        return null;
     }
 }
