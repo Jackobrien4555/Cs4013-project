@@ -1,6 +1,6 @@
 /**
  * This class uses InputValidator and allows users to actually input their choices
- * using the Scanner utility. Also allows them to re-enter until they reach a choice that is acceptable.
+ * using the Scanner utility. Also allows them to re-enter until they reach a choice that is valid.
  *
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class InputScanner {
     private Scanner sc;
     private InputValidator userValidator;
-    private ConstantReferences references;
 
     /**
      * Initialises the input scanner we are going to use to complete all the different requirements from our user.
@@ -408,7 +407,7 @@ public class InputScanner {
         String input;
         input = sc.nextLine();
 
-        if (input.equals(-1)) {
+        if (input.equals("-1")) {
             return null;
         }
 
