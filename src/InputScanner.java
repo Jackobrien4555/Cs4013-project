@@ -101,7 +101,6 @@ public class InputScanner {
             return null;
         }
 
-        rooms = new ArrayList<Room>();
         rooms = readRoom(numberOfRooms, checkInDate, checkOutDate);
 
         if (rooms == null) {
