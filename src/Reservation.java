@@ -181,10 +181,10 @@ public class Reservation {
 
         for (int i = 0; i < numberOfRooms; i++) {
             if (i == numberOfRooms - 1) {
-                reservationInfo += rooms.get(i).getRoomType() + " - " + rooms.get(i).getRoomOccupancy();
+                reservationInfo += rooms.get(i).getRoomType() + " - Occupancy " + rooms.get(i).getRoomOccupancy();
             }
             else {
-                reservationInfo += rooms.get(i).getRoomType() + " - " + rooms.get(i).getRoomOccupancy() + ", ";
+                reservationInfo += rooms.get(i).getRoomType() + " - Occupancy " + rooms.get(i).getRoomOccupancy() + ", ";
             }
         }
 
