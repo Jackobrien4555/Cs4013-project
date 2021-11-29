@@ -181,4 +181,13 @@ public class Reservation {
 
         return reservationInfo;
     }
+
+    public String reservationFormat() {
+        // Done quickly, may have to update the rooms bit
+        return String.format("RESERVATION -\n" +
+                        "Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +
+                        "Check-in Date: %s, Check-out Date: %s\n" +
+                        "Number of Rooms: %d, Rooms: %s, Total Cost: %.2f",
+                resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms, rooms, totalCost);
+    }
 }

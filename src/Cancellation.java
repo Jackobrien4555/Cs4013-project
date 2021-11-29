@@ -107,4 +107,14 @@ public class Cancellation {
         String reservationString = reservation.toString();
         return reservationString + "," + LocalDate.now().toString() + "," + income;
     }
+
+    public String cancellationFormat() {
+        // Done quickly, may have to update the rooms bit
+        return String.format("CANCELLATION -\n" +
+                        "Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +
+                        "Check-in Date: %s, Check-out Date: %s\n" +
+                        "Number of Rooms: %d, Rooms: %s, Total Cost: %.2f\n" +
+                        "Cancellation Date: %s, Income: %.2f",
+                reservation.getResNumber(), reservation.getResName(), reservation.getResType(), reservation.getCheckInDate(), reservation.getCheckOutDate(), reservation.getNumberOfRooms(), reservation.getRooms(), reservation.getTotalCost(), cancellationDate, income);
+    }
 }
