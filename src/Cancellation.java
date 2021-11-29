@@ -110,8 +110,7 @@ public class Cancellation {
 
     public String cancellationFormat() {
         // Done quickly, may have to update the rooms bit
-        return String.format("CANCELLATION -\n" +
-                        "Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +
+        return String.format("Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +
                         "Check-in Date: %s, Check-out Date: %s\n" +
                         "Number of Rooms: %d, Rooms: %s, Total Cost: %.2f\n" +
                         "Cancellation Date: %s, Income: %.2f",
