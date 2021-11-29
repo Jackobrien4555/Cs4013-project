@@ -823,7 +823,7 @@ public class HotelGUI extends Application {
 
         ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
         for (Reservation reservation : reservations) {
-            Text reservationText = new Text(reservation.toString());
+            Text reservationText = new Text(reservation.reservationFormat());
             allReservations.getChildren().add(reservationText);
         }
 
@@ -879,7 +879,7 @@ public class HotelGUI extends Application {
 
         ArrayList<Cancellation> cancellations = ReservationCancellationManager.getAllCancellations();
         for (Cancellation cancellation : cancellations) {
-            Text cancellationText = new Text(cancellation.toString());
+            Text cancellationText = new Text(cancellation.cancellationFormat());
             allReservations.getChildren().add(cancellationText);
         }
 

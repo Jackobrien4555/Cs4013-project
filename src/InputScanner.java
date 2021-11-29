@@ -27,7 +27,7 @@ public class InputScanner {
      * @return The user's choice.
      */
     public int getStartUpChoice() {
-        return getUserMenuChoice(ConstantReferences.EXIT_STARTUP);
+        return getInputInRangeMenu(1, ConstantReferences.EXIT_STARTUP);
     }
 
     /**
@@ -296,6 +296,26 @@ public class InputScanner {
     }
 
     /**
+     * Checks the input value from the user so that it is a valid number in the range given.
+     * @param minValueOfRange Minimum value of the range.
+     * @param maxValueOfRange Maximum value of the range.
+     * @return The choice the user has made inside the range we instructed it to.
+     */
+    private int getInputInRangeMenu(int minValueOfRange, int maxValueOfRange) {
+        String choice;
+
+        choice = sc.nextLine();
+        while (!userValidator.inputIsInRange(choice, minValueOfRange, maxValueOfRange)) {
+            System.out.print("The input is invalid. Enter a new value from the range " + minValueOfRange + " to " + maxValueOfRange + ": ");
+            choice = sc.nextLine();
+            if (choice.equals("-1")) {
+                return -1;
+            }
+        }
+        return Integer.parseInt(choice);
+    }
+
+    /**
      * Checks the input value from the user so that it is a valid Reservation Type.
      * @return A valid reservation type as a String.
      */
@@ -527,6 +547,15 @@ public class InputScanner {
                     return null;
                 }
             }
+
+            // Getting the capitalised room name.
+            for(TypeOfRoom room : HotelInitialiser.getAllRooms()){
+                if(typeOfRoom.equalsIgnoreCase(room.getRoomType())){
+                    typeOfRoom = room.getRoomType();
+                    break;
+                }
+            }
+
             System.out.print("Enter occupancy total (-1 to quit): ");
             occupancy = getValidOccupancy(typeOfRoom);
             if (occupancy == -1) {
