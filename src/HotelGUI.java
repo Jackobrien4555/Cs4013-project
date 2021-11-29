@@ -474,12 +474,12 @@ public class HotelGUI extends Application {
 
         VBox vBox0 = new VBox();
         vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(1000);
+        vBox0.setPrefHeight(650.0);
 
         vBox0.setSpacing(20.0);
         vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(1000);
-        vBox0.setMinWidth(700);
+        vBox0.setPrefWidth(774.0);
+        vBox0.setMinWidth(1000);
         vBox0.setAlignment(Pos.CENTER);
         vBox0.setMaxWidth(1700);
         VBox vBox1 = new VBox();
@@ -493,108 +493,133 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
-
+        String[] optionsToChoose = {"Hotel Occupancy Analytics", "Financial Analytics"};
         // Adding child to parent
         vBox0.getChildren().add(vBox1);
-        HBox hBox3 = new HBox();
-        hBox3.setPrefHeight(49.0);
-        hBox3.setSpacing(30.0);
-        hBox3.setPrefWidth(600.0);
-        hBox3.setAlignment(Pos.CENTER);
+        ChoiceBox choiceBox = new ChoiceBox();
+        choiceBox.getItems().add("Hotel Occupancy Analytics");
+        choiceBox.getItems().add("Financial Analytics");
+        choiceBox.setValue("Hotel Occupancy Analytics");
+        vBox0.getChildren().add(choiceBox);
+
+
+        // Adding child to parent
+        //vBox0.getChildren().add(jComboBox);
         Text text4 = new Text();
         text4.setStrokeWidth(0.0);
         text4.setStrokeType(StrokeType.OUTSIDE);
-        text4.setText("Enter Dates to get occupancy rates for all Hotels and Room");
+        text4.setText("Do you want to show rooms that aren't booked?");
 
         // Adding child to parent
-        hBox3.getChildren().add(text4);
-
-        // Adding child to parent
-        vBox0.getChildren().add(hBox3);
+        vBox0.getChildren().add(text4);
         HBox hBox5 = new HBox();
         hBox5.setPrefHeight(49.0);
-        hBox5.setSpacing(30.0);
+        hBox5.setSpacing(5.0);
         hBox5.setPrefWidth(600.0);
         hBox5.setAlignment(Pos.CENTER);
-        Text text6 = new Text();
-        text6.setStrokeWidth(0.0);
-        text6.setStrokeType(StrokeType.OUTSIDE);
-        text6.setText("Start date:");
-
-        // Adding child to parent
-        hBox5.getChildren().add(text6);
-        DatePicker datePicker7 = new DatePicker();
-
-        // Adding child to parent
-        hBox5.getChildren().add(datePicker7);
-        Text text8 = new Text();
-        text8.setStrokeWidth(0.0);
-        text8.setStrokeType(StrokeType.OUTSIDE);
-        text8.setLayoutX(147.0);
-        text8.setLayoutY(39.0);
-
-        // Adding child to parent
-        hBox5.getChildren().add(text8);
 
         // Adding child to parent
         vBox0.getChildren().add(hBox5);
-        HBox hBox9 = new HBox();
-        hBox9.setPrefHeight(49.0);
-        hBox9.setSpacing(30.0);
-        hBox9.setPrefWidth(600.0);
-        hBox9.setAlignment(Pos.CENTER);
-        Text text10 = new Text();
-        text10.setStrokeWidth(0.0);
-        text10.setStrokeType(StrokeType.OUTSIDE);
-        text10.setText("End Date:");
+        CheckBox checkBox6 = new CheckBox();
+        ChoiceBox yesOrNo = new ChoiceBox();
+        yesOrNo.setValue("Yes");
+        yesOrNo.getItems().add("Yes");
+        yesOrNo.getItems().add("No");
+
+        vBox0.getChildren().add(yesOrNo);
+
+        Text textStart = new Text();
+        textStart.setStrokeWidth(0.0);
+        textStart.setStrokeType(StrokeType.OUTSIDE);
+        textStart.setText("Start Date:");
 
         // Adding child to parent
-        hBox9.getChildren().add(text10);
-        DatePicker datePicker11 = new DatePicker();
+        vBox0.getChildren().add(textStart);
+        DatePicker datePickerStart = new DatePicker();
 
         // Adding child to parent
-        hBox9.getChildren().add(datePicker11);
-        Text text12 = new Text();
-        text12.setStrokeWidth(0.0);
-        text12.setStrokeType(StrokeType.OUTSIDE);
-        text12.setLayoutX(143.0);
-        text12.setLayoutY(39.0);
+        vBox0.getChildren().add(datePickerStart);
+
+        Text invalidStart = new Text("Invalid start date.");
+        invalidStart.setVisible(false);
+        vBox0.getChildren().add(invalidStart);
+
+        Text textEnd = new Text();
+        textEnd.setStrokeWidth(0.0);
+        textEnd.setStrokeType(StrokeType.OUTSIDE);
+        textEnd.setText("End Date:");
 
         // Adding child to parent
-        hBox9.getChildren().add(text12);
+        vBox0.getChildren().add(textEnd);
+        DatePicker datePickerEnd = new DatePicker();
 
         // Adding child to parent
-        vBox0.getChildren().add(hBox9);
-        HBox hBox13 = new HBox();
-        hBox13.setPrefHeight(49.0);
-        hBox13.setSpacing(30.0);
-        hBox13.setPrefWidth(600.0);
-        hBox13.setAlignment(Pos.CENTER);
+        vBox0.getChildren().add(datePickerEnd);
+
+        Text invalidEnd = new Text("Invalid end date.");
+        invalidEnd.setVisible(false);
+        vBox0.getChildren().add(invalidEnd);
+
+        HBox hBox8 = new HBox();
+        hBox8.setPrefHeight(49.0);
+        hBox8.setSpacing(30.0);
+        hBox8.setPrefWidth(600.0);
+        hBox8.setAlignment(Pos.CENTER);
+        Text text9 = new Text();
+        text9.setStrokeWidth(0.0);
+        text9.setStrokeType(StrokeType.OUTSIDE);
+        text9.setLayoutX(143.0);
+        text9.setLayoutY(39.0);
 
         // Adding child to parent
-        vBox0.getChildren().add(hBox13);
-        ScrollPane scrollPane14 = new ScrollPane();
-        scrollPane14.setPrefHeight(450.0);
-        scrollPane14.setPrefWidth(774.0);
-        scrollPane14.setFitToHeight(true);
-        scrollPane14.setFitToWidth(true);
+        hBox8.getChildren().add(text9);
 
         // Adding child to parent
-        Button button4 = new Button();
-        button4.setText("Return to Choices");
-        button4.setOnAction(event -> {
+        vBox0.getChildren().add(hBox8);
+        HBox hBox10 = new HBox();
+        hBox10.setPrefHeight(49.0);
+        hBox10.setSpacing(30.0);
+        hBox10.setPrefWidth(600.0);
+        hBox10.setAlignment(Pos.CENTER);
+
+        // Adding child to parent
+        vBox0.getChildren().add(hBox10);
+        ScrollPane scrollPane11 = new ScrollPane();
+        scrollPane11.setPrefHeight(450.0);
+        scrollPane11.setPrefWidth(774.0);
+        scrollPane11.setFitToHeight(true);
+        scrollPane11.setFitToWidth(true);
+
+        // Adding child to parent
+        vBox0.getChildren().add(scrollPane11);
+
+        Button buttonStartAnalysis = new Button();
+        buttonStartAnalysis.setText("Start Analysis");
+        buttonStartAnalysis.setMnemonicParsing(false);
+
+        buttonStartAnalysis.setOnAction(event -> {
+            showValidAnalysis(choiceBox, yesOrNo, datePickerStart,
+                    invalidStart, datePickerEnd, invalidEnd, scrollPane11);
+        });
+
+        // Adding child to parent
+        vBox0.getChildren().add(buttonStartAnalysis);
+
+        Button buttonReturn = new Button();
+        buttonReturn.setText("Return");
+        buttonReturn.setMnemonicParsing(false);
+
+        buttonReturn.setOnAction(event -> {
             mainStage.setScene(createAdminChoicesGUI());
         });
-        button4.setMnemonicParsing(false);
 
         // Adding child to parent
-        vBox0.getChildren().add(button4);
+        vBox0.getChildren().add(buttonReturn);
 
-        // Adding child to parent
-        vBox0.getChildren().add(scrollPane14);
-        return new Scene(vBox0, 800, 500);
+        return new Scene(vBox0, 1600, 1200);
 
     }
+
 
     private static Scene createMakeReservationsGUI() {
         mainStage.setTitle("Making reservation");
@@ -1129,5 +1154,67 @@ public class HotelGUI extends Application {
         }
         allRoomChoices.setSpacing(10.0);
         return allRoomChoices;
+    }
+
+
+    /*
+    Check if the values are valid for data analysis.
+     */
+    private static boolean showValidAnalysis(ChoiceBox choiceBox, ChoiceBox yesOrNo, DatePicker datePickerStart, Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, ScrollPane scrollPane11) {
+        LocalDate startDate = null, endDate = null;
+        boolean showUnoccupiedRooms = false;
+        boolean validAnalysis = true;
+        VBox analysisResults = new VBox();
+
+        if (yesOrNo.getSelectionModel().getSelectedItem().equals("Yes")) {
+            showUnoccupiedRooms = true;
+        }
+
+        if (datePickerStart.getValue() != null) {
+            startDate = datePickerStart.getValue();
+            invalidStart.setVisible(false);
+        } else {
+            validAnalysis = false;
+            invalidStart.setVisible(true);
+        }
+
+        if (datePickerEnd.getValue() != null && startDate != null) {
+            if (startDate.compareTo(datePickerEnd.getValue()) > 0) {
+                validAnalysis = false;
+                invalidEnd.setVisible(true);
+            } else {
+                endDate = datePickerEnd.getValue();
+                invalidEnd.setVisible(false);
+            }
+        } else {
+            validAnalysis = false;
+            invalidEnd.setVisible(true);
+        }
+
+        if (validAnalysis) {
+            if (choiceBox.getSelectionModel().getSelectedItem().equals("Hotel Occupancy Analytics")) {
+                ArrayList<String> results = DataAnalysis.getOccupancyRatesAll(ReservationCancellationManager.getAllReservations(), startDate, endDate,
+                        showUnoccupiedRooms);
+                for (String s : results) {
+                    Text text = new Text(s);
+                    analysisResults.getChildren().add(text);
+                }
+                scrollPane11.setContent(analysisResults);
+            } else {
+                ArrayList<String> results = DataAnalysis.calculateIncomeAll(ReservationCancellationManager.getAllReservations(),
+                        ReservationCancellationManager.getAllCancellations(), startDate, endDate,
+                        showUnoccupiedRooms);
+                for (String s : results) {
+                    Text text = new Text(s);
+                    analysisResults.getChildren().add(text);
+                }
+                scrollPane11.setContent(analysisResults);
+            }
+        } else {
+            scrollPane11.setContent(null);
+        }
+
+
+        return false;
     }
 }
