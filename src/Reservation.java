@@ -173,10 +173,21 @@ public class Reservation {
      * This method returns a String formatted nicely to display all reservation details.
      */
     public String reservationFormat() {
-        // Done quickly, may have to update the rooms bit
-        return String.format("Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +
+        String reservationInfo = String.format("Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +
                         "Check-in Date: %s, Check-out Date: %s\n" +
-                        "Number of Rooms: %d, Rooms: %s, Total Cost: %.2f",
-                resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms, rooms, totalCost);
+                        "Number of Rooms: %d, Total Cost: %.2f\n" +
+                        "Rooms: ",
+                resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms, totalCost);
+
+        for (int i = 0; i < numberOfRooms; i++) {
+            if (i == numberOfRooms - 1) {
+                reservationInfo += rooms.get(i).getRoomType() + " - " + rooms.get(i).getRoomOccupancy();
+            }
+            else {
+                reservationInfo += rooms.get(i).getRoomType() + " - " + rooms.get(i).getRoomOccupancy() + ", ";
+            }
+        }
+
+        return reservationInfo;
     }
 }
