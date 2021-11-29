@@ -142,13 +142,6 @@ public class Reservation {
     }
 
     /**
-     * This method applies the 5% Advanced Purchase (AP) discount.
-     */
-    public void applyAPDiscount() {
-        totalCost = totalCost - (totalCost * 0.05);
-    }
-
-    /**
      * This method returns a String that lists all the details of the reservation and is compatible with a csv file.
      */
     @Override

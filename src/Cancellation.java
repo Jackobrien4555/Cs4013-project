@@ -89,18 +89,6 @@ public class Cancellation {
     }
 
     /**
-     * This method checks whether a reservation is refundable or not.
-     */
-    public boolean isRefundable() {
-        // Need to work on this
-        if (reservation.getResType().equalsIgnoreCase("s")/* && cancellationDate < reservation.getCheckInDate()*/) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Returns a string that represents the data contained by a cancellation and is compatible with a csv file.
      */
     public String toString() {
