@@ -96,6 +96,9 @@ public class Cancellation {
         return reservationString + "," + LocalDate.now().toString() + "," + income;
     }
 
+    /**
+     * This method returns a String formatted nicely to display all cancellation details.
+     */
     public String cancellationFormat() {
         return String.format("%s\n" +
                 "Cancellation Date: %s, Income: %.2f", reservation.reservationFormat(), cancellationDate, income);
