@@ -1,7 +1,3 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
 /**
  * This class is necessary for other classes as it has various methods using regex
  * to check if an input that the user gives us is acceptable or not.
@@ -9,6 +5,10 @@ import java.util.ArrayList;
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class InputValidator {
 
@@ -142,6 +142,12 @@ public class InputValidator {
 
     }
 
+    /**
+     * Validates if String correctly represents a username.
+     *
+     * @param input String that is being checked.
+     * @return True or False for whether it's a valid username.
+     */
     public boolean inputIsUsername(String input) {
         for (User user : Reader.readUsers(ConstantReferences.ADMINS)) {
             if (input.equalsIgnoreCase(user.getUsername())) {

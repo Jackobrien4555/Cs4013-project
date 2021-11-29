@@ -128,7 +128,7 @@ public class ReservationSystem {
         choice = userInput.getAnalyticsChoice();
         while (choice != ConstantReferences.EXIT_ANALYTICAL) {
             if (choice == 1) {
-                System.out.println("Do you also want to show rooms that aren't booked? Y/N(-1 to quit)");
+                System.out.print("Do you also want to show rooms that aren't booked? Y/N (-1 to quit):");
 
                 // -1 means return, 0 means false, 1 means true.
                 int showRoomIndicator = userInput.getYesOrNo();
@@ -139,20 +139,20 @@ public class ReservationSystem {
                         showRoom = true;
                     }
 
-                    System.out.print("Enter the starting date (YYYY-MM-DD)(-1 to quit): ");
+                    System.out.print("Enter the starting date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckIn = userInput.getDate();
                     if(dateCheckIn == null){
                         continue;
                     }
 
-                    System.out.print("Enter the ending date (YYYY-MM-DD)(-1 to quit): ");
+                    System.out.print("Enter the ending date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckOut = userInput.getDate();
                     if(dateCheckOut == null){
                         continue;
                     }
 
                     while (dateCheckIn.compareTo(dateCheckOut) > 0) {
-                        System.out.print("You cannot have the starting date be later than the ending date, try again(-1 to quit): ");
+                        System.out.print("You cannot have the starting date be later than the ending date, try again (-1 to quit): ");
                         dateCheckIn = userInput.getDate();
                     }
                     DataAnalysis.printAnalytics(DataAnalysis.getOccupancyRatesAll(ReservationCancellationManager.getAllReservations(), dateCheckIn, dateCheckOut, showRoom));
@@ -161,7 +161,7 @@ public class ReservationSystem {
 
 
             } else if (choice == 2) {
-                System.out.println("Do you also want to show rooms that aren't booked? Y/N(-1 to quit)");
+                System.out.print("Do you also want to show rooms that aren't booked? Y/N (-1 to quit):");
                 int showRoomIndicator = userInput.getYesOrNo();
                 boolean showRoom = false;
 
@@ -169,20 +169,20 @@ public class ReservationSystem {
                     if(showRoomIndicator == 1){
                         showRoom = true;
                     }
-                    System.out.print("Enter the starting date (YYYY-MM-DD)(-1 to quit): ");
+                    System.out.print("Enter the starting date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckIn = userInput.getDate();
                     if(dateCheckIn == null){
                         continue;
                     }
 
-                    System.out.print("Enter the ending date (YYYY-MM-DD)(-1 to quit): ");
+                    System.out.print("Enter the ending date (YYYY-MM-DD) (-1 to quit): ");
                     LocalDate dateCheckOut = userInput.getDate();
                     if(dateCheckOut == null){
                         continue;
                     }
 
                     while (dateCheckIn.compareTo(dateCheckOut) > 0) {
-                        System.out.print("You cannot have the starting date be later than the ending date, try again(-1 to quit): ");
+                        System.out.print("You cannot have the starting date be later than the ending date, try again (-1 to quit): ");
                         dateCheckIn = userInput.getDate();
                     }
                     DataAnalysis.printAnalytics(DataAnalysis.calculateIncomeAll(ReservationCancellationManager.getAllReservations(), ReservationCancellationManager.getAllCancellations(), dateCheckIn, dateCheckOut, showRoom));

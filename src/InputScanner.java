@@ -24,7 +24,6 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option in the StartUp screen.
-     *
      * @return The user's choice.
      */
     public int getStartUpChoice() {
@@ -33,7 +32,6 @@ public class InputScanner {
 
     /**
      * User can select a valid choice when selecting an option in the Analytics screen.
-     *
      * @return The user's choice.
      */
     public int getAnalyticsChoice() {
@@ -42,7 +40,6 @@ public class InputScanner {
 
     /**
      * Takes the user through a bunch of reservation questions so a reservation instance can be completed.
-     *
      * @return Completed reservation.
      */
     public Reservation readReservation() {
@@ -124,7 +121,6 @@ public class InputScanner {
     /**
      * Goes through all the reservations and cancellations and checks to see what is the next number available
      * for a reservation number.
-     *
      * @return A valid reservation number.
      */
     public int getNumberNeeded() {
@@ -144,7 +140,6 @@ public class InputScanner {
 
     /**
      * This method checks to see if a reservation number is correct or not. If it is validated it can be cancelled.
-     *
      * @return The user's chosen cancellation reference based on the reservation number.
      */
     public Cancellation readValidCancellation() {
@@ -152,7 +147,6 @@ public class InputScanner {
         Reservation chosenReservation;
         System.out.println("\n------ REQUESTING CANCELLATION INFORMATION ------");
         System.out.println("Enter the reservation number for the reservation you are cancelling.");
-        System.out.println("-------------------------------------------------");
         System.out.print("Reservation number (-1 to quit): ");
         chosenReservation = getReservationFromUserReservationNumber();
 
@@ -166,13 +160,14 @@ public class InputScanner {
            return null;
         }
 
+        System.out.println("You have successfully cancelled the reservation with reservation number " + chosenReservation.getResNumber() + ".");
+        System.out.println("-------------------------------------------------");
         userInputCancellation = new Cancellation(chosenReservation);
         return userInputCancellation;
     }
 
     /**
      * User can select a valid choice when selecting an option.
-     *
      * @param exitValue The highest value the user can input for a certain menu.
      * @return The user's choice.
      */
@@ -182,7 +177,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Number.
-     *
      * @return A valid number as Integer.
      */
     private int getNumber() {
@@ -225,7 +219,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid occupancy depending on the typeOfRoom.
-     *
      * @return A valid occupancy for the type of room.
      */
     private int getValidOccupancy(String typeOfRoom) {
@@ -262,7 +255,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Name.
-     *
      * @return A valid name as a String.
      */
     private String getName() {
@@ -286,7 +278,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid number in the range given.
-     *
      * @param minValueOfRange Minimum value of the range.
      * @param maxValueOfRange Maximum value of the range.
      * @return The choice the user has made inside the range we instructed it to.
@@ -307,7 +298,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Reservation Type.
-     *
      * @return A valid reservation type as a String.
      */
     private String getReservationType() {
@@ -332,7 +322,6 @@ public class InputScanner {
 
     /**
      * Asks for user input reservation number and returns the corresponding reservation.
-     *
      * @return Reservation based on the user reservation number.
      */
     private Reservation getReservationFromUserReservationNumber() {
@@ -350,7 +339,6 @@ public class InputScanner {
 
     /**
      * Asks the user for input and makes sure that the reservation number is valid.
-     *
      * @return Valid reservation number.
      */
     private int getReservationNumber() {
@@ -372,7 +360,6 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Date.
-     *
      * @return A valid date as a LocalDate.
      */
     public LocalDate getDate() {
@@ -396,6 +383,10 @@ public class InputScanner {
         return date;
     }
 
+    /**
+     * Checks the input value from the user so that it is a valid Username from the Admins csv file.
+     * @return A valid username as a String.
+     */
     public String getUsername() {
         String input;
         input = sc.nextLine();
@@ -416,6 +407,10 @@ public class InputScanner {
         return input;
     }
 
+    /**
+     * Checks the input value from the user so that it is a valid Password for a specific username.
+     * @return A valid password as a String.
+     */
     public String getPassword(String username) {
         User user = getUser(username);
         String input;
@@ -437,6 +432,10 @@ public class InputScanner {
         return input;
     }
 
+    /**
+     * Based on the username it returns a specific user.
+     * @return A valid user based on the username.
+     */
     public User getUser(String username) {
         for (User user : Reader.readUsers(ConstantReferences.ADMINS)) {
             if (username.equalsIgnoreCase(user.getUsername())) {
