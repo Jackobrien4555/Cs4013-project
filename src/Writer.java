@@ -16,7 +16,6 @@ public class Writer {
      * @param reservation The reservation to be written.
      */
     public void writeReservation(String filename, Reservation reservation) {
-
         try {
             FileWriter writer = new FileWriter(filename, true);
             writer.write(reservation.toString() + "\n");
@@ -28,13 +27,19 @@ public class Writer {
         }
     }
 
+    /**
+     * Writes a reservation into a specified file.
+     * @param filename The file path of the file to be read from.
+     * @param reservations The ArrayList of reservations to be written.
+     */
     public void writeReservations(String filename, ArrayList<Reservation> reservations) {
-
         try {
             FileWriter writer = new FileWriter(filename, false);
+
             for (int i = 0; i < reservations.size(); i++) {
                 writer.write(reservations.get(i).toString() + "\n");
             }
+
             writer.close();
         }
         catch (IOException exception) {
@@ -50,13 +55,11 @@ public class Writer {
      * @param cancellation The reservation to be written.
      */
     public void writeCancellation(String filename, Cancellation cancellation) {
-        // NEED TO DO, maybe create the file if the file doesn't exist
         String newCancellation = cancellation.toString() + "\n";
 
         try {
             FileWriter writer = new FileWriter(filename, true);
             writer.write(newCancellation);
-
             writer.close();
         }
         catch (IOException exception) {
