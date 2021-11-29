@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -26,11 +27,13 @@ public class HotelGUI extends Application {
     private static final Stage mainStage = new Stage();
     private static boolean isAdmin = false;
     private static InputScanner userInput;
+    private static InputValidator validator;
     private static Writer writer;
 
     public static void main(String[] args) {
         userInput = new InputScanner();
         writer = new Writer();
+        validator = new InputValidator();
 
         Application.launch();
     }
@@ -373,9 +376,9 @@ public class HotelGUI extends Application {
             int resNumber = 0;
 
 
-            try{
+            try {
                 resNumber = Integer.parseInt(textField5.getText());
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 invalidNum.setVisible(true);
             }
 
@@ -575,12 +578,11 @@ public class HotelGUI extends Application {
         textFieldNum.setPromptText("e.g. 421562");
 
 
-
         // Adding child to parent
         hBoxNum.getChildren().add(textFieldNum);
 
         Text invalidNum = new Text("Not a valid reservation number.");
-        invalidNum.setVisible(true);
+        invalidNum.setVisible(false);
         hBoxNum.getChildren().add(invalidNum);
 
         vBox0.getChildren().add(hBoxNum);
@@ -593,7 +595,6 @@ public class HotelGUI extends Application {
         hBox3.setAlignment(Pos.CENTER);
 
 
-
         Text text4 = new Text();
         text4.setStrokeWidth(0.0);
         text4.setStrokeType(StrokeType.OUTSIDE);
@@ -601,14 +602,14 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox3.getChildren().add(text4);
-        TextField textField5 = new TextField();
-        textField5.setPromptText("e.g. John Smith");
+        TextField textFieldName = new TextField();
+        textFieldName.setPromptText("e.g. John Smith");
 
         // Adding child to parent
-        hBox3.getChildren().add(textField5);
+        hBox3.getChildren().add(textFieldName);
 
         Text invalidName = new Text("Not a valid name (No numbers allowed).");
-        invalidNum.setVisible(true);
+        invalidName.setVisible(false);
         hBox3.getChildren().add(invalidName);
 
         // Adding child to parent
@@ -633,6 +634,10 @@ public class HotelGUI extends Application {
         // Adding child to parent
         hBox6.getChildren().add(choiceBox8);
 
+        Text invalidType = new Text("Please choose reservation type.");
+        invalidType.setVisible(false);
+        hBox6.getChildren().add(invalidType);
+
         // Adding child to parent
         vBox0.getChildren().add(hBox6);
         HBox hBox9 = new HBox();
@@ -647,13 +652,13 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox9.getChildren().add(text10);
-        DatePicker datePicker11 = new DatePicker();
+        DatePicker datePickerStart = new DatePicker();
 
         // Adding child to parent
-        hBox9.getChildren().add(datePicker11);
+        hBox9.getChildren().add(datePickerStart);
 
         Text invalidStart = new Text("Invalid start date.");
-        invalidStart.setVisible(true);
+        invalidStart.setVisible(false);
         hBox9.getChildren().add(invalidStart);
 
         Text text12 = new Text();
@@ -679,13 +684,13 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox13.getChildren().add(text14);
-        DatePicker datePicker15 = new DatePicker();
+        DatePicker datePickerEnd = new DatePicker();
 
         // Adding child to parent
-        hBox13.getChildren().add(datePicker15);
+        hBox13.getChildren().add(datePickerEnd);
 
         Text invalidEnd = new Text("Invalid end date.");
-        invalidStart.setVisible(true);
+        invalidEnd.setVisible(false);
         hBox13.getChildren().add(invalidEnd);
 
         Text text16 = new Text();
@@ -711,14 +716,14 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox17.getChildren().add(text18);
-        TextField textField19 = new TextField();
-        textField19.setPromptText("e.g. 2");
+        TextField textFieldRoomNum = new TextField();
+        textFieldRoomNum.setPromptText("e.g. 2");
 
         // Adding child to parent
-        hBox17.getChildren().add(textField19);
+        hBox17.getChildren().add(textFieldRoomNum);
 
         Text invalidRoomNum = new Text("Invalid number of rooms.");
-        invalidRoomNum.setVisible(true);
+        invalidRoomNum.setVisible(false);
         hBox17.getChildren().add(invalidRoomNum);
 
         // Adding child to parent
@@ -735,17 +740,139 @@ public class HotelGUI extends Application {
         button21.setText("Book Reservation");
         button21.setMnemonicParsing(false);
 
+        button21.setOnAction(event -> {
+            Reservation reservationToBeAdded = null;
+            int resNumber = 0;
+            String resName = null, resType = null;
+            LocalDate checkInDate = null, checkOutDate = null;
+            int numberOfRooms = 0;
+            ArrayList<Room> rooms = null;
+            boolean validReservation = true;
+
+            try {
+                resNumber = Integer.parseInt(textFieldNum.getText());
+            } catch (NumberFormatException e) {
+                validReservation = false;
+                invalidNum.setVisible(true);
+            }
+
+            try {
+                numberOfRooms = Integer.parseInt(textFieldRoomNum.getText());
+            } catch (NumberFormatException e) {
+                validReservation = false;
+                invalidRoomNum.setVisible(true);
+            }
+
+            if (!validator.inputIsValidResNum(resNumber)) {
+                validReservation = false;
+                invalidRoomNum.setVisible(true);
+            }
+            else{
+                invalidRoomNum.setVisible(false);
+            }
+
+            if (validator.inputIsName(textFieldName.getText())) {
+                resName = textFieldName.getText();
+                invalidName.setVisible(false);
+            } else {
+                validReservation = false;
+                invalidName.setVisible(true);
+            }
+
+            if (!choiceBox8.getSelectionModel().isEmpty()) {
+                if (choiceBox8.getSelectionModel().getSelectedItem().equals("S")) {
+                    resType = "S";
+                    invalidType.setVisible(false);
+                } else if (choiceBox8.getSelectionModel().getSelectedItem().equals("AP")) {
+                    resType = "AP";
+                    invalidType.setVisible(false);
+                } else {
+                    validReservation = false;
+                    invalidType.setVisible(true);
+                }
+            }
+            else{
+                validReservation = false;
+                invalidType.setVisible(true);
+            }
+
+            if (datePickerStart.getValue() != null) {
+                if (!datePickerStart.getValue().isBefore(LocalDate.now())) {
+                    checkInDate = datePickerStart.getValue();
+                    invalidStart.setVisible(false);
+                } else {
+                    validReservation = false;
+                    invalidStart.setVisible(true);
+                }
+            } else {
+                validReservation = false;
+                invalidStart.setVisible(true);
+            }
+
+
+            if (datePickerEnd.getValue() != null) {
+                if (datePickerEnd.getValue().compareTo(datePickerStart.getValue()) == 0 || datePickerEnd.getValue().compareTo(datePickerStart.getValue()) < 0) {
+                    validReservation = false;
+                    invalidEnd.setVisible(true);
+                } else {
+                    checkOutDate = datePickerEnd.getValue();
+                    invalidEnd.setVisible(false);
+                }
+            } else {
+                validReservation = false;
+                invalidEnd.setVisible(true);
+            }
+
+
+            if (!validator.inputIsInteger(Integer.toString(numberOfRooms))) {
+                validReservation = false;
+                invalidRoomNum.setVisible(true);
+            }
+            else{
+                invalidRoomNum.setVisible(false);
+            }
+
+            if (validReservation) {
+                reservationToBeAdded = new Reservation(resNumber, resName, resType, checkInDate, checkOutDate, numberOfRooms);
+                reservationToBeAdded.setTotalCost(reservationToBeAdded.getTotalCost());
+                reservationToBeAdded.setRooms(rooms);
+                reservationToBeAdded.setTotalCost(reservationToBeAdded.getTotalCost());
+                System.out.println("Thank you! Your reservation will cost: \u20AC" + reservationToBeAdded.getTotalCost());
+                System.out.print("--------------------------------------------------------------");
+                ReservationCancellationManager.addReservation(reservationToBeAdded);
+                writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
+            }
+
+
+        });
+
         // Adding child to parent
         vBox0.getChildren().add(button21);
         Button button22 = new Button();
         button22.setLayoutX(338.0);
         button22.setLayoutY(582.0);
         button22.setText("Return to Choices");
+        button22.setOnAction(event -> {
+            if (isAdmin) {
+                mainStage.setScene(createAdminChoicesGUI());
+            } else {
+                mainStage.setScene(createUserChoicesGUI());
+            }
+        });
         button22.setMnemonicParsing(false);
 
         // Adding child to parent
         vBox0.getChildren().add(button22);
         return new Scene(vBox0, 800, 500);
+
+
+    }
+
+    private static VBox createRoomBooker() {
+        VBox createRoom = new VBox();
+        createRoom.setPrefWidth(500);
+        createRoom.setPrefHeight(500);
+        return createRoom;
     }
 
     //Done
@@ -861,6 +988,4 @@ public class HotelGUI extends Application {
         return new Scene(vBox0, 800, 500);
 
     }
-
-
 }

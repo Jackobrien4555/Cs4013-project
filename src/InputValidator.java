@@ -135,11 +135,13 @@ public class InputValidator {
      * @return True or False for whether it's a valid name.
      */
     public boolean inputIsName(String input) {
+        if(input == null || input.equals("")){
+            return false;
+        }
         // Make sure that there aren't any spaces at the start of end of the input.
         if (input.charAt(0) == ' ' || input.charAt(input.length() - 1) == ' ') {
             return false;
         }
-
 
         return input.matches("[a-zA-Z ]+");
 

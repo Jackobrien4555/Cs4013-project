@@ -53,7 +53,6 @@ public class InputScanner {
         LocalDate checkInDate, checkOutDate;
         int numberOfRooms;
         ArrayList<Room> rooms;
-        double totalCost;
 
         System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
         System.out.print("Enter the reservation number (-1 to quit): ");
