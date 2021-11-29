@@ -54,11 +54,8 @@ public class InputScanner {
         ArrayList<Room> rooms;
 
         System.out.println("\n ------------------ RESERVATION INFORMATION ------------------");
-        System.out.print("Enter the reservation number (-1 to quit): ");
-        resNumber = getValidResNumber();
-        if (resNumber == -1) {
-            return null;
-        }
+        resNumber = ReservationCancellationManager.getAllReservations().size() + 1;
+        System.out.println("Your reservation number is " + resNumber + ".");
 
         System.out.print("Enter the reservation name (e.g. Jeff Simmons) (-1 to quit): ");
         resName = getName();
@@ -191,23 +188,19 @@ public class InputScanner {
         return validNum;
     }
 
-    /**
-     * Checks the input value from the user so that it is a valid reservation and not already included in our reservations.
-     *
-     * @return A valid number as Integer.
-     */
-    private int getValidResNumber() {
-        int validNum = getNumber();
-        while (!userValidator.inputIsValidResNum(validNum)) {
-            System.out.print("The input reservation number already exists, try again (-1 to quit): ");
-            validNum = getNumber();
-
-            if (getNumber() == -1) {
-                return -1;
-            }
-        }
-        return validNum;
-    }
+//    Method used for getting a valid reservation number when we let user's choose.
+//    private int getValidResNumber() {
+//        int validNum = getNumber();
+//        while (!userValidator.inputIsValidResNum(validNum)) {
+//            System.out.print("The input reservation number already exists, try again (-1 to quit): ");
+//            validNum = getNumber();
+//
+//            if (getNumber() == -1) {
+//                return -1;
+//            }
+//        }
+//        return validNum;
+//    }
 
     /**
      * Checks the input value from the user so that it is a valid occupancy depending on the typeOfRoom.
@@ -461,47 +454,13 @@ public class InputScanner {
         return result;
     }
 
-    /**
-     * Instructs the user on completing different rooms and rooms details.
-     *
-     * @param rooms The rooms arraylist given to us.
-     * @return The completed Rooms arraylist with all the details given by the user.
-     */
-    private void readRoom(ArrayList<Room> rooms, int numberOfRooms) {
-        String typeOfRoom;
-        int occupancy;
-
-        System.out.println("\n+++++++++++++++++ REQUESTING ROOM INFORMATION ++++++++++++++++");
-        for (int i = 0; i < numberOfRooms; i++) {
-            System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
-            System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");
-            System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
-            System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
-            System.out.println("--------------------------------------------------------------");
-            System.out.print("Enter room type (-1 to quit): ");
-            typeOfRoom = sc.nextLine();
-            while (!userValidator.isValidRoomType(typeOfRoom)) {
-                System.out.println("This is not a valid input, these are some options:");
-                System.out.println("-------------------- AVAILABLE ROOM TYPES --------------------");
-                System.out.println("-- Deluxe Double, Deluxe Twin, Deluxe Single, Deluxe Family --");
-                System.out.println("----- Executive Double, Executive Twin, Executive Single -----");
-                System.out.println("-------- Classic Double, Classic Twin, Classic Single --------");
-                System.out.println("--------------------------------------------------------------");
-                System.out.print("Please enter your choice (-1 to quit): ");
-                typeOfRoom = sc.nextLine();
-            }
-
-            System.out.print("Enter occupancy total (-1 to quit): ");
-            occupancy = getValidOccupancy(typeOfRoom);
-
-            rooms.add(new Room(typeOfRoom, occupancy));
-        }
-        System.out.print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    }
 
     /**
+     * Co-Creator: Edison Cai
      * Instructs the user on completing different rooms and rooms details.
-     *
+     * @param numberOfRooms Number of rooms the user needs.
+     * @param checkIn Date the user wants to check in.
+     * @param checkOut Date the user wants to check out.
      * @return The completed Rooms arraylist with all the details given by the user.
      */
     private ArrayList<Room> readRoom(int numberOfRooms, LocalDate checkIn, LocalDate checkOut) {

@@ -66,15 +66,10 @@ public class InputValidator {
         return (input.equalsIgnoreCase("s") || input.equalsIgnoreCase("ap"));
     }
 
-    /**
-     * Validates if String input is a double.
-     *
-     * @param input String that is being checked.
-     * @return True or false for whether it's a valid double.
-     */
-    public boolean inputIsDouble(String input) {
-        return (input.matches("\\d+") || input.matches("\\d+.\\d+"));
-    }
+//    Check's if the input is a valid double number.
+//    public boolean inputIsDouble(String input) {
+//        return (input.matches("\\d+") || input.matches("\\d+.\\d+"));
+//    }
 
     /**
      * Checks the input value from the user so that it is a valid reservation number and not already
