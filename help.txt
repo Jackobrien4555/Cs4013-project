@@ -1,3 +1,5 @@
+GitHub Project Repository Link: https://github.com/Jackobrien4555/Cs4013-project
+
 To compile the text UI version:
 javac -cp . SystemMain.java
 
