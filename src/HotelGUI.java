@@ -884,7 +884,7 @@ public class HotelGUI extends Application {
 
         ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
         for (Reservation reservation : reservations) {
-            Text reservationText = new Text(reservation.reservationFormat());
+            Text reservationText = new Text(reservation.reservationFormat() + "\n");
             allReservations.getChildren().add(reservationText);
         }
 
