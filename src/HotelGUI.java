@@ -86,7 +86,6 @@ public class HotelGUI extends Application {
         Button button4 = new Button();
         button4.setOnAction(event -> {
             isAdmin = false;
-            System.out.println("pressed!");
             mainStage.setScene(createUserChoicesGUI());
         });
         button4.setText("User");
@@ -441,10 +440,11 @@ public class HotelGUI extends Application {
 
 
             Reservation chosenReservation = ReservationCancellationManager.getReservation(resNumber);
-            Cancellation cancellation = new Cancellation(chosenReservation);
+
 
 
             if (chosenReservation != null) {
+                Cancellation cancellation = new Cancellation(chosenReservation);
                 ReservationCancellationManager.addCancellation(cancellation);
                 int resNum = cancellation.getReservation().getResNumber();
                 writer.writeCancellation(ConstantReferences.CANCELLATIONS, cancellation);
