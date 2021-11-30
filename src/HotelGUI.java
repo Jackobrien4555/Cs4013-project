@@ -835,7 +835,6 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(button4);
-//        mainStage.setResizable(false);
         return new Scene(vBox0, 800, 500);
     }
 
@@ -894,7 +893,6 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(button4);
 
-//        mainStage.setResizable(false);
         return new Scene(vBox0, 800, 500);
 
     }
@@ -913,6 +911,7 @@ public class HotelGUI extends Application {
         ArrayList<Room> rooms = new ArrayList<>();
         boolean validReservation = true;
 
+        // Checks if values are valid.
         try {
             numberOfRooms = Integer.parseInt(textFieldRoomNum.getText());
         } catch (NumberFormatException e) {
@@ -1034,6 +1033,7 @@ public class HotelGUI extends Application {
             chooseRoom.setPrefWidth(130);
             chooseOccupancy.setPrefWidth(130);
 
+            // Update values dynamically using listeners.
             for (Hotel h : HotelInitialiser.getAllHotels()) {
                 chooseHotel.getItems().add(h.getHotelType());
             }
@@ -1070,7 +1070,7 @@ public class HotelGUI extends Application {
     }
 
     /*
-    Check if the values are valid for data analysis.
+    Check if the values are valid for data analysis and renders it.
      */
     private static void showValidAnalysis(ChoiceBox<String> choiceBox, ChoiceBox<String> yesOrNo, DatePicker datePickerStart, Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, ScrollPane scrollPane11) {
         LocalDate startDate = null, endDate = null;
@@ -1078,6 +1078,7 @@ public class HotelGUI extends Application {
         boolean validAnalysis = true;
         VBox analysisResults = new VBox();
 
+        // Checking if values are valid.
         if (yesOrNo.getSelectionModel().getSelectedItem().equals("Yes")) {
             showUnoccupiedRooms = true;
         }
