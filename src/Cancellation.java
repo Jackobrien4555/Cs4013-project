@@ -5,7 +5,6 @@ import java.time.LocalDate;
  *
  * @author David Walsh 20276885
  */
-
 public class Cancellation {
     private Reservation reservation;
     private LocalDate cancellationDate;
@@ -33,9 +32,9 @@ public class Cancellation {
     /**
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
      *
-     * @param reservation      The reservation that is being cancelled.
+     * @param reservation The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param income           The income generated from a reservation, its 0 it is refunded
+     * @param income The income generated from a reservation, its 0 it is refunded
      */
     public Cancellation(Reservation reservation, LocalDate cancellationDate, double income) {
         this.reservation = reservation;
@@ -74,8 +73,7 @@ public class Cancellation {
      * Returns a string that represents the data contained by a cancellation and is compatible with a csv file.
      */
     public String toString() {
-        String reservationString = reservation.toString();
-        return reservationString + "," + LocalDate.now() + "," + income;
+        return String.format("%s,%s,%f", reservation.toString(), LocalDate.now(), income);
     }
 
     /**
@@ -83,6 +81,7 @@ public class Cancellation {
      */
     public String cancellationFormat() {
         return String.format("%s\n" +
-                "Cancellation Date: %s, Income: %.2f", reservation.reservationFormat(), cancellationDate, income);
+                "Cancellation Date: %s, Income: %.2f",
+                reservation.reservationFormat(), cancellationDate, income);
     }
 }

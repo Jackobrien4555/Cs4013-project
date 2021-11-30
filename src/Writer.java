@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 /**
  * The Writer class writes both reservations and cancellations
+ *
  * @author David Walsh 20276885
  */
-
 public class Writer {
 
     /**
      * Writes a reservation into a specified file.
+     *
      * @param filename The file path of the file to be read from.
      * @param reservation The reservation to be written.
      */
@@ -28,6 +29,7 @@ public class Writer {
 
     /**
      * Writes a reservation into a specified file.
+     *
      * @param filename The file path of the file to be read from.
      * @param reservations The ArrayList of reservations to be written.
      */
@@ -50,6 +52,7 @@ public class Writer {
 
     /**
      * Writes a cancellation into a specified file.
+     *
      * @param filename The file path of the file to be read from.
      * @param cancellation The reservation to be written.
      */
