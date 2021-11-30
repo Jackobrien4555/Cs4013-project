@@ -1,8 +1,3 @@
-
-
-import java.time.LocalDate;
-import java.util.*;
-
 /**
  * This class uses InputValidator and allows users to actually input their choices
  * using the Scanner utility. Also allows them to re-enter until they reach a choice that is valid.
@@ -10,6 +5,10 @@ import java.util.*;
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
+
+import java.time.LocalDate;
+import java.util.*;
+
 public class InputScanner {
     private final Scanner sc;
     private final InputValidator userValidator;

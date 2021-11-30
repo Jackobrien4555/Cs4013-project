@@ -1,8 +1,3 @@
-
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
 /**
  * This class is necessary for other classes as it has various methods using regex
  * to check if an input that the user gives us is acceptable or not.
@@ -10,6 +5,10 @@ import java.time.format.DateTimeParseException;
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class InputValidator {
 
     /**
