@@ -17,8 +17,11 @@ public class SystemMain{
         system.run();
     }
 
-    // Checking for the -r or reservations flag.
-    private static void checkReservationsFlag(String[] args){
+    /**
+     * Checking for the -r or reservations flag.
+     * @param args The args array.
+     */
+    public static void checkReservationsFlag(String[] args){
         int flagIndex = findFlag("-r", args);
         if(flagIndex == -1){
             return;
@@ -30,8 +33,11 @@ public class SystemMain{
         }
     }
 
-    // Checking for the -c or cancellations flag.
-    private static void checkCancellationsFlag(String[] args){
+    /**
+     * Checking for the -c or cancellations flag.
+     * @param args The args array.
+     */
+    public static void checkCancellationsFlag(String[] args){
         int flagIndex = findFlag("-c", args);
         if(flagIndex == -1){
             return;
@@ -43,8 +49,11 @@ public class SystemMain{
         }
     }
 
-    // Checking for the -h or hotels flag.
-    private static void checkHotelsFlag(String[] args){
+    /**
+     * Checking for the -h or hotels flag.
+     * @param args The args array.
+     */
+    public static void checkHotelsFlag(String[] args){
         int flagIndex = findFlag("-h", args);
         if(flagIndex == -1){
             return;
@@ -56,8 +65,11 @@ public class SystemMain{
         }
     }
 
-    // Checking for the -a or admins flag.
-    private static void checkAdminsFlag(String[] args){
+    /**
+     * Checking for the -a or admins flag.
+     * @param args The args array.
+     */
+    public static void checkAdminsFlag(String[] args){
         int flagIndex = findFlag("-a", args);
         if(flagIndex == -1){
             return;

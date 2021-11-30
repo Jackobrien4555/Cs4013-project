@@ -33,6 +33,11 @@ public class HotelGUI extends Application {
     private static Writer writer;
 
     public static void main(String[] args) {
+        SystemMain.checkReservationsFlag(args);
+        SystemMain.checkCancellationsFlag(args);
+        SystemMain.checkHotelsFlag(args);
+        SystemMain.checkAdminsFlag(args);
+
         userInput = new InputScanner();
         writer = new Writer();
         validator = new InputValidator();
@@ -1014,10 +1019,10 @@ public class HotelGUI extends Application {
         }
 
         if (!choiceBox8.getSelectionModel().isEmpty()) {
-            if (choiceBox8.getSelectionModel().getSelectedItem().equals("S")) {
+            if (choiceBox8.getSelectionModel().getSelectedItem().equals("Standard")) {
                 resType = "S";
                 invalidType.setVisible(false);
-            } else if (choiceBox8.getSelectionModel().getSelectedItem().equals("AP")) {
+            } else if (choiceBox8.getSelectionModel().getSelectedItem().equals("Advanced Purchase")) {
                 resType = "AP";
                 invalidType.setVisible(false);
             } else {
