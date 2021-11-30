@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * of the reservation system.
  *
  * @author Edison Cai 20241135
+ * @author Jack O'Brien
  */
 public class HotelGUI extends Application {
     private static final Stage mainStage = new Stage();
