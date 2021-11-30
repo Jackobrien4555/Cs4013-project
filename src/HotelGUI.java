@@ -462,9 +462,10 @@ public class HotelGUI extends Application {
         return new Scene(vBox0, 800, 500);
     }
     /*
-*@author Jack O Brien
-*Screen where Data analysis is displayed
-*/
+    HEAD
+    *@author Jack O Brien
+    *Screen where Data analysis is displayed
+    */
     private static Scene createDataAnalysisGUI() {
         mainStage.setTitle("Data Analysis");
 
