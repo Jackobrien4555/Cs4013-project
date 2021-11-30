@@ -26,49 +26,64 @@ public abstract class DataAnalysis {
     public static ArrayList<String> getOccupancyRatesAll(ArrayList<Reservation> reservations, LocalDate startDate, LocalDate endDate, boolean showUnoccupiedRooms) {
         ArrayList<String> result = new ArrayList<>();
         result.add(String.format("This is the occupancy rate for every hotel and room between %s and %s:", startDate, endDate));
+        result.add("---------------------------------------");
         // For every hotel
         for (Hotel h : HotelInitialiser.getAllHotels()) {
             // Initialise the occupancy and the amount of rooms booked for a hotel.
             int hotelOccupancy = 0;
             int hotelRoomsAmount = 0;
-            HashMap<String, Integer> hotelRooms = getRoomsOfHotelInStringInt(h.getTypeOfRooms());
+
+            // Initialising a HashMap of TypeOfRoom/Integer pairs. This is to keep track of the occupancy for every type of room.
+            HashMap<String, Integer> hotelRoomsOccupancy = getRoomsOfHotelInStringInt(h.getTypeOfRooms());
+
+            // Initialising a HashMap of TypeOfRoom/Integer pairs. This is to keep track of the rooms booked for every type of room.
+            HashMap<String, Integer> hotelRoomsBooked = getRoomsOfHotelInStringInt(h.getTypeOfRooms());
+
             result.add("Hotel name: " + h.getHotelType());
 
-            // For every line in the reservations file.
+            // For every reservation...
             for (Reservation res : reservations) {
                 // Only process reservations whose check-in dates are within startDate and endDate.
-//                if (compareDates(res.getCheckInDate().toString(), startDate) <= 0 && compareDates(res.getCheckInDate().toString(), endDate) >= 0) {
                 if (res.getCheckInDate().compareTo(startDate) >= 0 && res.getCheckInDate().compareTo(endDate) <= 0) {
                     // Go through each room that's booked.
                     for (int i = 0; i < res.getNumberOfRooms(); i++) {
                         // Check if a room name is a part of the hotel
                         // If it's a recognised room, increment the total occupancy of a room by the occupancy of the room in the reservation.
                         // Finally, also add the occupancy to the hotel.
-                        if (hotelRooms.containsKey(res.getRooms().get(i).getRoomType())) {
-                            hotelRooms.replace(res.getRooms().get(i).getRoomType(), hotelRooms.get(res.getRooms().get(i).getRoomType()) + res.getRooms().get(i).getRoomOccupancy());
+                        // Increment the amount of rooms booked by +1.
+                        if (hotelRoomsOccupancy.containsKey(res.getRooms().get(i).getRoomType())) {
+                            hotelRoomsOccupancy.replace(res.getRooms().get(i).getRoomType(), hotelRoomsOccupancy.get(res.getRooms().get(i).getRoomType()) + res.getRooms().get(i).getRoomOccupancy());
                             hotelOccupancy += res.getRooms().get(i).getRoomOccupancy();
+                            hotelRoomsBooked.replace(res.getRooms().get(i).getRoomType(), hotelRoomsBooked.get(res.getRooms().get(i).getRoomType()) + 1);
                             hotelRoomsAmount++;
                         }
                     }
                 }
 
             }
+
             result.add("Hotel occupancy: " + hotelOccupancy);
             result.add("Amount of rooms booked: " + hotelRoomsAmount);
+            result.add("\n");
 
-
-            // Go through every room/room occupancy pair in hotelRooms.
-            for (Map.Entry<String, Integer> entry : hotelRooms.entrySet()) {
-                // If you don't want to show empty rooms
-                // Only show rooms that have some occupancy
+            // Go through every room/occupancy pair in hotelRoomsOccupancy and print out the name, occupancy and the amount booked in the date range.
+            for (Map.Entry<String, Integer> entry : hotelRoomsOccupancy.entrySet()) {
+                // If you don't want to show empty rooms,
+                // Only show rooms that have some occupancy.
                 if (showUnoccupiedRooms) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room occupancy: " + entry.getValue());
+                    result.add("Room booked: " + hotelRoomsBooked.get(entry.getKey()));
+                    result.add("\n");
                 } else if (entry.getValue() != 0) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room occupancy: " + entry.getValue());
+                    result.add("Room booked: " + hotelRoomsBooked.get(entry.getKey()));
+                    result.add("\n");
                 }
             }
+
+            result.add("---------------------------------------");
         }
         return result;
     }
@@ -88,8 +103,9 @@ public abstract class DataAnalysis {
         // Initialising the list of Strings "result".
         ArrayList<String> result = new ArrayList<>();
         result.add(String.format("This is the income for every hotel and room between %s and %s:", startDate, endDate));
+        result.add("---------------------------------------");
 
-        // Initialising a HashMap of String/Double tuples. The String is the Hotel type
+        // Initialising a HashMap of String/Double tuples. The String is the Hotel type and
         // the double will be the income that a hotel has generated.
         HashMap<String, Double> hotelRooms;
         double totalIncome = 0;
@@ -141,6 +157,7 @@ public abstract class DataAnalysis {
 
 
             result.add("Hotel income: " + hotelIncome);
+            result.add("\n");
 
             for (Map.Entry<String, Double> entry : hotelRooms.entrySet()) {
                 // If you don't want to show empty rooms
@@ -148,11 +165,15 @@ public abstract class DataAnalysis {
                 if (showUnoccupiedRooms) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room income: " + entry.getValue());
+                    result.add("\n");
                 } else if (entry.getValue() != 0) {
                     result.add("Room name: " + entry.getKey());
                     result.add("Room income: " + entry.getValue());
+                    result.add("\n");
                 }
             }
+            result.add("---------------------------------------");
+
         }
 
         // Going through all cancellations to see if there are still some income to be made from reservations that can't be cancelled.
@@ -183,6 +204,7 @@ public abstract class DataAnalysis {
         result.add("Income retained from cancellations: " + cancellationIncome);
         result.add("Income from all successful reservations: " + (totalIncome - cancellationIncome));
         result.add("Total income: " + totalIncome);
+
         return result;
     }
 
