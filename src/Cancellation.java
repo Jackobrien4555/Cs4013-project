@@ -73,7 +73,7 @@ public class Cancellation {
      * Returns a string that represents the data contained by a cancellation and is compatible with a csv file.
      */
     public String toString() {
-        return String.format("%s,%s,%f", reservation.toString(), cancellationDate, income);
+        return String.format("%s,%s,%.2f", reservation.toString(), cancellationDate, income);
     }
 
     /**
