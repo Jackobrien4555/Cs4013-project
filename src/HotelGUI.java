@@ -46,7 +46,7 @@ public class HotelGUI extends Application {
         HotelInitialiser.initialise(HotelInitialiser.getFileCells(ConstantReferences.HOTELS));
         mainStage.setTitle("Hotel Login");
         mainStage.setScene(createLogin());
-        mainStage.setResizable(false);
+//        mainStage.setResizable(false);
         mainStage.show();
     }
 
@@ -84,6 +84,7 @@ public class HotelGUI extends Application {
         Button button4 = new Button();
         button4.setOnAction(event -> {
             isAdmin = false;
+            System.out.println("pressed!");
             mainStage.setScene(createUserChoicesGUI());
         });
         button4.setText("User");
@@ -108,7 +109,7 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(vBox3);
 
         //return new Scene(vBox0, 200, 100);
-        return new Scene(vBox0, 800, 500);
+        return new Scene(vBox0, 700, 300);
 
     }
 
@@ -332,8 +333,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(vBox3);
-        return new Scene(vBox0, 800, 500);
-
+        return new Scene(vBox0, 300, 300);
     }
 
     //Done

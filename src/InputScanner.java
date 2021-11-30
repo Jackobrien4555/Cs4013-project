@@ -157,6 +157,9 @@ public class InputScanner {
         if (chosenReservation == null) {
             return null;
         }
+        System.out.println();
+        System.out.println(chosenReservation.reservationFormat());
+        System.out.println();
         System.out.println("Are you sure you want to cancel " + chosenReservation.getResNumber() + "?");
         System.out.print("Type your answer (Y/N): ");
         int confirmation = getYesOrNo();

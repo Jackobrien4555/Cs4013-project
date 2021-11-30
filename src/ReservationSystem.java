@@ -98,11 +98,13 @@ public class ReservationSystem {
             } else if (choice == 3) {
                 ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
                 for (Reservation reservation : reservations) {
+                    System.out.println();
                     System.out.println(reservation.reservationFormat());
                 }
             } else if (choice == 4) {
                 ArrayList<Cancellation> cancellations = ReservationCancellationManager.getAllCancellations();
                 for (Cancellation cancellation : cancellations) {
+                    System.out.println();
                     System.out.println(cancellation.cancellationFormat());
                 }
             } else if (choice == 5) {
@@ -158,7 +160,7 @@ public class ReservationSystem {
 
 
             } else if (choice == 2) {
-                System.out.print("Do you also want to show rooms that aren't booked? Y/N (-1 to quit):");
+                System.out.print("Do you also want to show rooms that aren't booked? Y/N (-1 to quit): ");
                 int showRoomIndicator = userInput.getYesOrNo();
                 boolean showRoom = false;
 
