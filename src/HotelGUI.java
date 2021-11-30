@@ -68,7 +68,7 @@ public class HotelGUI extends Application {
         VBox.setMargin(vBox1, new Insets(80, 0, 0, 0));
         Text text2 = new Text();
         text2.setStrokeWidth(0.0);
-        text2.setText("Are you accessing the Reservation System as an User or an Admin?");
+        text2.setText("Are you accessing the Reservation System as a User or an Admin?");
         text2.setStyle("-fx-font: 16 arial;");
 
         // Adding child to parent
