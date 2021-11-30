@@ -594,14 +594,14 @@ public class HotelGUI extends Application {
 
 
     private static Scene createMakeReservationsGUI() {
-        mainStage.setTitle("Making reservation");
+        mainStage.setTitle("Making a reservation.");
 
         VBox vBox0 = new VBox();
         vBox0.setMinHeight(700);
         vBox0.setPrefHeight(1000);
 
         vBox0.setSpacing(20.0);
-        vBox0.setMaxHeight(1700);
+        vBox0.setMaxHeight(1500);
         vBox0.setPrefWidth(1000);
         vBox0.setMinWidth(700);
         vBox0.setAlignment(Pos.CENTER);
@@ -635,16 +635,13 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBoxNum.getChildren().add(textNum);
-        TextField textFieldNum = new TextField();
-        textFieldNum.setPromptText("e.g. 421562");
+        int numberNeeded = userInput.getNumberNeeded();
+        TextField textFieldNum = new TextField(numberNeeded + "");
+        textFieldNum.setEditable(false);
 
 
         // Adding child to parent
         hBoxNum.getChildren().add(textFieldNum);
-
-        Text invalidNum = new Text("Not a valid reservation number.");
-        invalidNum.setVisible(false);
-        hBoxNum.getChildren().add(invalidNum);
 
         vBox0.getChildren().add(hBoxNum);
         /////////////
