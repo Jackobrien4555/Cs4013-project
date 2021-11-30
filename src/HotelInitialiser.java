@@ -40,14 +40,14 @@ public abstract class HotelInitialiser {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred: File not found");
+            System.out.println("An error has occurred: File containing hotel details not found at: " + fileName);
         }
 
         return result;
     }
 
     /*
-     * Convert rates of a hotel room from a String array to an integer array.
+     * Convert rates of a hotel room from a String array to a double array.
      */
     private static double[] getRates(String[] rates) {
         double[] doubleRates = new double[rates.length];
@@ -60,7 +60,7 @@ public abstract class HotelInitialiser {
     }
 
     /**
-     * Initialises all the Hotels with all their and places them in an ArrayList.
+     * Initialises all the Hotels with all their rooms and places them in an ArrayList.
      *
      * @param cells A list of lines represented as String arrays containing all hotel and room details and values.
      */
@@ -89,7 +89,7 @@ public abstract class HotelInitialiser {
 
                 i++;
 
-                // Keep adding rooms to the hotel until we reach another hotel
+                // Keep adding rooms to the hotel until we reach another hotel.
                 while (cells.get(i)[HOTEL_INDEX].equals("")) {
                     line = cells.get(i);
                     newRoom = new TypeOfRoom(line[ROOM_INDEX], Integer.parseInt(line[OCCUPANCY_MIN_INDEX]),
@@ -108,7 +108,7 @@ public abstract class HotelInitialiser {
                 }
 
                 // If the line we're on comes across another hotel, we are done with the current hotel.
-                // Add the hotel to the list, decrement i(since the loop with increment it again) and repeat the process
+                // Add the hotel to the list, decrement i(since the loop will increment it again) and repeat the process
                 // until all the hotels are added.
                 if (!cells.get(i)[HOTEL_INDEX].equals("")) {
                     i--;

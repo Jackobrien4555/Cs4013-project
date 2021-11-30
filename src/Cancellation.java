@@ -2,6 +2,7 @@ import java.time.LocalDate;
 
 /**
  * The Cancellation class
+ *
  * @author David Walsh 20276885
  */
 
@@ -12,6 +13,7 @@ public class Cancellation {
 
     /**
      * Constructor for creating a Cancellation object (used when creating cancellation from user input).
+     *
      * @param reservation The reservation that is being cancelled.
      */
     public Cancellation(Reservation reservation) {
@@ -21,19 +23,19 @@ public class Cancellation {
 
         // If reservation is AP or if it's S and within 2 days of check-in, there will be no refunds.
         // The money will go towards the hotel.
-        if(reservation.getResType().equals("AP") || (reservation.getResType().equals("S") && cancellationDate.isAfter(reservation.getCheckInDate().minusDays(2)))){
+        if (reservation.getResType().equals("AP") || (reservation.getResType().equals("S") && cancellationDate.isAfter(reservation.getCheckInDate().minusDays(2)))) {
             income = reservation.getTotalCost();
-        }
-        else{
+        } else {
             income = 0;
         }
     }
 
     /**
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
-     * @param reservation The reservation that is being cancelled.
+     *
+     * @param reservation      The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param income The income generated from a reservation, its 0 it is refunded
+     * @param income           The income generated from a reservation, its 0 it is refunded
      */
     public Cancellation(Reservation reservation, LocalDate cancellationDate, double income) {
         this.reservation = reservation;
@@ -43,6 +45,7 @@ public class Cancellation {
 
     /**
      * This method returns the reservation that belongs to the current cancellation.
+     *
      * @return reservation the reservation that belongs to the cancellation.
      */
     public Reservation getReservation() {
@@ -51,6 +54,7 @@ public class Cancellation {
 
     /**
      * Returns the cancelled date.
+     *
      * @return cancellationDate the date the cancellation was made.
      */
     public LocalDate getCancellationDate() {
@@ -59,6 +63,7 @@ public class Cancellation {
 
     /**
      * Returns the total income of the reservation being cancelled.
+     *
      * @return income the total income of the reservation being cancelled.
      */
     public double getIncome() {
@@ -73,12 +78,11 @@ public class Cancellation {
         return reservationString + "," + LocalDate.now() + "," + income;
     }
 
+    /**
+     * This method returns a String formatted nicely to display all cancellation details.
+     */
     public String cancellationFormat() {
-        // Done quickly, may have to update the rooms bit
-        return String.format("Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +
-                        "Check-in Date: %s, Check-out Date: %s\n" +
-                        "Number of Rooms: %d, Rooms: %s, Total Cost: %.2f\n" +
-                        "Cancellation Date: %s, Income: %.2f",
-                reservation.getResNumber(), reservation.getResName(), reservation.getResType(), reservation.getCheckInDate(), reservation.getCheckOutDate(), reservation.getNumberOfRooms(), reservation.getRooms(), reservation.getTotalCost(), cancellationDate, income);
+        return String.format("%s\n" +
+                "Cancellation Date: %s, Income: %.2f", reservation.reservationFormat(), cancellationDate, income);
     }
 }
