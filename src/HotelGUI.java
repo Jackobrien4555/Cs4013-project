@@ -3,16 +3,14 @@ import javafx.geometry.Pos;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
-
-
 import javafx.application.Application;
 import javafx.scene.Scene;
-
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -24,6 +22,7 @@ import java.util.ArrayList;
  *
  * @author Edison Cai 20241135
  * @author Jack O'Brien
+ * @author Sergiu Mereacre
  */
 public class HotelGUI extends Application {
     private static final Stage mainStage = new Stage();
@@ -33,6 +32,11 @@ public class HotelGUI extends Application {
     private static Writer writer;
 
     public static void main(String[] args) {
+        SystemMain.checkReservationsFlag(args);
+        SystemMain.checkCancellationsFlag(args);
+        SystemMain.checkHotelsFlag(args);
+        SystemMain.checkAdminsFlag(args);
+
         userInput = new InputScanner();
         writer = new Writer();
         validator = new InputValidator();
@@ -45,33 +49,27 @@ public class HotelGUI extends Application {
         Reader.readReservations(ConstantReferences.RESERVATIONS);
         Reader.readCancellations(ConstantReferences.CANCELLATIONS);
         HotelInitialiser.initialise(HotelInitialiser.getFileCells(ConstantReferences.HOTELS));
+        Image icon = new Image("file:resources/icon.png");
+        mainStage.getIcons().add(icon);
         mainStage.setTitle("Hotel Login");
         mainStage.setScene(createLogin());
-//        mainStage.setResizable(false);
+        mainStage.setResizable(false);
         mainStage.show();
     }
 
     /*
-     *
-     * @author Jack O'Brien
      * Creates a screen that asks if user or admin login
      */
     private static Scene createLogin() {
+        mainStage.setTitle("Hotel Login");
         VBox vBox0 = new VBox();
-        vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(400.0);
-        vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(600.0);
-        vBox0.setMinWidth(700);
-        vBox0.setMaxWidth(700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(53.0);
-        vBox1.setPrefWidth(500.0);
         vBox1.setAlignment(Pos.CENTER);
+        VBox.setMargin(vBox1, new Insets(80, 0, 0, 0));
         Text text2 = new Text();
         text2.setStrokeWidth(0.0);
-        text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Are you accessing the Reservation System as an User or an Admin?");
+        text2.setStyle("-fx-font: 16 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -86,12 +84,10 @@ public class HotelGUI extends Application {
         Button button4 = new Button();
         button4.setOnAction(event -> {
             isAdmin = false;
-            System.out.println("pressed!");
             mainStage.setScene(createUserChoicesGUI());
         });
         button4.setText("User");
         button4.setAlignment(Pos.CENTER);
-        button4.setMnemonicParsing(false);
 
         // Adding child to parent
         vBox3.getChildren().add(button4);
@@ -103,7 +99,6 @@ public class HotelGUI extends Application {
             isAdmin = true;
             mainStage.setScene(createUsernamePasswordGUI());
         });
-        button5.setMnemonicParsing(false);
         vBox3.getChildren().add(button5);
 
 
@@ -111,14 +106,13 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(vBox3);
 
         //return new Scene(vBox0, 200, 100);
-        return new Scene(vBox0, 700, 300);
+        return new Scene(vBox0, 600, 300);
 
     }
 
     /*
-    *@author Jack O Brien
-    *Creates admin screen with multiple options
-    */
+     * Creates admin screen with multiple options
+     */
     private static Scene createAdminChoicesGUI() {
         mainStage.setTitle("Admin Interface");
         VBox vBox0 = new VBox();
@@ -137,6 +131,7 @@ public class HotelGUI extends Application {
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Please choose an option:");
+        text2.setStyle("-fx-font: 24 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -154,7 +149,6 @@ public class HotelGUI extends Application {
         button4.setLayoutY(10.0);
         button4.setText("Make a Reservation");
         button4.setOnAction(event -> mainStage.setScene(createMakeReservationsGUI()));
-        button4.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button4);
 
@@ -164,7 +158,6 @@ public class HotelGUI extends Application {
         button5.setLayoutY(35.0);
         button5.setText("Cancel Reservation");
         button5.setOnAction(event -> mainStage.setScene(createCancellationsGUI()));
-        button5.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button5);
 
@@ -174,7 +167,6 @@ public class HotelGUI extends Application {
         button7.setLayoutY(60.0);
         button7.setText("Show all Reservations");
         button7.setOnAction(event -> mainStage.setScene(createShowReservationsGUI()));
-        button7.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button7);
 
@@ -184,7 +176,6 @@ public class HotelGUI extends Application {
         button8.setLayoutY(60.0);
         button8.setText("Show all Cancellations");
         button8.setOnAction(event -> mainStage.setScene(createShowCancellationsGUI()));
-        button8.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button8);
 
@@ -194,7 +185,6 @@ public class HotelGUI extends Application {
         buttonDataAnalysis.setLayoutY(60.0);
         buttonDataAnalysis.setText("Show Data Analysis");
         buttonDataAnalysis.setOnAction(event -> mainStage.setScene(createDataAnalysisGUI()));
-        buttonDataAnalysis.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(buttonDataAnalysis);
 
@@ -204,19 +194,18 @@ public class HotelGUI extends Application {
         button6.setLayoutY(60.0);
         button6.setText("Return to Login");
         button6.setOnAction(event -> mainStage.setScene(createLogin()));
-        button6.setMnemonicParsing(false);
         // Adding child to parent
         vBox3.getChildren().add(button6);
 
         // Adding child to parent
         vBox0.getChildren().add(vBox3);
 
-        return new Scene(vBox0, 800, 500);
+        return new Scene(vBox0, 690, 500);
     }
-/*
-*@author Jack O Brien
-*Admin log in screen where username and password is required
-*/
+
+    /*
+     * Admin log in screen where username and password is required
+     */
     private static Scene createUsernamePasswordGUI() {
         StackPane root = new StackPane();
         VBox vBox = new VBox();
@@ -251,14 +240,12 @@ public class HotelGUI extends Application {
                 invalidLogin.setVisible(true);
             }
         });
-        buttonLogin.setMnemonicParsing(false);
 
         Button buttonReturn = new Button();
         buttonReturn.setContentDisplay(ContentDisplay.CENTER);
         buttonReturn.setText("Return");
         buttonReturn.setAlignment(Pos.CENTER);
         buttonReturn.setOnAction(event -> mainStage.setScene(createLogin()));
-        buttonReturn.setMnemonicParsing(false);
 
         vBox.getChildren().addAll(
                 new Label("Username"),
@@ -271,16 +258,15 @@ public class HotelGUI extends Application {
         root.getChildren().addAll(vBox);
 
 
-        Scene scene = new Scene(root, 400, 400);
+        Scene scene = new Scene(root, 400, 250);
         mainStage.setTitle("Login");
 
         return scene;
     }
 
     /*
-    *@author Jack O Brien
-    *Once logged in as User displays user screen with multiple options
-    */
+     * Once logged in as User displays user screen with multiple options
+     */
     private static Scene createUserChoicesGUI() {
         mainStage.setTitle("User Interface");
         VBox vBox0 = new VBox();
@@ -302,6 +288,8 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
+        VBox.setMargin(text2, new Insets(20, 0, 0, 0));
+        text2.setStyle("-fx-font: 18 arial;");
 
         // Adding child to parent
         vBox0.getChildren().add(vBox1);
@@ -317,8 +305,6 @@ public class HotelGUI extends Application {
         button4.setText("Make a Reservation");
         button4.setOnAction(event -> mainStage.setScene(createMakeReservationsGUI()));
 
-        button4.setMnemonicParsing(false);
-
         // Adding child to parent
         vBox3.getChildren().add(button4);
         Button button5 = new Button();
@@ -327,7 +313,6 @@ public class HotelGUI extends Application {
         button5.setLayoutY(35.0);
         button5.setText("Cancel Reservation");
         button5.setOnAction(event -> mainStage.setScene(createCancellationsGUI()));
-        button5.setMnemonicParsing(false);
 
         // Adding child to parent
         vBox3.getChildren().add(button5);
@@ -337,7 +322,6 @@ public class HotelGUI extends Application {
         button6.setLayoutY(60.0);
         button6.setText("Return to Login");
         button6.setOnAction(event -> mainStage.setScene(createLogin()));
-        button6.setMnemonicParsing(false);
 
         // Adding child to parent
         vBox3.getChildren().add(button6);
@@ -348,29 +332,23 @@ public class HotelGUI extends Application {
     }
 
     /*
-    *@author Jack O Brien
-    * Screen where you make cancellations
-    */
+     * Screen where you make cancellations
+     */
     private static Scene createCancellationsGUI() {
-        mainStage.setTitle("Cancel reservation");
+        mainStage.setTitle("Cancel Reservations");
         VBox vBox0 = new VBox();
-        vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(1000);
 
-        vBox0.setSpacing(20.0);
-        vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(774.0);
-        vBox0.setMinWidth(700);
+        vBox0.setSpacing(0);
         vBox0.setAlignment(Pos.CENTER);
-        vBox0.setMaxWidth(1700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(79.0);
-        vBox1.setPrefWidth(211.0);
         vBox1.setAlignment(Pos.CENTER);
         Text text2 = new Text();
-        text2.setStrokeWidth(0.0);
-        text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Cancel a Reservation");
+        text2.setStyle("-fx-font: 20 arial;");
+        VBox vBox2 = new VBox();
+        vBox2.setAlignment(Pos.CENTER);
+        VBox vBox3 = new VBox();
+        vBox3.setAlignment(Pos.CENTER);
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -380,18 +358,18 @@ public class HotelGUI extends Application {
 
         HBox hBox3 = new HBox();
         hBox3.setPrefHeight(49.0);
-        hBox3.setSpacing(70.0);
+        hBox3.setSpacing(30);
         hBox3.setPrefWidth(600.0);
         hBox3.setAlignment(Pos.CENTER);
         Text text4 = new Text();
         text4.setStrokeWidth(0.0);
         text4.setStrokeType(StrokeType.OUTSIDE);
-        text4.setText("Reservation Number of the Reservation you Want to Cancel:");
+        text4.setText("Reservation Number:");
 
         // Adding child to parent
         hBox3.getChildren().add(text4);
         TextField textField5 = new TextField();
-        textField5.setPromptText("120584");
+        textField5.setPromptText("e.g. 120584");
         Text invalidNum = new Text("Not a valid reservation number.");
         invalidNum.setVisible(false);
         Text success = new Text("Successfully cancelled!");
@@ -399,22 +377,20 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox3.getChildren().add(textField5);
-        hBox3.getChildren().add(invalidNum);
+        vBox3.getChildren().add(invalidNum);
 
         // Adding child to parent
         vBox0.getChildren().add(hBox3);
-        vBox0.getChildren().add(success);
+        vBox0.getChildren().add(vBox3);
+        vBox0.getChildren().add(vBox2);
+        vBox3.getChildren().add(success);
 
         Button button21 = new Button();
         button21.setText("Cancel Reservation");
-        button21.setMnemonicParsing(false);
-
 
         // Adding child to parent
-        vBox0.getChildren().add(button21);
+        vBox2.getChildren().add(button21);
         Button button22 = new Button();
-        button22.setLayoutX(338.0);
-        button22.setLayoutY(582.0);
         button22.setText("Return to Choices");
         button22.setOnAction(event -> {
             if (isAdmin) {
@@ -423,10 +399,9 @@ public class HotelGUI extends Application {
                 mainStage.setScene(createUserChoicesGUI());
             }
         });
-        button22.setMnemonicParsing(false);
 
         // Adding child to parent
-        vBox0.getChildren().add(button22);
+        vBox2.getChildren().add(button22);
 
         button21.setOnAction(event -> {
             int resNumber = 0;
@@ -440,10 +415,10 @@ public class HotelGUI extends Application {
 
 
             Reservation chosenReservation = ReservationCancellationManager.getReservation(resNumber);
-            Cancellation cancellation = new Cancellation(chosenReservation);
 
 
             if (chosenReservation != null) {
+                Cancellation cancellation = new Cancellation(chosenReservation);
                 ReservationCancellationManager.addCancellation(cancellation);
                 int resNum = cancellation.getReservation().getResNumber();
                 writer.writeCancellation(ConstantReferences.CANCELLATIONS, cancellation);
@@ -451,6 +426,7 @@ public class HotelGUI extends Application {
                 reservations.remove(ReservationCancellationManager.getReservation(resNum));
                 ReservationCancellationManager.setAllReservations(reservations);
                 writer.writeReservations(ConstantReferences.RESERVATIONS, reservations);
+                invalidNum.setVisible(false);
                 success.setVisible(true);
             } else {
                 success.setVisible(false);
@@ -458,33 +434,30 @@ public class HotelGUI extends Application {
             }
         });
 
-        return new Scene(vBox0, 800, 500);
+        vBox2.setSpacing(10);
+        VBox.setMargin(vBox1, new Insets(0, 0, 25, 0));
+        VBox.setMargin(vBox2, new Insets(25, 0, 0, 0));
+        VBox.setMargin(vBox3, new Insets(10, 0, 10, 0));
+
+        return new Scene(vBox0, 600, 300);
     }
-/*
-*@author Jack O Brien
-*Screen where Data analysis is displayed
-*/
+
+    /*
+    *Screen where Data analysis is displayed
+    */
     private static Scene createDataAnalysisGUI() {
         mainStage.setTitle("Data Analysis");
 
         VBox vBox0 = new VBox();
-        vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(650.0);
+        vBox0.setPadding(new Insets(20, 50, 20, 50));
 
-        vBox0.setSpacing(20.0);
-        vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(774.0);
-        vBox0.setMinWidth(1000);
+        vBox0.setSpacing(10.0);
         vBox0.setAlignment(Pos.CENTER);
-        vBox0.setMaxWidth(1700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(79.0);
-        vBox1.setPrefWidth(211.0);
         vBox1.setAlignment(Pos.CENTER);
         Text text2 = new Text();
-        text2.setStrokeWidth(0.0);
-        text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Data Analysis");
+        text2.setStyle("-fx-font: 24 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -500,16 +473,13 @@ public class HotelGUI extends Application {
         // Adding child to parent
         //vBox0.getChildren().add(jComboBox);
         Text text4 = new Text();
-        text4.setStrokeWidth(0.0);
-        text4.setStrokeType(StrokeType.OUTSIDE);
         text4.setText("Do you want to show rooms that aren't booked?");
+        text4.setStyle("-fx-font: 20 arial;");
 
         // Adding child to parent
         vBox0.getChildren().add(text4);
         HBox hBox5 = new HBox();
-        hBox5.setPrefHeight(49.0);
         hBox5.setSpacing(5.0);
-        hBox5.setPrefWidth(600.0);
         hBox5.setAlignment(Pos.CENTER);
 
         // Adding child to parent
@@ -522,8 +492,6 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(yesOrNo);
 
         Text textStart = new Text();
-        textStart.setStrokeWidth(0.0);
-        textStart.setStrokeType(StrokeType.OUTSIDE);
         textStart.setText("Start Date:");
 
         // Adding child to parent
@@ -538,8 +506,6 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(invalidStart);
 
         Text textEnd = new Text();
-        textEnd.setStrokeWidth(0.0);
-        textEnd.setStrokeType(StrokeType.OUTSIDE);
         textEnd.setText("End Date:");
 
         // Adding child to parent
@@ -554,15 +520,9 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(invalidEnd);
 
         HBox hBox8 = new HBox();
-        hBox8.setPrefHeight(49.0);
         hBox8.setSpacing(30.0);
-        hBox8.setPrefWidth(600.0);
         hBox8.setAlignment(Pos.CENTER);
         Text text9 = new Text();
-        text9.setStrokeWidth(0.0);
-        text9.setStrokeType(StrokeType.OUTSIDE);
-        text9.setLayoutX(143.0);
-        text9.setLayoutY(39.0);
 
         // Adding child to parent
         hBox8.getChildren().add(text9);
@@ -570,25 +530,18 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(hBox8);
         HBox hBox10 = new HBox();
-        hBox10.setPrefHeight(49.0);
         hBox10.setSpacing(30.0);
-        hBox10.setPrefWidth(600.0);
         hBox10.setAlignment(Pos.CENTER);
 
         // Adding child to parent
         vBox0.getChildren().add(hBox10);
         ScrollPane scrollPane11 = new ScrollPane();
-        scrollPane11.setPrefHeight(450.0);
-        scrollPane11.setPrefWidth(774.0);
-        scrollPane11.setFitToHeight(true);
-        scrollPane11.setFitToWidth(true);
 
         // Adding child to parent
         vBox0.getChildren().add(scrollPane11);
 
         Button buttonStartAnalysis = new Button();
         buttonStartAnalysis.setText("Start Analysis");
-        buttonStartAnalysis.setMnemonicParsing(false);
 
         buttonStartAnalysis.setOnAction(event -> showValidAnalysis(choiceBox, yesOrNo, datePickerStart,
                 invalidStart, datePickerEnd, invalidEnd, scrollPane11));
@@ -598,42 +551,31 @@ public class HotelGUI extends Application {
 
         Button buttonReturn = new Button();
         buttonReturn.setText("Return");
-        buttonReturn.setMnemonicParsing(false);
 
         buttonReturn.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
 
         // Adding child to parent
         vBox0.getChildren().add(buttonReturn);
 
-        return new Scene(vBox0, 1600, 1200);
+        return new Scene(vBox0, 1200, 650);
 
     }
 
-/*
-*@author Jack O Brien
-*Screen for making a reservation
-*/
+    /*
+     *Screen for making a reservation
+     */
     private static Scene createMakeReservationsGUI() {
-        mainStage.setTitle("Making reservation");
+        mainStage.setTitle("Making a reservation.");
 
         VBox vBox0 = new VBox();
-        vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(1000);
 
         vBox0.setSpacing(20.0);
-        vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(1000);
-        vBox0.setMinWidth(700);
         vBox0.setAlignment(Pos.CENTER);
-        vBox0.setMaxWidth(1700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(79.0);
-        vBox1.setPrefWidth(211.0);
         vBox1.setAlignment(Pos.CENTER);
         Text text2 = new Text();
-        text2.setStrokeWidth(0.0);
-        text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Book a Reservation");
+        text2.setStyle("-fx-font: 24 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -643,43 +585,34 @@ public class HotelGUI extends Application {
 
         ////////////////////
         HBox hBoxNum = new HBox();
-        hBoxNum.setPrefHeight(49.0);
-        hBoxNum.setSpacing(70.0);
-        hBoxNum.setPrefWidth(600.0);
-        hBoxNum.setAlignment(Pos.CENTER);
+        hBoxNum.setSpacing(20.0);
+        hBoxNum.setAlignment(Pos.CENTER_LEFT);
+        VBox.setMargin(hBoxNum, new Insets(0, 0, 0, 400));
 
         Text textNum = new Text();
-        textNum.setStrokeWidth(0.0);
-        textNum.setStrokeType(StrokeType.OUTSIDE);
         textNum.setText("Reservation Number:");
 
         // Adding child to parent
         hBoxNum.getChildren().add(textNum);
-        TextField textFieldNum = new TextField();
-        textFieldNum.setPromptText("e.g. 421562");
+        int numberNeeded = userInput.getNumberNeeded();
+        TextField textFieldNum = new TextField(numberNeeded + "");
+        textFieldNum.setEditable(false);
 
 
         // Adding child to parent
         hBoxNum.getChildren().add(textFieldNum);
 
-        Text invalidNum = new Text("Not a valid reservation number.");
-        invalidNum.setVisible(false);
-        hBoxNum.getChildren().add(invalidNum);
-
         vBox0.getChildren().add(hBoxNum);
         /////////////
 
         HBox hBox3 = new HBox();
-        hBox3.setPrefHeight(49.0);
-        hBox3.setSpacing(70.0);
-        hBox3.setPrefWidth(600.0);
-        hBox3.setAlignment(Pos.CENTER);
+        hBox3.setSpacing(20.0);
+        hBox3.setAlignment(Pos.CENTER_LEFT);
+        VBox.setMargin(hBox3, new Insets(0, 0, 0, 400));
 
 
         Text text4 = new Text();
-        text4.setStrokeWidth(0.0);
-        text4.setStrokeType(StrokeType.OUTSIDE);
-        text4.setText("Name:");
+        text4.setText("Reservation Name:");
 
         // Adding child to parent
         hBox3.getChildren().add(text4);
@@ -696,20 +629,17 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(hBox3);
         HBox hBox6 = new HBox();
-        hBox6.setPrefHeight(49.0);
-        hBox6.setSpacing(30.0);
-        hBox6.setPrefWidth(600.0);
-        hBox6.setAlignment(Pos.CENTER);
+        hBox6.setSpacing(20.0);
+        hBox6.setAlignment(Pos.CENTER_LEFT);
+        VBox.setMargin(hBox6, new Insets(0, 0, 0, 400));
         Text text7 = new Text();
-        text7.setStrokeWidth(0.0);
-        text7.setStrokeType(StrokeType.OUTSIDE);
         text7.setText("Reservation Type:");
 
         // Adding child to parent
         hBox6.getChildren().add(text7);
         ChoiceBox<String> choiceBox8 = new ChoiceBox<>();
-        choiceBox8.getItems().add("S");
-        choiceBox8.getItems().add("AP");
+        choiceBox8.getItems().add("Standard");
+        choiceBox8.getItems().add("Advanced Purchase");
         choiceBox8.setPrefWidth(150.0);
 
         // Adding child to parent
@@ -722,13 +652,10 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(hBox6);
         HBox hBox9 = new HBox();
-        hBox9.setPrefHeight(49.0);
-        hBox9.setSpacing(30.0);
-        hBox9.setPrefWidth(600.0);
-        hBox9.setAlignment(Pos.CENTER);
+        hBox9.setSpacing(20.0);
+        hBox9.setAlignment(Pos.CENTER_LEFT);
+        VBox.setMargin(hBox9, new Insets(0, 0, 0, 400));
         Text text10 = new Text();
-        text10.setStrokeWidth(0.0);
-        text10.setStrokeType(StrokeType.OUTSIDE);
         text10.setText("Check-in Date:");
 
         // Adding child to parent
@@ -743,10 +670,6 @@ public class HotelGUI extends Application {
         hBox9.getChildren().add(invalidStart);
 
         Text text12 = new Text();
-        text12.setStrokeWidth(0.0);
-        text12.setStrokeType(StrokeType.OUTSIDE);
-        text12.setLayoutX(147.0);
-        text12.setLayoutY(39.0);
 
         // Adding child to parent
         hBox9.getChildren().add(text12);
@@ -754,13 +677,10 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(hBox9);
         HBox hBox13 = new HBox();
-        hBox13.setPrefHeight(49.0);
-        hBox13.setSpacing(30.0);
-        hBox13.setPrefWidth(600.0);
-        hBox13.setAlignment(Pos.CENTER);
+        hBox13.setSpacing(20.0);
+        hBox13.setAlignment(Pos.CENTER_LEFT);
+        VBox.setMargin(hBox13, new Insets(0, 0, 0, 400));
         Text text14 = new Text();
-        text14.setStrokeWidth(0.0);
-        text14.setStrokeType(StrokeType.OUTSIDE);
         text14.setText("Check-out Date:");
 
         // Adding child to parent
@@ -775,10 +695,6 @@ public class HotelGUI extends Application {
         hBox13.getChildren().add(invalidEnd);
 
         Text text16 = new Text();
-        text16.setStrokeWidth(0.0);
-        text16.setStrokeType(StrokeType.OUTSIDE);
-        text16.setLayoutX(143.0);
-        text16.setLayoutY(39.0);
 
         // Adding child to parent
         hBox13.getChildren().add(text16);
@@ -786,13 +702,10 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(hBox13);
         HBox hBox17 = new HBox();
-        hBox17.setPrefHeight(49.0);
-        hBox17.setSpacing(30.0);
-        hBox17.setPrefWidth(600.0);
-        hBox17.setAlignment(Pos.CENTER);
+        hBox17.setSpacing(20.0);
+        hBox17.setAlignment(Pos.CENTER_LEFT);
+        VBox.setMargin(hBox17, new Insets(0, 0, 0, 400));
         Text text18 = new Text();
-        text18.setStrokeWidth(0.0);
-        text18.setStrokeType(StrokeType.OUTSIDE);
         text18.setText("Number of rooms:");
 
         // Adding child to parent
@@ -811,10 +724,10 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(hBox17);
         ScrollPane scrollPane20 = new ScrollPane();
-        scrollPane20.setPrefHeight(800.0);
-        scrollPane20.setPrefWidth(774.0);
-        scrollPane20.setFitToHeight(true);
-        scrollPane20.setFitToWidth(true);
+        scrollPane20.setPrefHeight(175);
+        scrollPane20.setPrefWidth(700);
+//        scrollPane20.setFitToHeight(true);
+//        scrollPane20.setFitToWidth(true);
 
         // Adding child to parent
         vBox0.getChildren().add(scrollPane20);
@@ -838,19 +751,20 @@ public class HotelGUI extends Application {
         successText.setVisible(false);
         vBox0.getChildren().add(successText);
 
+        VBox vBoxButtons = new VBox();
+        vBoxButtons.setAlignment(Pos.CENTER);
+        vBoxButtons.setSpacing(10.0);
+
         Button button21 = new Button();
         button21.setText("Book Reservation");
-        button21.setMnemonicParsing(false);
 
-        button21.setOnAction(event -> createReservation(textFieldRoomNum, invalidRoomNum,
+        button21.setOnAction(event -> createReservation(textFieldNum, textFieldRoomNum, invalidRoomNum,
                 textFieldName, invalidName, choiceBox8, invalidType, datePickerStart,
                 invalidStart, datePickerEnd, invalidEnd, (HBox) scrollPane20.getContent(), successText));
 
         // Adding child to parent
-        vBox0.getChildren().add(button21);
+        vBoxButtons.getChildren().add(button21);
         Button button22 = new Button();
-        button22.setLayoutX(338.0);
-        button22.setLayoutY(582.0);
         button22.setText("Return to Choices");
         button22.setOnAction(event -> {
             if (isAdmin) {
@@ -859,19 +773,18 @@ public class HotelGUI extends Application {
                 mainStage.setScene(createUserChoicesGUI());
             }
         });
-        button22.setMnemonicParsing(false);
 
         // Adding child to parent
-        vBox0.getChildren().add(button22);
-        return new Scene(vBox0, 1600, 1000);
+        vBoxButtons.getChildren().add(button22);
 
+        vBox0.getChildren().add(vBoxButtons);
 
+        return new Scene(vBox0, 1200, 650);
     }
 
     /*
-    *@author Jack O Brien
-    *Screen for showing previous reservations
-    */
+     *Screen for showing previous reservations
+     */
     private static Scene createShowReservationsGUI() {
         mainStage.setTitle("Show Reservations");
         VBox vBox0 = new VBox();
@@ -892,6 +805,7 @@ public class HotelGUI extends Application {
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Showing all reservations:");
+        text2.setStyle("-fx-font: 20 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -906,7 +820,7 @@ public class HotelGUI extends Application {
 
         ArrayList<Reservation> reservations = ReservationCancellationManager.getAllReservations();
         for (Reservation reservation : reservations) {
-            Text reservationText = new Text(reservation.reservationFormat());
+            Text reservationText = new Text(reservation.reservationFormat() + "\n");
             allReservations.getChildren().add(reservationText);
         }
 
@@ -914,20 +828,20 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(scrollPane3);
+        VBox.setMargin(scrollPane3, new Insets(0, 30, 40, 30));
         Button button4 = new Button();
         button4.setText("Return to Choices");
         button4.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
-        button4.setMnemonicParsing(false);
 
         // Adding child to parent
         vBox0.getChildren().add(button4);
+//        mainStage.setResizable(false);
         return new Scene(vBox0, 800, 500);
     }
 
     /*
-    *@author Jack O Brien
-    *Screen for showing previous cancellations
-    */
+     *Screen for showing previous cancellations
+     */
     private static Scene createShowCancellationsGUI() {
         mainStage.setTitle("Show Cancellations");
         VBox vBox0 = new VBox();
@@ -948,6 +862,7 @@ public class HotelGUI extends Application {
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Showing all cancellations:");
+        text2.setStyle("-fx-font: 20 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -957,6 +872,7 @@ public class HotelGUI extends Application {
         ScrollPane scrollPane3 = new ScrollPane();
         scrollPane3.setPrefHeight(300.0);
         scrollPane3.setPrefWidth(200.0);
+        VBox.setMargin(scrollPane3, new Insets(0, 30, 40, 30));
 
         VBox allReservations = new VBox();
         allReservations.setSpacing(30);
@@ -974,12 +890,11 @@ public class HotelGUI extends Application {
         Button button4 = new Button();
         button4.setText("Return to Choices");
         button4.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
-        button4.setMnemonicParsing(false);
 
         // Adding child to parent
         vBox0.getChildren().add(button4);
 
-        mainStage.setResizable(false);
+//        mainStage.setResizable(false);
         return new Scene(vBox0, 800, 500);
 
     }
@@ -988,9 +903,8 @@ public class HotelGUI extends Application {
     Creates a reservation by taking in the values of every field.
     Checks if an attempt to create a reservation is invalid, and updates
     the invalid texts if so.
-    @author Edison Cai 20241135
      */
-    private static void createReservation(TextField textFieldRoomNum, Text invalidRoomNum, TextField textFieldName, Text invalidName, ChoiceBox<String> choiceBox8, Text invalidType, DatePicker datePickerStart,
+    private static void createReservation(TextField textFieldNum, TextField textFieldRoomNum, Text invalidRoomNum, TextField textFieldName, Text invalidName, ChoiceBox<String> choiceBox8, Text invalidType, DatePicker datePickerStart,
                                           Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, HBox allRoomPickers, Text successText) {
         Reservation reservationToBeAdded;
         String resName = null, resType = null;
@@ -1014,10 +928,10 @@ public class HotelGUI extends Application {
         }
 
         if (!choiceBox8.getSelectionModel().isEmpty()) {
-            if (choiceBox8.getSelectionModel().getSelectedItem().equals("S")) {
+            if (choiceBox8.getSelectionModel().getSelectedItem().equals("Standard")) {
                 resType = "S";
                 invalidType.setVisible(false);
-            } else if (choiceBox8.getSelectionModel().getSelectedItem().equals("AP")) {
+            } else if (choiceBox8.getSelectionModel().getSelectedItem().equals("Advanced Purchase")) {
                 resType = "AP";
                 invalidType.setVisible(false);
             } else {
@@ -1087,6 +1001,7 @@ public class HotelGUI extends Application {
             ReservationCancellationManager.addReservation(reservationToBeAdded);
             writer.writeReservation(ConstantReferences.RESERVATIONS, reservationToBeAdded);
             successText.setVisible(true);
+            textFieldNum.setText(Integer.toString(userInput.getNumberNeeded()));
         } else {
             successText.setVisible(false);
         }
@@ -1097,6 +1012,7 @@ public class HotelGUI extends Application {
      */
     private static HBox createRoomsPicker(int rooms) {
         HBox allRoomChoices = new HBox();
+        allRoomChoices.setPadding(new Insets(20, 50, 0, 50));
 
         if (rooms > 100) {
             return null;
@@ -1105,6 +1021,7 @@ public class HotelGUI extends Application {
         // For every number of rooms, create a room picker.
         for (int i = 1; i <= rooms; i++) {
             VBox roomPicker = new VBox();
+            roomPicker.setSpacing(10);
 
             Text roomText = new Text("Room " + i);
 
@@ -1112,6 +1029,10 @@ public class HotelGUI extends Application {
             ChoiceBox<String> chooseHotel = new ChoiceBox<>();
             ChoiceBox<String> chooseRoom = new ChoiceBox<>();
             ChoiceBox<Integer> chooseOccupancy = new ChoiceBox<>();
+
+            chooseHotel.setPrefWidth(130);
+            chooseRoom.setPrefWidth(130);
+            chooseOccupancy.setPrefWidth(130);
 
             for (Hotel h : HotelInitialiser.getAllHotels()) {
                 chooseHotel.getItems().add(h.getHotelType());
@@ -1147,7 +1068,6 @@ public class HotelGUI extends Application {
         allRoomChoices.setSpacing(10.0);
         return allRoomChoices;
     }
-
 
     /*
     Check if the values are valid for data analysis.

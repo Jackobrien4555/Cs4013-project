@@ -5,7 +5,6 @@ import java.time.LocalDate;
  *
  * @author David Walsh 20276885
  */
-
 public class Cancellation {
     private Reservation reservation;
     private LocalDate cancellationDate;
@@ -18,14 +17,14 @@ public class Cancellation {
      */
     public Cancellation(Reservation reservation) {
         this.reservation = reservation;
-
         this.cancellationDate = LocalDate.now();
 
         // If reservation is AP or if it's S and within 2 days of check-in, there will be no refunds.
         // The money will go towards the hotel.
         if (reservation.getResType().equals("AP") || (reservation.getResType().equals("S") && cancellationDate.isAfter(reservation.getCheckInDate().minusDays(2)))) {
             income = reservation.getTotalCost();
-        } else {
+        }
+        else {
             income = 0;
         }
     }
@@ -33,9 +32,9 @@ public class Cancellation {
     /**
      * Constructor for creating a Cancellation object (used when creating a cancellation read from Cancellations.csv file).
      *
-     * @param reservation      The reservation that is being cancelled.
+     * @param reservation The reservation that is being cancelled.
      * @param cancellationDate The date on which the cancellation was made.
-     * @param income           The income generated from a reservation, its 0 it is refunded
+     * @param income The income generated from a reservation, its 0 it is refunded
      */
     public Cancellation(Reservation reservation, LocalDate cancellationDate, double income) {
         this.reservation = reservation;
@@ -74,8 +73,7 @@ public class Cancellation {
      * Returns a string that represents the data contained by a cancellation and is compatible with a csv file.
      */
     public String toString() {
-        String reservationString = reservation.toString();
-        return reservationString + "," + LocalDate.now() + "," + income;
+        return String.format("%s,%s,%.2f", reservation.toString(), cancellationDate, income);
     }
 
     /**
@@ -83,6 +81,7 @@ public class Cancellation {
      */
     public String cancellationFormat() {
         return String.format("%s\n" +
-                "Cancellation Date: %s, Income: %.2f", reservation.reservationFormat(), cancellationDate, income);
+                "Cancellation Date: %s, Income: %.2f",
+                reservation.reservationFormat(), cancellationDate, income);
     }
 }
