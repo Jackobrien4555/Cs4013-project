@@ -1,0 +1,62 @@
+Learnt from this Linux Tutorial:
+https://www.youtube.com/watch?v=BMGixkvJ-6w
+
+
+'ctrl+alt+t' open a new bash terminal.
+'pwd' shows the full directory path you are on.
+
+'ls' checks the content of the current directory, subdirectories are in blue, files are in white.
+'ls -l' to get more information including file permissions, author name and group, size in bytes and the last modification date
+
+'chmod' command
+
+'cd' to enter into directories, specifying the directory name, use tab to autocomplete.
+'cd ..' to return to the previous level.
+'cd .' shows level you're on.
+
+'mkdir NAME' to create a new directory (its empty) 
+'touch FILENAME' to create a new empty file (txt)
+
+'mv ./FILENAME ./DIRECTORY' to move file to specified directory.
+'cp ./FILENAME ./DIRECTORY' to copy.
+'cp -r' to copy an entire folder with contents.
+'rm FILENAME' to remove file.
+'rm -r NAME' to remove directory.
+
+'cat FILENAME' to preview file content without opening.
+'history' to get history of all commands executed so far in order.
+'clear to clear whole terminal.
+'./FILENAME' to execute file (may have to put in path).
+
+'ln -s ./DIRECTORY/FILENAME' to create a shortcut, will have a blue colour.
+'./FILENAME' to run it without having to put in path.
+
+'find FILENAME' to find exact filename.
+'find FILENAME*' to find all similiarly name files.
+
+'vi FILENAME' to edit file (may have to put in path), to start editing press the i key to enter INSERT mode, use arrow keys to move and esc to come back to command mode.
+IN EDITING MODE - 
+'yy' to copy entire current line.
+'p' to paste when cursor is on another line.
+'u' to undo.
+'/WORD' to seach for word from beginning.
+'?WORD' to seach for word from the end.
+':w' to save.
+':q' to quit.
+
+'df' to show current status of Linux.
+'df -h' to check all in an easier way.
+
+'ps aux' shows all applications in progress launched by users and super users.
+
+'apt-get install aptitude' to install Aptitude.
+'sudo PASSWORD apt-get install aptitude' if you need to login.
+After Installation -
+'sudo aptitude upgrade' to upgrade your existing packages.
+'aptitude install PACKAGENAME' to install package. (may need to put sudo before all aptitude line i'm not sure)
+'aptitude search KEYWORD' to search through linux packages (i letter shows its installed).
+
+'man COMMAND' to get tips on all possible operations you can make with that command.
+'u' to exit
+Alternatively
+'COMMAND --help' to get tips on command.
