@@ -17,14 +17,14 @@ public class Cancellation {
      */
     public Cancellation(Reservation reservation) {
         this.reservation = reservation;
-
         this.cancellationDate = LocalDate.now();
 
         // If reservation is AP or if it's S and within 2 days of check-in, there will be no refunds.
         // The money will go towards the hotel.
         if (reservation.getResType().equals("AP") || (reservation.getResType().equals("S") && cancellationDate.isAfter(reservation.getCheckInDate().minusDays(2)))) {
             income = reservation.getTotalCost();
-        } else {
+        }
+        else {
             income = 0;
         }
     }
@@ -73,7 +73,7 @@ public class Cancellation {
      * Returns a string that represents the data contained by a cancellation and is compatible with a csv file.
      */
     public String toString() {
-        return String.format("%s,%s,%f", reservation.toString(), LocalDate.now(), income);
+        return String.format("%s,%s,%f", reservation.toString(), cancellationDate, income);
     }
 
     /**
