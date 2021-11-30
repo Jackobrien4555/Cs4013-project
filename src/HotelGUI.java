@@ -111,7 +111,7 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(vBox3);
 
         //return new Scene(vBox0, 200, 100);
-        return new Scene(vBox0, 700, 300);
+        return new Scene(vBox0, 500, 280);
 
     }
 
@@ -211,9 +211,10 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(vBox3);
 
-        return new Scene(vBox0, 800, 500);
+        return new Scene(vBox0, 690, 500);
     }
-/*
+
+    /*
 *@author Jack O Brien
 *Admin log in screen where username and password is required
 */
@@ -271,7 +272,7 @@ public class HotelGUI extends Application {
         root.getChildren().addAll(vBox);
 
 
-        Scene scene = new Scene(root, 400, 400);
+        Scene scene = new Scene(root, 400, 250);
         mainStage.setTitle("Login");
 
         return scene;
@@ -460,7 +461,7 @@ public class HotelGUI extends Application {
 
         return new Scene(vBox0, 800, 500);
     }
-/*
+    /*
 *@author Jack O Brien
 *Screen where Data analysis is displayed
 */
@@ -605,11 +606,11 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(buttonReturn);
 
-        return new Scene(vBox0, 1600, 1200);
+        return new Scene(vBox0, 1200, 850);
 
     }
 
-/*
+    /*
 *@author Jack O Brien
 *Screen for making a reservation
 */
@@ -705,8 +706,8 @@ public class HotelGUI extends Application {
         // Adding child to parent
         hBox6.getChildren().add(text7);
         ChoiceBox<String> choiceBox8 = new ChoiceBox<>();
-        choiceBox8.getItems().add("S");
-        choiceBox8.getItems().add("AP");
+        choiceBox8.getItems().add("Standard");
+        choiceBox8.getItems().add("Advanced Purchase");
         choiceBox8.setPrefWidth(150.0);
 
         // Adding child to parent
@@ -860,7 +861,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(button22);
-        return new Scene(vBox0, 1600, 1000);
+        return new Scene(vBox0, 1200, 650);
 
 
     }
@@ -918,6 +919,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(button4);
+//        mainStage.setResizable(false);
         return new Scene(vBox0, 800, 500);
     }
 
@@ -976,7 +978,7 @@ public class HotelGUI extends Application {
         // Adding child to parent
         vBox0.getChildren().add(button4);
 
-        mainStage.setResizable(false);
+//        mainStage.setResizable(false);
         return new Scene(vBox0, 800, 500);
 
     }
@@ -1144,7 +1146,6 @@ public class HotelGUI extends Application {
         allRoomChoices.setSpacing(10.0);
         return allRoomChoices;
     }
-
 
     /*
     Check if the values are valid for data analysis.
