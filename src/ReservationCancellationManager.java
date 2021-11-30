@@ -1,25 +1,37 @@
 import java.util.ArrayList;
 
 /**
- * This class keeps track of all the reservations and
- * provides numerous functionalities for these reservations.
+ * This class keeps track of all the reservations, cancellations and users and
+ * provides numerous functionalities for these lists.
  *
  * @author Edison Cai 20241135
  */
 public abstract class ReservationCancellationManager {
     private static ArrayList<Reservation> allReservations;
     private static ArrayList<Cancellation> allCancellations;
+    private static ArrayList<User> allUsers;
 
+    /**
+     * Returns list of all users.
+     * @return An ArrayList of all Users.
+     */
     public static ArrayList<User> getAllUsers() {
         return allUsers;
     }
 
+    /**
+     * Set list of all users.
+     * @param allUsers An ArrayList of Users.
+     */
     public static void setAllUsers(ArrayList<User> allUsers) {
         ReservationCancellationManager.allUsers = allUsers;
     }
 
-    private static ArrayList<User> allUsers;
-
+    /**
+     * Getting a Reservation object from the reservation number.
+     * @param resNumber Reservation number.
+     * @return The Reservation object with corresponding reservation number.
+     */
     public static Reservation getReservation(int resNumber) {
         for (Reservation Reservation : allReservations) {
             if (resNumber == Reservation.getResNumber()) {

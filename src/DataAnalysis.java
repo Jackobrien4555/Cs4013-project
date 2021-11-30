@@ -114,7 +114,7 @@ public abstract class DataAnalysis {
 
         // For every hotel
         for (Hotel h : HotelInitialiser.getAllHotels()) {
-            int hotelIncome = 0;
+            double hotelIncome = 0;
 
             // Put all types of rooms of a hotel in "hotelRooms". All their incomes will be set to 0.
             hotelRooms = getRoomsOfHotelInStringDouble(h.getTypeOfRooms());
@@ -139,11 +139,10 @@ public abstract class DataAnalysis {
                             // only find the income up to endDate. Otherwise, calculate up to
                             // the check-out date.
 
-                            //System.out.println(res.getCheckInDate());
                             if (res.getCheckOutDate().compareTo(endDate) < 0) {
-                                costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), res.getCheckOutDate());
+                                costOfRoom = Room.getCostOfRoom(rates, res.getCheckInDate(), res.getCheckOutDate());
                             } else {
-                                costOfRoom = getCostOfRoom(rates, res.getCheckInDate(), endDate);
+                                costOfRoom = Room.getCostOfRoom(rates, res.getCheckInDate(), endDate);
                             }
 
                             // Add to the income of a type of room, as well as its corresponding hotel and also to the total income.
@@ -154,7 +153,6 @@ public abstract class DataAnalysis {
                     }
                 }
             }
-
 
             result.add("Hotel income: " + hotelIncome);
             result.add("\n");
@@ -179,16 +177,6 @@ public abstract class DataAnalysis {
         // Going through all cancellations to see if there are still some income to be made from reservations that can't be cancelled.
         for (Cancellation can : cancellations) {
             if (can.getCancellationDate().compareTo(startDate) >= 0 && can.getCancellationDate().compareTo(endDate) <= 0) {
-//                    for (int i = 0; i < can.getReservation().getNumberOfRooms() - 1; i++) {
-//                        if (hotelRooms.containsKey(can.getReservation().getRooms().get(i).getRoomType())) {
-//                            TypeOfRoom room = findRoomType(can.getReservation().getRooms().get(i).getRoomType(), HotelInitialiser.allHotels);
-//                            assert room != null;
-//
-//                            hotelRooms.replace(can.getReservation().getRooms().get(i).getRoomType(), hotelRooms.get(can.getReservation().getRooms().get(i).getRoomType()) + can.getIncome());
-//                            hotelIncome += can.getIncome();
-//                            totalIncome += can.getIncome();
-//                        }
-//                    }
                 // If the income of a Cancellation is 0, we can assume that it has been refunded. Add the would-be income of the reservation
                 // into cancellationLoss. Otherwise, add it to cancellationIncome and totalIncome.
                 if (can.getIncome() == 0) {
@@ -239,26 +227,8 @@ public abstract class DataAnalysis {
     }
 
     /*
-     * Returns the cost of a room by passing in the room's rates for the week,
-     * the check-in date and the check-out date.
-     */
-    private static int getCostOfRoom(double[] rates, LocalDate checkIn, LocalDate checkOut) {
-        int result = 0;
-
-        // Iterate through the dates
-        while (checkIn.compareTo(checkOut) < 0) {
-            // checkInDate.getDayOfWeek().getValue() returns an int
-            // 1 is Monday, 7 is Sunday. To get the corresponding rate, subtract 1.
-            result += rates[checkIn.getDayOfWeek().getValue() - 1];
-            checkIn = checkIn.plusDays(1);
-        }
-
-        return result;
-    }
-
-    /*
      * Iterates through every room of every hotel to see if any of their names
-     * match the one passed in through roomName and returns its corresponding TypeOfRoom object
+     * match the one passed in through roomName and returns its corresponding TypeOfRoom object.
      */
     private static TypeOfRoom findRoomType(String roomName, ArrayList<Hotel> allHotels) {
         for (Hotel h : allHotels) {

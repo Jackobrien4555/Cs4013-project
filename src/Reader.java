@@ -15,8 +15,8 @@ public abstract class Reader {
 
     /**
      * Reads a file line-by-line, creates a Reservation object for
-     * all of them. They are placed in an ArrayList and returned. The allReservations
-     * is list also populated.
+     * all of them. They are placed in an ArrayList and will be passed into
+     * the ReservationCancellationManager.setAllReservations() method.
      *
      * @param filepath The file path of the file to be read from.
      */
@@ -34,7 +34,7 @@ public abstract class Reader {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred: File not found");
+            System.out.println("An error has occurred: File containing reservations not found at: " + filepath);
         }
 
         ReservationCancellationManager.setAllReservations(reservations);
@@ -42,7 +42,8 @@ public abstract class Reader {
 
     /**
      * Reads a file line-by-line, creates a Cancellation object for
-     * all of them. They are placed in an ArrayList and returned.
+     * all of them. They are placed in an ArrayList and will be passed into
+     * the ReservationCancellationManager.setAllCancellations() method.
      *
      * @param filepath The file path of the file to be read from.
      */
@@ -70,18 +71,20 @@ public abstract class Reader {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred: File not found");
+            System.out.println("An error has occurred: File containing cancellations not found at: " + filepath);
         }
 
         ReservationCancellationManager.setAllCancellations(cancellations);
     }
 
     /**
-     * Reading list of admins.
+     * Reading list of admins. They are placed in an ArrayList and will be passed into
+     * the ReservationCancellationManager.setAllUsers() method.
+     *
      * @param filepath File path to the list of admin usernames and passwords.
      * @return A list of User objects gathered from the filepath.
      */
-    public static ArrayList<User> readUsers(String filepath){
+    public static ArrayList<User> readUsers(String filepath) {
         ArrayList<User> users = new ArrayList<>();
 
         try {
@@ -97,7 +100,7 @@ public abstract class Reader {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred: File not found");
+            System.out.println("An error has occurred: File containing admin details not found at: " + filepath);
         }
 
         ReservationCancellationManager.setAllUsers(users);
