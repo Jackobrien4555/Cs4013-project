@@ -240,5 +240,28 @@
     "collaborators": [
       "ReservationSystem"
     ]
+  },
+  {
+    "name": "HotelGUI",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Main Driver of GUI version"
+    ],
+    "collaborators": [
+      "InputScanner",
+      "InputValidator",
+      "Writer",
+      "Reader",
+      "HotelInitialiser",
+      "Hotel",
+      "Reservation",
+      "Room",
+      "TypeOfRoom",
+      "ReservationCancellationManager",
+      "DataAnalysis",
+      ""
+    ]
   }
 ]
