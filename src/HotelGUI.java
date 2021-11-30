@@ -9,12 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
-
-
 import javafx.application.Application;
 import javafx.scene.Scene;
-
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -26,6 +22,7 @@ import java.util.ArrayList;
  *
  * @author Edison Cai 20241135
  * @author Jack O'Brien
+ * @author Sergiu Mereacre
  */
 public class HotelGUI extends Application {
     private static final Stage mainStage = new Stage();
@@ -61,27 +58,16 @@ public class HotelGUI extends Application {
     }
 
     /*
-     *
-     * @author Jack O'Brien
      * Creates a screen that asks if user or admin login
      */
     private static Scene createLogin() {
         mainStage.setTitle("Hotel Login");
         VBox vBox0 = new VBox();
-        vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(400.0);
-        vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(600.0);
-        vBox0.setMinWidth(700);
-        vBox0.setMaxWidth(700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(30);
-        vBox1.setPrefWidth(500.0);
         vBox1.setAlignment(Pos.CENTER);
-        vBox1.setMargin(vBox1, new Insets(80,0,0,0));
+        VBox.setMargin(vBox1, new Insets(80, 0, 0, 0));
         Text text2 = new Text();
         text2.setStrokeWidth(0.0);
-        text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Are you accessing the Reservation System as an User or an Admin?");
         text2.setStyle("-fx-font: 16 arial;");
 
@@ -125,9 +111,8 @@ public class HotelGUI extends Application {
     }
 
     /*
-    *@author Jack O Brien
-    *Creates admin screen with multiple options
-    */
+     * Creates admin screen with multiple options
+     */
     private static Scene createAdminChoicesGUI() {
         mainStage.setTitle("Admin Interface");
         VBox vBox0 = new VBox();
@@ -219,9 +204,8 @@ public class HotelGUI extends Application {
     }
 
     /*
-*@author Jack O Brien
-*Admin log in screen where username and password is required
-*/
+     * Admin log in screen where username and password is required
+     */
     private static Scene createUsernamePasswordGUI() {
         StackPane root = new StackPane();
         VBox vBox = new VBox();
@@ -281,9 +265,8 @@ public class HotelGUI extends Application {
     }
 
     /*
-    *@author Jack O Brien
-    *Once logged in as User displays user screen with multiple options
-    */
+     * Once logged in as User displays user screen with multiple options
+     */
     private static Scene createUserChoicesGUI() {
         mainStage.setTitle("User Interface");
         VBox vBox0 = new VBox();
@@ -305,7 +288,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
-        vBox0.setMargin(text2, new Insets(20,0,0,0));
+        VBox.setMargin(text2, new Insets(20, 0, 0, 0));
         text2.setStyle("-fx-font: 18 arial;");
 
         // Adding child to parent
@@ -349,9 +332,8 @@ public class HotelGUI extends Application {
     }
 
     /*
-    *@author Jack O Brien
-    * Screen where you make cancellations
-    */
+     * Screen where you make cancellations
+     */
     private static Scene createCancellationsGUI() {
         mainStage.setTitle("Cancel Reservations");
         VBox vBox0 = new VBox();
@@ -435,7 +417,6 @@ public class HotelGUI extends Application {
             Reservation chosenReservation = ReservationCancellationManager.getReservation(resNumber);
 
 
-
             if (chosenReservation != null) {
                 Cancellation cancellation = new Cancellation(chosenReservation);
                 ReservationCancellationManager.addCancellation(cancellation);
@@ -453,22 +434,15 @@ public class HotelGUI extends Application {
             }
         });
 
-//        vBox1.setStyle("-fx-border-color: black");
-//        vBox0.setStyle("-fx-border-color: black");
-//        vBox2.setStyle("-fx-border-color: black");
-//        vBox3.setStyle("-fx-border-color: black");
-//        hBox3.setStyle("-fx-border-color: black");
-
         vBox2.setSpacing(10);
-        vBox0.setMargin(vBox1, new Insets(0,0,25,0));
-        vBox0.setMargin(vBox2, new Insets(25,0,0,0));
-        vBox0.setMargin(vBox3, new Insets(10,0,10,0));
+        VBox.setMargin(vBox1, new Insets(0, 0, 25, 0));
+        VBox.setMargin(vBox2, new Insets(25, 0, 0, 0));
+        VBox.setMargin(vBox3, new Insets(10, 0, 10, 0));
 
         return new Scene(vBox0, 600, 300);
     }
+
     /*
-    HEAD
-    *@author Jack O Brien
     *Screen where Data analysis is displayed
     */
     private static Scene createDataAnalysisGUI() {
@@ -588,9 +562,8 @@ public class HotelGUI extends Application {
     }
 
     /*
-*@author Jack O Brien
-*Screen for making a reservation
-*/
+     *Screen for making a reservation
+     */
     private static Scene createMakeReservationsGUI() {
         mainStage.setTitle("Making a reservation.");
 
@@ -614,7 +587,7 @@ public class HotelGUI extends Application {
         HBox hBoxNum = new HBox();
         hBoxNum.setSpacing(20.0);
         hBoxNum.setAlignment(Pos.CENTER_LEFT);
-        vBox0.setMargin(hBoxNum, new Insets(0, 0, 0, 400));
+        VBox.setMargin(hBoxNum, new Insets(0, 0, 0, 400));
 
         Text textNum = new Text();
         textNum.setText("Reservation Number:");
@@ -635,7 +608,7 @@ public class HotelGUI extends Application {
         HBox hBox3 = new HBox();
         hBox3.setSpacing(20.0);
         hBox3.setAlignment(Pos.CENTER_LEFT);
-        vBox0.setMargin(hBox3, new Insets(0, 0, 0, 400));
+        VBox.setMargin(hBox3, new Insets(0, 0, 0, 400));
 
 
         Text text4 = new Text();
@@ -658,7 +631,7 @@ public class HotelGUI extends Application {
         HBox hBox6 = new HBox();
         hBox6.setSpacing(20.0);
         hBox6.setAlignment(Pos.CENTER_LEFT);
-        vBox0.setMargin(hBox6, new Insets(0, 0, 0, 400));
+        VBox.setMargin(hBox6, new Insets(0, 0, 0, 400));
         Text text7 = new Text();
         text7.setText("Reservation Type:");
 
@@ -681,7 +654,7 @@ public class HotelGUI extends Application {
         HBox hBox9 = new HBox();
         hBox9.setSpacing(20.0);
         hBox9.setAlignment(Pos.CENTER_LEFT);
-        vBox0.setMargin(hBox9, new Insets(0, 0, 0, 400));
+        VBox.setMargin(hBox9, new Insets(0, 0, 0, 400));
         Text text10 = new Text();
         text10.setText("Check-in Date:");
 
@@ -706,7 +679,7 @@ public class HotelGUI extends Application {
         HBox hBox13 = new HBox();
         hBox13.setSpacing(20.0);
         hBox13.setAlignment(Pos.CENTER_LEFT);
-        vBox0.setMargin(hBox13, new Insets(0, 0, 0, 400));
+        VBox.setMargin(hBox13, new Insets(0, 0, 0, 400));
         Text text14 = new Text();
         text14.setText("Check-out Date:");
 
@@ -731,7 +704,7 @@ public class HotelGUI extends Application {
         HBox hBox17 = new HBox();
         hBox17.setSpacing(20.0);
         hBox17.setAlignment(Pos.CENTER_LEFT);
-        vBox0.setMargin(hBox17, new Insets(0, 0, 0, 400));
+        VBox.setMargin(hBox17, new Insets(0, 0, 0, 400));
         Text text18 = new Text();
         text18.setText("Number of rooms:");
 
@@ -806,22 +779,12 @@ public class HotelGUI extends Application {
 
         vBox0.getChildren().add(vBoxButtons);
 
-//        vBox0.setStyle("-fx-border-color: black");
-//        vBox1.setStyle("-fx-border-color: red");
-//        vBoxButtons.setStyle("-fx-border-color: gold");
-//        hBox3.setStyle("-fx-border-color: green");
-//        hBox6.setStyle("-fx-border-color: blue");
-//        hBox9.setStyle("-fx-border-color: red");
-//        hBox13.setStyle("-fx-border-color: green");
-//        hBox17.setStyle("-fx-border-color: blue");
-
         return new Scene(vBox0, 1200, 650);
     }
 
     /*
-    *@author Jack O Brien
-    *Screen for showing previous reservations
-    */
+     *Screen for showing previous reservations
+     */
     private static Scene createShowReservationsGUI() {
         mainStage.setTitle("Show Reservations");
         VBox vBox0 = new VBox();
@@ -865,7 +828,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(scrollPane3);
-        vBox0.setMargin(scrollPane3, new Insets(0,30,40,30));
+        VBox.setMargin(scrollPane3, new Insets(0, 30, 40, 30));
         Button button4 = new Button();
         button4.setText("Return to Choices");
         button4.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
@@ -877,9 +840,8 @@ public class HotelGUI extends Application {
     }
 
     /*
-    *@author Jack O Brien
-    *Screen for showing previous cancellations
-    */
+     *Screen for showing previous cancellations
+     */
     private static Scene createShowCancellationsGUI() {
         mainStage.setTitle("Show Cancellations");
         VBox vBox0 = new VBox();
@@ -910,7 +872,7 @@ public class HotelGUI extends Application {
         ScrollPane scrollPane3 = new ScrollPane();
         scrollPane3.setPrefHeight(300.0);
         scrollPane3.setPrefWidth(200.0);
-        vBox0.setMargin(scrollPane3, new Insets(0,30,40,30));
+        VBox.setMargin(scrollPane3, new Insets(0, 30, 40, 30));
 
         VBox allReservations = new VBox();
         allReservations.setSpacing(30);
@@ -941,7 +903,6 @@ public class HotelGUI extends Application {
     Creates a reservation by taking in the values of every field.
     Checks if an attempt to create a reservation is invalid, and updates
     the invalid texts if so.
-    @author Edison Cai 20241135
      */
     private static void createReservation(TextField textFieldNum, TextField textFieldRoomNum, Text invalidRoomNum, TextField textFieldName, Text invalidName, ChoiceBox<String> choiceBox8, Text invalidType, DatePicker datePickerStart,
                                           Text invalidStart, DatePicker datePickerEnd, Text invalidEnd, HBox allRoomPickers, Text successText) {

@@ -8,7 +8,7 @@
 public class ConstantReferences {
 
     // Location for the reservations file.
-    public static String RESERVATIONS = "reservations/random_res.csv";
+    public static String RESERVATIONS = "reservations/reservations.csv";
     // Location for the cancellations file.
     public static String CANCELLATIONS = "reservations/cancellations.csv";
     // Location for the hotels file.
