@@ -3,6 +3,7 @@ import javafx.geometry.Pos;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.application.Application;
 import javafx.scene.Scene;
 
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -50,9 +52,11 @@ public class HotelGUI extends Application {
         Reader.readReservations(ConstantReferences.RESERVATIONS);
         Reader.readCancellations(ConstantReferences.CANCELLATIONS);
         HotelInitialiser.initialise(HotelInitialiser.getFileCells(ConstantReferences.HOTELS));
+        Image icon = new Image("file:resources/icon.png");
+        mainStage.getIcons().add(icon);
         mainStage.setTitle("Hotel Login");
         mainStage.setScene(createLogin());
-//        mainStage.setResizable(false);
+        mainStage.setResizable(false);
         mainStage.show();
     }
 
@@ -62,6 +66,7 @@ public class HotelGUI extends Application {
      * Creates a screen that asks if user or admin login
      */
     private static Scene createLogin() {
+        mainStage.setTitle("Hotel Login");
         VBox vBox0 = new VBox();
         vBox0.setMinHeight(700);
         vBox0.setPrefHeight(400.0);
@@ -70,13 +75,15 @@ public class HotelGUI extends Application {
         vBox0.setMinWidth(700);
         vBox0.setMaxWidth(700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(53.0);
+        vBox1.setPrefHeight(30);
         vBox1.setPrefWidth(500.0);
         vBox1.setAlignment(Pos.CENTER);
+        vBox1.setMargin(vBox1, new Insets(80,0,0,0));
         Text text2 = new Text();
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Are you accessing the Reservation System as an User or an Admin?");
+        text2.setStyle("-fx-font: 16 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -115,7 +122,7 @@ public class HotelGUI extends Application {
         vBox0.getChildren().add(vBox3);
 
         //return new Scene(vBox0, 200, 100);
-        return new Scene(vBox0, 500, 280);
+        return new Scene(vBox0, 600, 300);
 
     }
 
@@ -141,6 +148,7 @@ public class HotelGUI extends Application {
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Please choose an option:");
+        text2.setStyle("-fx-font: 24 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -307,6 +315,8 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
+        vBox0.setMargin(text2, new Insets(20,0,0,0));
+        text2.setStyle("-fx-font: 18 arial;");
 
         // Adding child to parent
         vBox0.getChildren().add(vBox1);
@@ -357,25 +367,20 @@ public class HotelGUI extends Application {
     * Screen where you make cancellations
     */
     private static Scene createCancellationsGUI() {
-        mainStage.setTitle("Cancel reservation");
+        mainStage.setTitle("Cancel Reservations");
         VBox vBox0 = new VBox();
-        vBox0.setMinHeight(700);
-        vBox0.setPrefHeight(1000);
 
-        vBox0.setSpacing(20.0);
-        vBox0.setMaxHeight(1700);
-        vBox0.setPrefWidth(774.0);
-        vBox0.setMinWidth(700);
+        vBox0.setSpacing(0);
         vBox0.setAlignment(Pos.CENTER);
-        vBox0.setMaxWidth(1700);
         VBox vBox1 = new VBox();
-        vBox1.setPrefHeight(79.0);
-        vBox1.setPrefWidth(211.0);
         vBox1.setAlignment(Pos.CENTER);
         Text text2 = new Text();
-        text2.setStrokeWidth(0.0);
-        text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Cancel a Reservation");
+        text2.setStyle("-fx-font: 20 arial;");
+        VBox vBox2 = new VBox();
+        vBox2.setAlignment(Pos.CENTER);
+        VBox vBox3 = new VBox();
+        vBox3.setAlignment(Pos.CENTER);
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -385,18 +390,18 @@ public class HotelGUI extends Application {
 
         HBox hBox3 = new HBox();
         hBox3.setPrefHeight(49.0);
-        hBox3.setSpacing(70.0);
+        hBox3.setSpacing(30);
         hBox3.setPrefWidth(600.0);
         hBox3.setAlignment(Pos.CENTER);
         Text text4 = new Text();
         text4.setStrokeWidth(0.0);
         text4.setStrokeType(StrokeType.OUTSIDE);
-        text4.setText("Reservation Number of the Reservation you Want to Cancel:");
+        text4.setText("Reservation Number:");
 
         // Adding child to parent
         hBox3.getChildren().add(text4);
         TextField textField5 = new TextField();
-        textField5.setPromptText("120584");
+        textField5.setPromptText("e.g. 120584");
         Text invalidNum = new Text("Not a valid reservation number.");
         invalidNum.setVisible(false);
         Text success = new Text("Successfully cancelled!");
@@ -404,22 +409,20 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         hBox3.getChildren().add(textField5);
-        hBox3.getChildren().add(invalidNum);
+        vBox3.getChildren().add(invalidNum);
 
         // Adding child to parent
         vBox0.getChildren().add(hBox3);
-        vBox0.getChildren().add(success);
+        vBox0.getChildren().add(vBox3);
+        vBox0.getChildren().add(vBox2);
+        vBox3.getChildren().add(success);
 
         Button button21 = new Button();
         button21.setText("Cancel Reservation");
-        button21.setMnemonicParsing(false);
-
 
         // Adding child to parent
-        vBox0.getChildren().add(button21);
+        vBox2.getChildren().add(button21);
         Button button22 = new Button();
-        button22.setLayoutX(338.0);
-        button22.setLayoutY(582.0);
         button22.setText("Return to Choices");
         button22.setOnAction(event -> {
             if (isAdmin) {
@@ -431,7 +434,7 @@ public class HotelGUI extends Application {
         button22.setMnemonicParsing(false);
 
         // Adding child to parent
-        vBox0.getChildren().add(button22);
+        vBox2.getChildren().add(button22);
 
         button21.setOnAction(event -> {
             int resNumber = 0;
@@ -457,6 +460,7 @@ public class HotelGUI extends Application {
                 reservations.remove(ReservationCancellationManager.getReservation(resNum));
                 ReservationCancellationManager.setAllReservations(reservations);
                 writer.writeReservations(ConstantReferences.RESERVATIONS, reservations);
+                invalidNum.setVisible(false);
                 success.setVisible(true);
             } else {
                 success.setVisible(false);
@@ -464,7 +468,18 @@ public class HotelGUI extends Application {
             }
         });
 
-        return new Scene(vBox0, 800, 500);
+//        vBox1.setStyle("-fx-border-color: black");
+//        vBox0.setStyle("-fx-border-color: black");
+//        vBox2.setStyle("-fx-border-color: black");
+//        vBox3.setStyle("-fx-border-color: black");
+//        hBox3.setStyle("-fx-border-color: black");
+
+        vBox2.setSpacing(10);
+        vBox0.setMargin(vBox1, new Insets(0,0,25,0));
+        vBox0.setMargin(vBox2, new Insets(25,0,0,0));
+        vBox0.setMargin(vBox3, new Insets(0,0,10,0));
+
+        return new Scene(vBox0, 600, 300);
     }
     /*
     HEAD
@@ -896,6 +911,7 @@ public class HotelGUI extends Application {
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Showing all reservations:");
+        text2.setStyle("-fx-font: 20 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -918,6 +934,7 @@ public class HotelGUI extends Application {
 
         // Adding child to parent
         vBox0.getChildren().add(scrollPane3);
+        vBox0.setMargin(scrollPane3, new Insets(0,30,40,30));
         Button button4 = new Button();
         button4.setText("Return to Choices");
         button4.setOnAction(event -> mainStage.setScene(createAdminChoicesGUI()));
@@ -953,6 +970,7 @@ public class HotelGUI extends Application {
         text2.setStrokeWidth(0.0);
         text2.setStrokeType(StrokeType.OUTSIDE);
         text2.setText("Showing all cancellations:");
+        text2.setStyle("-fx-font: 20 arial;");
 
         // Adding child to parent
         vBox1.getChildren().add(text2);
@@ -962,6 +980,7 @@ public class HotelGUI extends Application {
         ScrollPane scrollPane3 = new ScrollPane();
         scrollPane3.setPrefHeight(300.0);
         scrollPane3.setPrefWidth(200.0);
+        vBox0.setMargin(scrollPane3, new Insets(0,30,40,30));
 
         VBox allReservations = new VBox();
         allReservations.setSpacing(30);
