@@ -6,6 +6,7 @@
  * @author Edison Cai
  * @since 15/11/2021
  */
+
 public class SystemMain{
     public static void main(String[] args) {
         checkReservationsFlag(args);

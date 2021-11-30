@@ -5,6 +5,7 @@
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
+
 public class ConstantReferences {
 
     // Location for the reservations file.

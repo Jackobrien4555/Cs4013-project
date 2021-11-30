@@ -1,8 +1,3 @@
-
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 /**
  * This class uses InputScanner, PrintedMenus and Reader along with ConstantReferences to create menus and
  * sub menus so that the user can use all the different methods we have created.
@@ -10,6 +5,10 @@ import java.util.ArrayList;
  * @author 20238029 Sergiu Mereacre
  * @since 15/11/2021
  */
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class ReservationSystem {
 
     private final InputScanner userInput;
