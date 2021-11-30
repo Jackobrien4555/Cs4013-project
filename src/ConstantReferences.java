@@ -8,13 +8,13 @@
 public class ConstantReferences {
 
     // Location for the reservations file.
-    public final static String RESERVATIONS = "reservations/random_res.csv";
+    public static String RESERVATIONS = "reservations/random_res.csv";
     // Location for the cancellations file.
-    public final static String CANCELLATIONS = "reservations/cancellations.csv";
+    public static String CANCELLATIONS = "reservations/cancellations.csv";
     // Location for the hotels file.
-    public final static String HOTELS = "resources/l4Hotels.csv";
+    public static String HOTELS = "resources/l4Hotels.csv";
     // Location for the admins file.
-    public final static String ADMINS = "resources/admins.csv";
+    public static String ADMINS = "resources/admins.csv";
 
     // Exit option number for the startup menu.
     public final static int EXIT_STARTUP = 3;
