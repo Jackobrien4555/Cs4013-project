@@ -148,12 +148,16 @@
       "Validates the input if it is in the range given",
       "Validates if the String input is an integer or not",
       "Validates if the String input is a reservation type",
-      " Validates if String input is a double",
       "Validates if String correctly represents an occupancy",
-      "Validates if String correctly represents a date"
+      "Validates if String correctly represents a date",
+      "Validates if String correctly represents a yes or no answer from user.",
+      "Validates if String correctly represents a username.",
+      "Validates if String correctly represents a name"
     ],
     "collaborators": [
-      ""
+      "User",
+      "Reader",
+      "HotelInitiliaser"
     ]
   },
   {
@@ -183,6 +187,7 @@
     "collaborators": [
       "Reservation",
       "Cancellation",
+      "User",
       "Room"
     ]
   },
@@ -261,6 +266,34 @@
       "TypeOfRoom",
       "ReservationCancellationManager",
       "DataAnalysis",
+      ""
+    ]
+  },
+  {
+    "name": "User",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Blueprint for creating a user.",
+      " It defines a user admin for the reservation system."
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "ConstantReferences",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "class holds values for different useful methods that can be changed from this file and will be changed everywhere in the code."
+    ],
+    "collaborators": [
+      "Reader",
+      "ReservationSystem",
+      "SystemMain",
       ""
     ]
   }
