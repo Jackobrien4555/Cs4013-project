@@ -90,6 +90,10 @@ public class Room {
         return result;
     }
 
+    /**
+     * Finds the TypeOfRoom object from the typeOfRoom data field.
+     * @return This Room's corresponding TypeOfRoom object.
+     */
     public TypeOfRoom findRoomType(){
         for(Hotel h : HotelInitialiser.getAllHotels()){
             for(TypeOfRoom t : h.getTypeOfRooms()){

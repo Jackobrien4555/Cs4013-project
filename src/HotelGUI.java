@@ -213,7 +213,8 @@ public class HotelGUI extends Application {
 
         return new Scene(vBox0, 800, 500);
     }
-/*
+
+    /*
 *@author Jack O Brien
 *Admin log in screen where username and password is required
 */
@@ -460,10 +461,10 @@ public class HotelGUI extends Application {
 
         return new Scene(vBox0, 800, 500);
     }
-/*
-*@author Jack O Brien
-*Screen where Data analysis is displayed
-*/
+    /*
+    *@author Jack O Brien
+    *Screen where Data analysis is displayed
+    */
     private static Scene createDataAnalysisGUI() {
         mainStage.setTitle("Data Analysis");
 
@@ -609,7 +610,7 @@ public class HotelGUI extends Application {
 
     }
 
-/*
+    /*
 *@author Jack O Brien
 *Screen for making a reservation
 */
@@ -1147,7 +1148,6 @@ public class HotelGUI extends Application {
         allRoomChoices.setSpacing(10.0);
         return allRoomChoices;
     }
-
 
     /*
     Check if the values are valid for data analysis.

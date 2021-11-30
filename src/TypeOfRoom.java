@@ -64,20 +64,32 @@ public class TypeOfRoom {
 
     }
 
+    /**
+     * Returns the minimum occupancy.
+     * @return Minimum occupancy.
+     */
     public int getOccuMin() {
         return occuMin;
     }
 
+    /**
+     * Returns the maximum occupancy.
+     * @return Maximum occupancy.
+     */
     public int getOccuMax() {
         return occuMax;
     }
 
+    /**
+     * Returns the daily rates.
+     * @return Daily rates.
+     */
     public double[] getDailyRates() {
         return dailyRates;
     }
 
     /**
-     * returns string that shows room type with details
+     * Returns string that shows room type with details
      *
      * @return string that shows room type with details
      */
