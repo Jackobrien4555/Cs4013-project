@@ -1,0 +1,31 @@
+GitHub Project Repository Link: https://github.com/Jackobrien4555/Cs4013-project
+
+While you're in the command line, navigate to the src folder of the project. Then, type in the following commands:
+
+To compile the text UI version:
+javac -cp . SystemMain.java
+
+To run the text UI version:
+java -cp . SystemMain
+
+To compile the GUI version:
+javac -cp . --module-path "PATH TO JAVAFX LIB" --add-modules javafx.controls HotelGUI.java
+
+To run the GUI version:
+java -cp . --module-path "PATH TO JAVAFX LIB" --add-modules javafx.controls HotelGUI
+
+When you run either the text version or the GUI version, you can set flags for which csv files to point to.
+Just type down the flag/flags with desired values right afterwards, all separated by spaces.
+
+e.g. java -cp . SystemMain -r reservations/new_reservations.csv
+ 
+Flags:
+-r Reservations csv
+
+-c Cancellations csv
+
+-h Hotel details csv
+
+-a Admin details csv
+
+You can input some flags, all flags or none.
