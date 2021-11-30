@@ -439,7 +439,7 @@ public class InputScanner {
 
     /**
      * Checks the input value from the user so that it is a valid Password for a specific username.
-     *
+     * @param username The inputted username.
      * @return A valid password as a String.
      */
     public String getPassword(String username) {
@@ -463,9 +463,10 @@ public class InputScanner {
         return input;
     }
 
+
     /**
      * Based on the username it returns a specific user.
-     *
+     * @param username The inputted username.
      * @return A valid user based on the username.
      */
     public User getUser(String username) {

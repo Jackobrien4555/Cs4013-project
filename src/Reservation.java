@@ -178,6 +178,7 @@ public class Reservation {
 
     /**
      * This method returns a String formatted nicely to display all reservation details.
+     * @return The formatted reservation.
      */
     public String reservationFormat() {
         String reservationInfo = String.format("Reservation Number: %d, Reservation Name: %s, Reservation Type: %s\n" +

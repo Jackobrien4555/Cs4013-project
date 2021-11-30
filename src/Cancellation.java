@@ -78,6 +78,7 @@ public class Cancellation {
 
     /**
      * This method returns a String formatted nicely to display all cancellation details.
+     * @return Formatted cancellation.
      */
     public String cancellationFormat() {
         return String.format("%s\n" +
