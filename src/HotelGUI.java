@@ -53,6 +53,7 @@ public class HotelGUI extends Application {
     /*
      *
      * @author Jack O'Brien
+     * Creates a screen that asks if user or admin login
      */
     private static Scene createLogin() {
         VBox vBox0 = new VBox();
@@ -113,7 +114,10 @@ public class HotelGUI extends Application {
 
     }
 
-    //Done
+    /*
+    *@author Jack O Brien
+    *Creates admin screen with multiple options
+    */
     private static Scene createAdminChoicesGUI() {
         mainStage.setTitle("Admin Interface");
         VBox vBox0 = new VBox();
@@ -208,7 +212,10 @@ public class HotelGUI extends Application {
 
         return new Scene(vBox0, 800, 500);
     }
-
+/*
+*@author Jack O Brien
+*Admin log in screen where username and password is required
+*/
     private static Scene createUsernamePasswordGUI() {
         StackPane root = new StackPane();
         VBox vBox = new VBox();
@@ -269,7 +276,10 @@ public class HotelGUI extends Application {
         return scene;
     }
 
-    //Done
+    /*
+    *@author Jack O Brien
+    *Once logged in as User displays user screen with multiple options
+    */
     private static Scene createUserChoicesGUI() {
         mainStage.setTitle("User Interface");
         VBox vBox0 = new VBox();
@@ -336,7 +346,10 @@ public class HotelGUI extends Application {
         return new Scene(vBox0, 300, 300);
     }
 
-    //Done
+    /*
+    *@author Jack O Brien
+    * Screen where you make cancellations
+    */
     private static Scene createCancellationsGUI() {
         mainStage.setTitle("Cancel reservation");
         VBox vBox0 = new VBox();
@@ -446,7 +459,10 @@ public class HotelGUI extends Application {
 
         return new Scene(vBox0, 800, 500);
     }
-
+/*
+*@author Jack O Brien
+*Screen where Data analysis is displayed
+*/
     private static Scene createDataAnalysisGUI() {
         mainStage.setTitle("Data Analysis");
 
@@ -592,7 +608,10 @@ public class HotelGUI extends Application {
 
     }
 
-
+/*
+*@author Jack O Brien
+*Screen for making a reservation
+*/
     private static Scene createMakeReservationsGUI() {
         mainStage.setTitle("Making reservation");
 
@@ -848,7 +867,10 @@ public class HotelGUI extends Application {
 
     }
 
-    //Done
+    /*
+    *@author Jack O Brien
+    *Screen for showing previous reservations
+    */
     private static Scene createShowReservationsGUI() {
         mainStage.setTitle("Show Reservations");
         VBox vBox0 = new VBox();
@@ -901,7 +923,10 @@ public class HotelGUI extends Application {
         return new Scene(vBox0, 800, 500);
     }
 
-    //Done
+    /*
+    *@author Jack O Brien
+    *Screen for showing previous cancellations
+    */
     private static Scene createShowCancellationsGUI() {
         mainStage.setTitle("Show Cancellations");
         VBox vBox0 = new VBox();
